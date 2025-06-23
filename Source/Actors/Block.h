@@ -9,7 +9,7 @@
 class Block : public Actor
 {
 public:
-    explicit Block(Game* game, const std::string &texturePath, const bool isStatic = true);
+    explicit Block(Game* game, const std::string &texturePath, const bool isStatic = true, const bool permeable = false);
 
     void SetPosition(const Vector2& position)
     {
@@ -28,4 +28,5 @@ private:
 
     class AABBColliderComponent* mColliderComponent;
     class RigidBodyComponent* mRigidBodyComponent;
+    bool mPermeable;
 };

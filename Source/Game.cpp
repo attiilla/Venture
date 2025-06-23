@@ -60,7 +60,7 @@ Game::Game(int windowWidth, int windowHeight)
 
 bool Game::Initialize()
 {
-    //SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
+    SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
     {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -331,6 +331,27 @@ void Game::BuildLevel(int** levelData, int width, int height)
         {
             int tile = levelData[y][x];
 
+            switch (tile){
+                case 3:
+                    const char* coin_texture = "../Assets/Sprites/Collectables/Coin.png";
+                    Coin* coin = new Coin(this, coin_texture);
+                    coin->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    break;
+                case 5:
+                    const char* permeable_texture = "../Assets/Sprites/Collectables/Coin.png";
+                    // Create a block actor
+                    Block* block = new Block(this, permeable_texture, true, true);
+                    block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    break;
+                case 10:
+                    Spawner* spawner = new Spawner(this, SPAWN_DISTANCE);
+                    spawner->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    break;
+                case 16:
+                    mChar = new MainChar(this);
+                    mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    break;
+            }
             if(tile == 16) // Mario
             {
                 mChar = new MainChar(this);

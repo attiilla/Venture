@@ -20,7 +20,7 @@
 #include "HUD.h"
 #include "SpatialHashing.h"
 #include "Actors/Actor.h"
-#include "Actors/Mario.h"
+#include "Actors/MainChar.h"
 #include "Actors/Block.h"
 #include "Actors/Coin.h"
 #include "Actors/Spawner.h"
@@ -37,7 +37,7 @@ Game::Game(int windowWidth, int windowHeight)
         ,mIsRunning(true)
         ,mWindowWidth(windowWidth)
         ,mWindowHeight(windowHeight)
-        ,mMario(nullptr)
+        ,mChar(nullptr)
         ,mHUD(nullptr)
         ,mBackgroundColor(0, 0, 0)
         ,mModColor(255, 255, 255)
@@ -333,8 +333,8 @@ void Game::BuildLevel(int** levelData, int width, int height)
 
             if(tile == 16) // Mario
             {
-                mMario = new Mario(this);
-                mMario->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                mChar = new MainChar(this);
+                mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if(tile == 10) // Spawner
             {
@@ -462,14 +462,14 @@ void Game::ProcessInputActors()
         {
             actor->ProcessInput(state);
 
-            if (actor == mMario) {
+            if (actor == mChar) {
                 isMarioOnCamera = true;
             }
         }
 
         // If Mario is not on camera, process input for him
-        if (!isMarioOnCamera && mMario) {
-            mMario->ProcessInput(state);
+        if (!isMarioOnCamera && mChar) {
+            mChar->ProcessInput(state);
         }
     }
 }
@@ -487,15 +487,15 @@ void Game::HandleKeyPressActors(const int key, const bool isPressed)
         for (auto actor: actorsOnCamera) {
             actor->HandleKeyPress(key, isPressed);
 
-            if (actor == mMario) {
+            if (actor == mChar) {
                 isMarioOnCamera = true;
             }
         }
 
         // If Mario is not on camera, handle key press for him
-        if (!isMarioOnCamera && mMario)
+        if (!isMarioOnCamera && mChar)
         {
-            mMario->HandleKeyPress(key, isPressed);
+            mChar->HandleKeyPress(key, isPressed);
         }
     }
 
@@ -657,16 +657,16 @@ void Game::UpdateLevelTime(float deltaTime)
         mGameTimeLimit -= 1;
         mHUD->SetTime(mGameTimeLimit);
         if (mGameTimeLimit<=0) {
-            mMario->Kill();
+            mChar->Kill();
         }
     }
 }
 
 void Game::UpdateCamera()
 {
-    if (!mMario) return;
+    if (!mChar) return;
 
-    float horizontalCameraPos = mMario->GetPosition().x - (mWindowWidth / 2.0f);
+    float horizontalCameraPos = mChar->GetPosition().x - (mWindowWidth / 2.0f);
 
     if (horizontalCameraPos > mCameraPos.x)
     {
@@ -688,16 +688,16 @@ void Game::UpdateActors(float deltaTime)
     for (auto actor : actorsOnCamera)
     {
         actor->Update(deltaTime);
-        if (actor == mMario)
+        if (actor == mChar)
         {
             isMarioOnCamera = true;
         }
     }
 
     // If Mario is not on camera, reset camera position
-    if (!isMarioOnCamera && mMario)
+    if (!isMarioOnCamera && mChar)
     {
-        mMario->Update(deltaTime);
+        mChar->Update(deltaTime);
     }
 
     for (auto actor : actorsOnCamera)
@@ -705,8 +705,8 @@ void Game::UpdateActors(float deltaTime)
         if (actor->GetState() == ActorState::Destroy)
         {
             delete actor;
-            if (actor == mMario) {
-                mMario = nullptr;
+            if (actor == mChar) {
+                mChar = nullptr;
             }
         }
     }

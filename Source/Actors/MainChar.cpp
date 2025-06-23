@@ -2,13 +2,13 @@
 // Created by Lucas N. Ferreira on 03/08/23.
 //
 
-#include "Mario.h"
+#include "MainChar.h"
 #include "Block.h"
 #include "../Game.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
 
-Mario::Mario(Game* game, const float forwardSpeed, const float jumpSpeed, ElementState element)
+MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, ElementState element)
         : Actor(game)
         , mIsRunning(false)
         , mIsOnPole(false)
@@ -36,7 +36,7 @@ Mario::Mario(Game* game, const float forwardSpeed, const float jumpSpeed, Elemen
     mDrawComponent->SetAnimFPS(10.0f);
 }
 
-void Mario::OnProcessInput(const uint8_t* state)
+void MainChar::OnProcessInput(const uint8_t* state)
 {
     if(mGame->GetGamePlayState() != Game::GamePlayState::Playing) return;
 
@@ -60,7 +60,7 @@ void Mario::OnProcessInput(const uint8_t* state)
     }
 }
 
-void Mario::OnHandleKeyPress(const int key, const bool isPressed)
+void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
 {
     if(mGame->GetGamePlayState() != Game::GamePlayState::Playing) return;
 
@@ -84,7 +84,7 @@ void Mario::OnHandleKeyPress(const int key, const bool isPressed)
     }
 }
 
-void Mario::OnUpdate(float deltaTime)
+void MainChar::OnUpdate(float deltaTime)
 {
     // Check if Mario is off the ground
     if (mRigidBodyComponent && mRigidBodyComponent->GetVelocity().y != 0)
@@ -144,7 +144,7 @@ void Mario::OnUpdate(float deltaTime)
     ManageAnimations();
 }
 
-void Mario::ManageAnimations()
+void MainChar::ManageAnimations()
 {
     if(mIsDying)
     {
@@ -168,7 +168,7 @@ void Mario::ManageAnimations()
     }
 }
 
-void Mario::Kill()
+void MainChar::Kill()
 {
     mIsDying = true;
     mGame->SetGamePlayState(Game::GamePlayState::GameOver);
@@ -195,7 +195,7 @@ void Mario::Kill()
     mGame->ResetGameScene(3.5f); // Reset the game scene after 3 seconds
 }
 
-void Mario::Win(AABBColliderComponent *poleCollider)
+void MainChar::Win(AABBColliderComponent *poleCollider)
 {
     mDrawComponent->SetAnimation("win");
     mGame->SetGamePlayState(Game::GamePlayState::LevelComplete);
@@ -220,7 +220,7 @@ void Mario::Win(AABBColliderComponent *poleCollider)
     mPoleSlideTimer = POLE_SLIDE_TIME; // Start the pole slide timer
 }
 
-void Mario::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
+void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
 {
     if (other->GetLayer() == ColliderLayer::Enemy)
     {
@@ -243,7 +243,7 @@ void Mario::OnHorizontalCollision(const float minOverlap, AABBColliderComponent*
     }
 }
 
-void Mario::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other)
+void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other)
 {
     if (other->GetLayer() == ColliderLayer::Enemy)
     {
@@ -300,11 +300,11 @@ void Mario::OnVerticalCollision(const float minOverlap, AABBColliderComponent* o
     }
 }
 
-void Mario::SetState(ElementState element) {
+void MainChar::SetState(ElementState element) {
     mElement = element;
 }
 
-void Mario::SwapState() {
+void MainChar::SwapState() {
     if (mElement == ElementState::Water) {
         mElement = ElementState::Fire;
     } else {

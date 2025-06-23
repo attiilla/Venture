@@ -332,50 +332,38 @@ void Game::BuildLevel(int** levelData, int width, int height)
             int tile = levelData[y][x];
 
             switch (tile){
-                case 3:
+                case 3: {
                     const char* coin_texture = "../Assets/Sprites/Collectables/Coin.png";
                     Coin* coin = new Coin(this, coin_texture);
                     coin->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                     break;
-                case 5:
+                }
+                case 5: {
                     const char* permeable_texture = "../Assets/Sprites/Collectables/Coin.png";
                     // Create a block actor
                     Block* block = new Block(this, permeable_texture, true, true);
                     block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                     break;
-                case 10:
+                }
+                case 10: {
                     Spawner* spawner = new Spawner(this, SPAWN_DISTANCE);
                     spawner->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                     break;
-                case 16:
+                }
+                case 16: {
                     mChar = new MainChar(this);
                     mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                     break;
-            }
-            if(tile == 16) // Mario
-            {
-                mChar = new MainChar(this);
-                mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-            }
-            else if(tile == 10) // Spawner
-            {
-                Spawner* spawner = new Spawner(this, SPAWN_DISTANCE);
-                spawner->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-            }
-            else if (tile == 3) // Coin
-            {
-                const char* coin_texture = "../Assets/Sprites/Collectables/Coin.png";
-                Coin* coin = new Coin(this, coin_texture);
-                coin->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-            }
-            else // Blocks
-            {
-                auto it = tileMap.find(tile);
-                if (it != tileMap.end())
-                {
-                    // Create a block actor
-                    Block* block = new Block(this, it->second);
-                    block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                }
+                default: {
+                    auto it = tileMap.find(tile);
+                    if (it != tileMap.end())
+                    {
+                        // Create a block actor
+                        Block* block = new Block(this, it->second);
+                        block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    }
+                    break;
                 }
             }
         }

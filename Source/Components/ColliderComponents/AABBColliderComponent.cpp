@@ -87,7 +87,7 @@ float AABBColliderComponent::DetectHorizontalCollision(RigidBodyComponent *rigid
         if (Intersect(*collider))
         {
             float minHorizontalOverlap = GetMinHorizontalOverlap(collider);
-            if (GetLayer()!=ColliderLayer::Player || collider->GetLayer()!=ColliderLayer::Coin) {
+            if (collider->GetLayer()!=ColliderLayer::Coin) {
                 ResolveHorizontalCollisions(rigidBody, minHorizontalOverlap);
             }
 
@@ -123,7 +123,7 @@ float AABBColliderComponent::DetectVertialCollision(RigidBodyComponent *rigidBod
         if (Intersect(*collider))
         {
             float minVerticalOverlap = GetMinVerticalOverlap(collider);
-            if (GetLayer()!=ColliderLayer::Player || collider->GetLayer()!=ColliderLayer::Coin) {
+            if (collider->GetLayer()!=ColliderLayer::Coin) {
                 ResolveVerticalCollisions(rigidBody, minVerticalOverlap);
             }
 

@@ -8,7 +8,7 @@
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
 
-Mario::Mario(Game* game, const float forwardSpeed, const float jumpSpeed)
+Mario::Mario(Game* game, const float forwardSpeed, const float jumpSpeed, ElementState element)
         : Actor(game)
         , mIsRunning(false)
         , mIsOnPole(false)
@@ -16,6 +16,7 @@ Mario::Mario(Game* game, const float forwardSpeed, const float jumpSpeed)
         , mForwardSpeed(forwardSpeed)
         , mJumpSpeed(jumpSpeed)
         , mPoleSlideTimer(0.0f)
+        , mElement(element)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
     mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE - 4.0f,Game::TILE_SIZE,
@@ -298,3 +299,16 @@ void Mario::OnVerticalCollision(const float minOverlap, AABBColliderComponent* o
         other->GetOwner()->Kill();
     }
 }
+
+void Mario::SetState(ElementState element) {
+    mElement = element;
+}
+
+void Mario::SwapState() {
+    if (mElement == ElementState::Water) {
+        mElement = ElementState::Fire;
+    } else {
+        mElement = ElementState::Water;
+    }
+}
+

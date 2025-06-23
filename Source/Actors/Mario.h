@@ -5,10 +5,16 @@
 #pragma once
 #include "Actor.h"
 
+enum class ElementState
+{
+    Fire,
+    Water
+};
+
 class Mario : public Actor
 {
 public:
-    explicit Mario(Game* game, float forwardSpeed = 1500.0f, float jumpSpeed = -750.0f);
+    explicit Mario(Game* game, float forwardSpeed = 1500.0f, float jumpSpeed = -750.0f, ElementState element = ElementState::Water);
 
     void OnProcessInput(const Uint8* keyState) override;
     void OnUpdate(float deltaTime) override;
@@ -20,6 +26,9 @@ public:
     void Kill() override;
     void Win(AABBColliderComponent *poleCollider);
 
+    void SetState(ElementState element);
+    void SwapState();
+    ElementState GetElement() { return mElement; }
 private:
     static const int POLE_SLIDE_TIME = 1; // Time in seconds to slide down the pole
 
@@ -31,6 +40,7 @@ private:
     bool mIsRunning;
     bool mIsOnPole;
     bool mIsDying;
+    ElementState mElement;
 
     class RigidBodyComponent* mRigidBodyComponent;
     class DrawAnimatedComponent* mDrawComponent;

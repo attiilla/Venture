@@ -302,13 +302,16 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
 
 void MainChar::SetState(ElementState element) {
     mElement = element;
+    mColliderComponent->SetLayer(element==ElementState::Water?ColliderLayer::PlayerW:ColliderLayer::PlayerF);
 }
 
 void MainChar::SwapState() {
     if (mElement == ElementState::Water) {
         mElement = ElementState::Fire;
+        mColliderComponent->SetLayer(ColliderLayer::PlayerF);
     } else {
         mElement = ElementState::Water;
+        mColliderComponent->SetLayer(ColliderLayer::PlayerW);
     }
 }
 

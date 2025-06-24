@@ -33,7 +33,6 @@ public:
         {ColliderLayer::Permeable, {}},
         {ColliderLayer::Coin, {ColliderLayer::Enemy}},
         {ColliderLayer::Pole, {}},
-        {ColliderLayer::Coin, {ColliderLayer::Enemy}}
     };
 
     AABBColliderComponent(class Actor* owner, int dx, int dy, int w, int h,

@@ -61,7 +61,7 @@ Game::Game(int windowWidth, int windowHeight)
 
 bool Game::Initialize()
 {
-    SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
+    //SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
     {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());

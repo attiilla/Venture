@@ -10,13 +10,13 @@
 class Rope : public Actor
 {
 public:
-    explicit Rope(Game *game, const std::string &texturePath, const bool isStatic = true, const bool vertical = true);
-
-    void Kill() override;
-    void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
-    void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
+    explicit Rope(Game *game, const std::string &texturePath, unsigned int length, const bool isStatic = true, const bool vertical = true);
+    //void Kill() override;
+    //void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
+    //void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
 private:
-    std::vector<Vector2> mOccupied;
+    unsigned int mLength;
     class AABBColliderComponent* mColliderComponent;
-    class DrawAnimatedComponent* mDrawComponent;
+    class DrawSpriteComponent* mDrawComponent;
+    bool mVertical;
 };

@@ -7,8 +7,8 @@
 
 enum class ElementState
 {
-    Fire,
-    Water
+    Fire = 0,
+    Water = 1
 };
 
 class MainChar : public Actor

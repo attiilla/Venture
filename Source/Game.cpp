@@ -103,12 +103,6 @@ bool Game::Initialize()
 
     // Start random number generator
     Random::Init();
-
-    // --------------
-    // TODO - PARTE 4
-    // --------------
-
-    // TODO 1. Instancie um AudioSystem.
     mAudio = new AudioSystem();
 
 

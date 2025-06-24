@@ -20,7 +20,7 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
     mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE - 4.0f,Game::TILE_SIZE,
-                                                   ColliderLayer::Player);
+    element==ElementState::Water?ColliderLayer::PlayerW:ColliderLayer::PlayerF);
 
     mDrawComponent = new DrawAnimatedComponent(this,
                                               "../Assets/Sprites/Mario/Mario.png",

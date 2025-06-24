@@ -33,7 +33,6 @@ private:
     // Physical properties
     float mFrictionCoefficient;
     float mMass;
-    float m;
 
     Vector2 mVelocity;
     Vector2 mAcceleration;

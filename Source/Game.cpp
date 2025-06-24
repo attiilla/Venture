@@ -492,17 +492,17 @@ void Game::HandleKeyPressActors(const int key, const bool isPressed)
                 mSpatialHashing->QueryOnCamera(mCameraPos,mWindowWidth,mWindowHeight);
 
         // Handle key press for actors
-        bool isMarioOnCamera = false;
+        bool isMainCharOnCamera = false;
         for (auto actor: actorsOnCamera) {
             actor->HandleKeyPress(key, isPressed);
 
             if (actor == mChar) {
-                isMarioOnCamera = true;
+                isMainCharOnCamera = true;
             }
         }
 
         // If Mario is not on camera, handle key press for him
-        if (!isMarioOnCamera && mChar)
+        if (!isMainCharOnCamera && mChar)
         {
             mChar->HandleKeyPress(key, isPressed);
         }

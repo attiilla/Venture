@@ -18,7 +18,8 @@ enum class ColliderLayer
     Blocks = 3,
     Permeable = 4,
     Coin = 5,
-    Pole = 6
+    Pole = 6,
+    Rope = 7,
 };
 
 class AABBColliderComponent : public Component
@@ -33,6 +34,7 @@ public:
         {ColliderLayer::Permeable, {}},
         {ColliderLayer::Coin, {ColliderLayer::Enemy}},
         {ColliderLayer::Pole, {}},
+        {ColliderLayer::Rope, {}},
     };
 
     AABBColliderComponent(class Actor* owner, int dx, int dy, int w, int h,

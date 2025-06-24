@@ -23,6 +23,7 @@
 #include "Actors/MainChar.h"
 #include "Actors/Block.h"
 #include "Actors/Coin.h"
+#include "Actors/Rope.h"
 #include "Actors/Spawner.h"
 #include "UIElements/UIScreen.h"
 #include "Components/DrawComponents/DrawComponent.h"
@@ -345,9 +346,19 @@ void Game::BuildLevel(int** levelData, int width, int height)
                     block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                     break;
                 }
+                case 7: {
+                    Rope* r = new Rope(this, "../Assets/Sprites/Blocks/rope_h.png", true, false);
+                    r->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    break;
+                }
                 case 10: {
                     Spawner* spawner = new Spawner(this, SPAWN_DISTANCE);
                     spawner->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    break;
+                }
+                case 11: {
+                    Rope* r = new Rope(this, "../Assets/Sprites/Blocks/rope_v.png", true, true);
+                    r->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                     break;
                 }
                 case 16: {

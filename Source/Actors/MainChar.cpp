@@ -82,7 +82,7 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
             SDL_Log("Playing musical effect: Jump.wav");
         }
     } else if (key == SDLK_z && isPressed) {
-        SwapState();
+        SwapElement();
     }
 }
 
@@ -302,12 +302,12 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
     }
 }
 
-void MainChar::SetState(ElementState element) {
+void MainChar::SetElement(ElementState element) {
     mElement = element;
     mColliderComponent->SetLayer(element==ElementState::Water?ColliderLayer::PlayerW:ColliderLayer::PlayerF);
 }
 
-void MainChar::SwapState() {
+void MainChar::SwapElement() {
     if (mElement == ElementState::Water) {
         mElement = ElementState::Fire;
         mColliderComponent->SetLayer(ColliderLayer::PlayerF);

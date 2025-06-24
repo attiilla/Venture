@@ -26,8 +26,8 @@ public:
     void Kill() override;
     void Win(AABBColliderComponent *poleCollider);
 
-    void SetState(ElementState element);
-    void SwapState();
+    void SetElement(ElementState element);
+    void SwapElement();
     ElementState GetElement() { return mElement; }
 private:
     static const int POLE_SLIDE_TIME = 1; // Time in seconds to slide down the pole

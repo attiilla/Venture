@@ -339,7 +339,7 @@ void Game::BuildLevel(int** levelData, int width, int height)
                     break;
                 }
                 case 5: {
-                    const char* permeable_texture = "../Assets/Sprites/Collectables/Coin.png";
+                    const char* permeable_texture = "../Assets/Sprites/Blocks/sand.png";
                     // Create a block actor
                     Block* block = new Block(this, permeable_texture, true, true);
                     block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));

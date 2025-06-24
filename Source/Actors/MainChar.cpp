@@ -81,6 +81,8 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         } else {
             SDL_Log("Playing musical effect: Jump.wav");
         }
+    } else if (key == SDLK_z && isPressed) {
+        SwapState();
     }
 }
 

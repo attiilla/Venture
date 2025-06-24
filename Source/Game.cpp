@@ -28,7 +28,6 @@
 #include "UIElements/UIScreen.h"
 #include "Components/DrawComponents/DrawComponent.h"
 #include "Components/DrawComponents/DrawSpriteComponent.h"
-#include "Components/DrawComponents/DrawPolygonComponent.h"
 #include "Components/ColliderComponents/AABBColliderComponent.h"
 
 Game::Game(int windowWidth, int windowHeight)
@@ -121,24 +120,11 @@ bool Game::Initialize()
     // Init all game actors
     SetGameScene(GameScene::MainMenu);
 
-    // Initially, change scene to MainMenu
-    //ChangeScene();
-
     return true;
 }
 
 void Game::SetGameScene(Game::GameScene scene, float transitionTime)
 {
-    // --------------
-    // TODO - PARTE 2
-    // --------------
-
-    // TODO 1.: Verifique se o estado do SceneManager mSceneManagerState é SceneManagerState::None.
-    //  Se sim, verifique se a cena passada scene passada como parâmetro é uma das cenas válidas (MainMenu, Level1, Level2).
-    //  Se a cena for válida, defina mNextScene como essa nova cena, mSceneManagerState como SceneManagerState::Entering e
-    //  mSceneManagerTimer como o tempo de transição passado como parâmetro.
-    //  Se a cena for inválida, registre um erro no log e retorne.
-    //  Se o estado do SceneManager não for SceneManagerState::None, registre um erro no log e retorne.
     if (mSceneManagerState == SceneManagerState::None) {
         if (scene==GameScene::MainMenu || scene==GameScene::Level1 || scene==GameScene::Level2) {
             mNextScene = scene;
@@ -154,11 +140,6 @@ void Game::SetGameScene(Game::GameScene scene, float transitionTime)
 
 void Game::ResetGameScene(float transitionTime)
 {
-    // --------------
-    // TODO - PARTE 2
-    // --------------
-
-    // TODO 1.: Chame SetGameScene passando o mGameScene atual e o tempo de transição.
     SetGameScene(mGameScene, transitionTime);
 }
 
@@ -190,23 +171,10 @@ void Game::ChangeScene()
     }
     else if (mNextScene == GameScene::Level1)
     {
-        // --------------
-        // TODO - PARTE 3
-        // --------------
-
-        // TODO 1.: Crie um novo objeto HUD, passando o ponteiro do Game e o caminho para a fonte SMB.ttf.
         mHUD = new HUD(this,"../Assets/Fonts/SMB.ttf");
-        // TODO 2.: Altere o atributo mGameTimeLimit para 400 (400 segundos) e ajuste o HUD com esse tempo inicial.
-        //  Em seguida, altere o nome do nível para "1-1" no HUD.
         mGameTimeLimit = 400;
         mHUD->SetTime(mGameTimeLimit);
         mHUD->SetLevelName("1-1");
-
-        // --------------
-        // TODO - PARTE 4
-        // --------------
-
-        // TODO 1. Toque a música de fundo "MusicMain.ogg" em loop e armaze o SoundHandle retornado em mMusicHandle.
         mMusicHandle = mAudio->PlaySound("MusicMain.ogg", true);
         if (!mMusicHandle.IsValid()) {
             SDL_Log("Failed to play background music: MusicMain.ogg");
@@ -235,25 +203,11 @@ void Game::ChangeScene()
     }
     else if (mNextScene == GameScene::Level2)
     {
-        // --------------
-        // TODO - PARTE 3
-        // --------------
 
-        // TODO 1.: Crie um novo objeto HUD, passando o ponteiro do Game e o caminho para a fonte SMB.ttf. Como
-        //  feito no nível 1-1.
         mHUD = new HUD(this,"../Assets/Fonts/SMB.ttf");
-
-        // TODO 2.: Altere o atributo mGameTimeLimit para 400 (400 segundos) e ajuste o HUD com esse tempo inicial. Como
-        //  feito no nível 1-1.
         mGameTimeLimit = 400;
         mHUD->SetTime(400);
         mHUD->SetLevelName("1-2");
-
-        // --------------
-        // TODO - PARTE 4
-        // --------------
-
-        // TODO 1. Toque a música de fundo "MusicUnderground.ogg" em loop e armaze o SoundHandle retornado em mMusicHandle.
         mMusicHandle = mAudio->PlaySound("MusicUnderground.ogg", true);
         if (!mMusicHandle.IsValid()) {
             SDL_Log("Failed to play background music: MusicUnderground.ogg");
@@ -278,19 +232,14 @@ void Game::ChangeScene()
 
 void Game::LoadMainMenu()
 {
-    // --------------
-    // TODO - PARTE 1
-    // --------------
-
-    // Esse método será usado para criar uma tela de UI e adicionar os elementos do menu principal.
     auto mainMenu = new UIScreen(this, "../Assets/Fonts/SMB.ttf");
     mainMenu->AddText("Super Mario Bros", Vector2(170.0f, 50.0f), Vector2(300.0f, 30.0f), 60);
-    auto button1 = mainMenu->AddButton("1 Player", Vector2(mWindowWidth/2.0f - 100.0f, 250.0f), Vector2(200.0f, 40.0f),
+    mainMenu->AddButton("1 Player", Vector2(mWindowWidth/2.0f - 100.0f, 250.0f), Vector2(200.0f, 40.0f),
     [this]() {
         SetGameScene(GameScene::Level1);
     });
 
-    auto button2 = mainMenu->AddButton("2 Players", Vector2(mWindowWidth/2.0f - 100.0f, 300.0f), Vector2(200.0f, 40.0f),
+    mainMenu->AddButton("2 Players", Vector2(mWindowWidth/2.0f - 100.0f, 300.0f), Vector2(200.0f, 40.0f),
                                            nullptr);
     const Vector2 titleSize = Vector2(178.0f, 88.0f) * 2.0f;
     const Vector2 titlePos = Vector2(mWindowWidth/2.0f - titleSize.x/2.0f, 50.0f);
@@ -529,12 +478,6 @@ void Game::TogglePause()
         if (mGamePlayState == GamePlayState::Playing)
         {
             mGamePlayState = GamePlayState::Paused;
-
-            // --------------
-            // TODO - PARTE 4
-            // --------------
-
-            // TODO 1.: Pare a música de fundo atual usando PauseSound() e toque o som "Coin.wav" para indicar a pausa.
             if (mMusicHandle.IsValid()) {
                 mAudio->PauseSound(mMusicHandle);
             }
@@ -548,13 +491,6 @@ void Game::TogglePause()
         else if (mGamePlayState == GamePlayState::Paused)
         {
             mGamePlayState = GamePlayState::Playing;
-
-            // --------------
-            // TODO - PARTE 4
-            // --------------
-
-            // TODO 1.: Retome a música de fundo atual usando ResumeSound() e toque o som "Coin.wav" para
-            //  indicar a retomada do jogo.
             if (mMusicHandle.IsValid()) {
                 mAudio->ResumeSound(mMusicHandle);
             }
@@ -611,20 +547,7 @@ void Game::UpdateGame()
     // Game Specific Updates
     // ---------------------
     UpdateCamera();
-
-    // --------------
-    // TODO - PARTE 2
-    // --------------
-
-    // TODO 1.: Chame UpdateSceneManager passando o deltaTime.
     UpdateSceneManager(deltaTime);
-
-    // --------------
-    // TODO - PARTE 3
-    // --------------
-
-    // TODO 1.: Verifique se a cena atual é diferente de GameScene::MainMenu e se o estado do jogo é
-    //  GamePlayState::Playing. Se sim, chame UpdateLevelTime passando o deltaTime.
     if (mGameScene != GameScene::MainMenu && mGamePlayState == GamePlayState::Playing) {
         UpdateLevelTime(deltaTime);
     }
@@ -632,13 +555,6 @@ void Game::UpdateGame()
 
 void Game::UpdateSceneManager(float deltaTime)
 {
-    // --------------
-    // TODO - PARTE 2
-    // --------------
-
-    // TODO 1.: Verifique se o estado do SceneManager é SceneManagerState::Entering. Se sim, decremente o mSceneManagerTimer
-    //  usando o deltaTime. Em seguida, verifique se o mSceneManagerTimer é menor ou igual a 0. Se for, reinicie o
-    //  mSceneManagerTimer para TRANSITION_TIME e mude o estado do SceneManager para SceneManagerState::Active.
     if (mSceneManagerState==SceneManagerState::Entering) {
         mSceneManagerTimer-=deltaTime;
         if (mSceneManagerTimer <= 0) {
@@ -647,9 +563,6 @@ void Game::UpdateSceneManager(float deltaTime)
         }
     }
 
-    // TODO 2.: Verifique se o estado do SceneManager é SceneManagerState::Active. Se sim, decremente o mSceneManagerTimer
-    //  usando o deltaTime. Em seguida, verifique se o mSceneManagerTimer é menor ou igual a 0. Se for, chame ChangeScene()
-    //  e mude o estado do SceneManager para SceneManagerState::None.
     if (mSceneManagerState == SceneManagerState::Active) {
         mSceneManagerTimer-=deltaTime;
         if (mSceneManagerTimer <= 0) {
@@ -657,20 +570,10 @@ void Game::UpdateSceneManager(float deltaTime)
             mSceneManagerState = SceneManagerState::None;
         }
     }
-
-    // TODO 3.: Remova a chamada da função ChangeScene() do método Initialize(), pois ela será chamada automaticamente
-    //  durante o UpdateSceneManager() quando o estado do SceneManager for SceneManagerState::Active.
 }
 
 void Game::UpdateLevelTime(float deltaTime)
 {
-    // --------------
-    // TODO - PARTE 3
-    // --------------
-
-    // TODO 1.: Incremente o mGameTimer com o deltaTime. Se o mGameTimer for maior ou igual a 1.0 segundos,
-    //  reinicie o mGameTimer para 0.0f e decremente o mGameTimeLimit de um e atualize o HUD com o novo tempo.
-    //  Se o mGameTimeLimit for menor ou igual a 0, mate o Mario chamando mMario->Kill().
     mGameTimer+=deltaTime;
     if (mGameTimer >= 1.0f) {
         mGameTimer = 0.0f;
@@ -808,13 +711,6 @@ void Game::GenerateOutput()
     {
         ui->Draw(mRenderer);
     }
-
-    // --------------
-    // TODO - PARTE 2
-    // --------------
-
-    // TODO 1.: Verifique se o SceneManager está no estado ativo. Se estiver, desenhe um retângulo preto cobrindo
-    //  toda a tela.
     int a;
     float T = static_cast<float>(TRANSITION_TIME);
     if (mSceneManagerTimer <= T/3){
@@ -878,15 +774,6 @@ SDL_Texture* Game::LoadTexture(const std::string& texturePath)
 
 UIFont* Game::LoadFont(const std::string& fileName)
 {
-    // --------------
-    // TODO - PARTE 1-1
-    // --------------
-
-    // TODO 1.: Verifique se o arquivo de fonte já está carregado no mapa mFonts.
-    //  Se sim, retorne o ponteiro para a fonte carregada.
-    //  Se não, crie um novo objeto UIFont, carregue a fonte do arquivo usando o método Load,
-    //  e se o carregamento for bem-sucedido, adicione a fonte ao mapa mFonts.
-    //  Se o carregamento falhar, descarregue a fonte com Unload e delete o objeto UIFont, retornando nullptr.
     auto it = mFonts.find(fileName);
     if (it != mFonts.end()) {
         return it->second;

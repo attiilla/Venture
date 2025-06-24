@@ -68,7 +68,7 @@ void RigidBodyComponent::Update(float deltaTime)
                                          mOwner->GetPosition().y + mVelocity.y * deltaTime));
 
         if (collider) {
-            collider->DetectVertialCollision(this);
+            collider->DetectVerticalCollision(this);
         }
 
     }

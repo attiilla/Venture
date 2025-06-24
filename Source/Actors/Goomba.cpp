@@ -81,14 +81,14 @@ void Goomba::OnHorizontalCollision(const float minOverlap, AABBColliderComponent
         }
     }
 
-    if (other->GetLayer() == ColliderLayer::Player) {
+    if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF){
         other->GetOwner()->Kill();
     }
 }
 
 void Goomba::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other)
 {
-    if (other->GetLayer() == ColliderLayer::Player) {
+    if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF) {
         other->GetOwner()->Kill();
     }
 }

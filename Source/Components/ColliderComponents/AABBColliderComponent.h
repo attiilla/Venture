@@ -49,6 +49,7 @@ public:
     Vector2 GetMin() const;
     Vector2 GetMax() const;
     Vector2 GetCenter() const;
+    void SetLayer(ColliderLayer layer) { mLayer = layer; }
     ColliderLayer GetLayer() const { return mLayer; }
 
 private:

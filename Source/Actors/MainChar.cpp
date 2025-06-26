@@ -70,11 +70,6 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
         mIsOnGround = false;
 
-        // --------------
-        // TODO - PARTE 4
-        // --------------
-
-        // TODO 1.: Toque o som "Jump.wav" quando Mario pular.
         auto temp = mGame->GetAudio()->PlaySound("Jump.wav", false);
         if (!temp.IsValid()) {
             SDL_Log("Failed to play background music: Jump.wav");
@@ -114,11 +109,6 @@ void MainChar::OnUpdate(float deltaTime)
             mRigidBodyComponent->SetVelocity(Vector2::UnitX * 100.0f);
             mGame->SetGamePlayState(Game::GamePlayState::Leaving);
 
-            // --------------
-            // TODO - PARTE 4
-            // --------------
-
-            // TODO 1.: Toque o som "StageClear.wav"
             auto temp = mGame->GetAudio()->PlaySound("StageClear.wav", false);
             if (!temp.IsValid()) {
                 SDL_Log("Failed to play background music: StageClear.wav");
@@ -180,11 +170,6 @@ void MainChar::Kill()
     mRigidBodyComponent->SetEnabled(false);
     mColliderComponent->SetEnabled(false);
 
-    // --------------
-    // TODO - PARTE 4
-    // --------------
-
-    // TODO 1.: Pare todos os sons com StopAllSounds() e toque o som "Dead.wav".
     mGame->GetAudio()->StopAllSounds();
     auto temp = mGame->GetAudio()->PlaySound("Dead.wav", false);
     if (!temp.IsValid()) {
@@ -212,11 +197,6 @@ void MainChar::Win(AABBColliderComponent *poleCollider)
     // Adjust mario x position to grab the pole
     mPosition.Set(poleCollider->GetOwner()->GetPosition().x + Game::TILE_SIZE / 4.0f, mPosition.y);
 
-    // --------------
-    // TODO - PARTE 4
-    // --------------
-
-    // TODO 1.: Pare todos os sons com StopAllSounds()
     mGame->GetAudio()->StopAllSounds();
 
     mPoleSlideTimer = POLE_SLIDE_TIME; // Start the pole slide timer
@@ -252,11 +232,6 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
         other->GetOwner()->Kill();
         mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed / 2.5f));
 
-        // --------------
-        // TODO - PARTE 4
-        // --------------
-
-        // TODO 1.: Toque o som "Stomp.wav"
         auto temp = mGame->GetAudio()->PlaySound("Stomp.wav", false);
         if (!temp.IsValid()) {
             SDL_Log("Failed to play background music: Stomp.wav");
@@ -268,11 +243,6 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
     {
         if (!mIsOnGround)
         {
-            // --------------
-            // TODO - PARTE 4
-            // --------------
-
-            // TODO 1.: Toque o som "Bump.wav"
             auto temp = mGame->GetAudio()->PlaySound("Bump.wav", false);
             if (!temp.IsValid()) {
                 SDL_Log("Failed to play background music: Bump.wav");
@@ -287,11 +257,6 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
     }
     else if (other->GetLayer() == ColliderLayer::Coin)
     {
-        // --------------
-        // TODO - PARTE 4
-        // --------------
-
-        // TODO 1.: Toque o som "Coin.wav"
         auto temp = mGame->GetAudio()->PlaySound("Coin.wav", false);
         if (!temp.IsValid()) {
             SDL_Log("Failed to play background music: Coin.wav");

@@ -31,12 +31,14 @@ public:
     ElementState GetElement() { return mElement; }
 private:
     static const int POLE_SLIDE_TIME = 1; // Time in seconds to slide down the pole
+    static constexpr float DOUBLE_JUMP_COOLDOWN = 0.5f;
 
     void ManageAnimations();
 
     float mForwardSpeed;
     float mJumpSpeed;
     float mPoleSlideTimer;
+    float mDoubleJumpTimer;
     bool mIsRunning;
     bool mIsOnPole;
     bool mIsDying;

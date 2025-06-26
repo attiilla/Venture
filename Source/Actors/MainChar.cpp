@@ -76,6 +76,9 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         } else {
             SDL_Log("Playing musical effect: Jump.wav");
         }
+    } else if (key == SDLK_SPACE && isPressed && !mIsOnGround && mDoubleJumpTimer <= 0.0f) {
+        mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
+        mIsOnGround = false;
     } else if (key == SDLK_z && isPressed) {
         SwapElement();
     }
@@ -118,6 +121,10 @@ void MainChar::OnUpdate(float deltaTime)
             mIsOnPole = false;
             mIsRunning = true;
         }
+    }
+
+    if (mDoubleJumpTimer > 0.0f) {
+        mDoubleJumpTimer -= deltaTime;
     }
 
     // If Mario is leaving the level, kill him if he enters the castle

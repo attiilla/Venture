@@ -158,7 +158,7 @@ void Game::ChangeScene()
     if (mNextScene == GameScene::MainMenu)
     {
         // Set background color
-        mBackgroundColor.Set(107.0f, 140.0f, 255.0f);
+        mBackgroundColor.Set(19.0f, 22.0f, 32.0f);
 
         // Initialize main menu actors
         LoadMainMenu();
@@ -227,17 +227,14 @@ void Game::ChangeScene()
 void Game::LoadMainMenu()
 {
     auto mainMenu = new UIScreen(this, "../Assets/Fonts/SMB.ttf");
-    mainMenu->AddText("Super Mario Bros", Vector2(170.0f, 50.0f), Vector2(300.0f, 30.0f), 60);
-    mainMenu->AddButton("1 Player", Vector2(mWindowWidth/2.0f - 100.0f, 250.0f), Vector2(200.0f, 40.0f),
+    mainMenu->AddButton("Press Enter", Vector2(mWindowWidth/2.0f - 100.0f, 350.0f), Vector2(200.0f, 40.0f),
     [this]() {
         SetGameScene(GameScene::Level1);
     });
 
-    mainMenu->AddButton("2 Players", Vector2(mWindowWidth/2.0f - 100.0f, 300.0f), Vector2(200.0f, 40.0f),
-                                           nullptr);
-    const Vector2 titleSize = Vector2(178.0f, 88.0f) * 2.0f;
+    const Vector2 titleSize = Vector2(192.0f, 192.0f);
     const Vector2 titlePos = Vector2(mWindowWidth/2.0f - titleSize.x/2.0f, 50.0f);
-    mainMenu->AddImage(mRenderer, "../Assets/Sprites/Logo.png", titlePos, titleSize);
+    mainMenu->AddImage(mRenderer, "../Assets/Sprites/TitleLogo.png", titlePos, titleSize);
 }
 
 void Game::LoadLevel(const std::string& levelName, const int levelWidth, const int levelHeight)

@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------
 // From Game Programming in C++ by Sanjay Madhav
 // Copyright (C) 2017 Sanjay Madhav. All rights reserved.
-// 
+//
 // Released under the BSD License
 // See LICENSE in root directory for full details.
 // ----------------------------------------------------------------
@@ -584,15 +584,15 @@ void Game::UpdateCamera()
     if (!mChar) return;
 
     float horizontalCameraPos = mChar->GetPosition().x - (mWindowWidth / 2.0f);
+    // Limit camera to the right side of the level
+    float maxCameraPosH = (LEVEL_WIDTH * TILE_SIZE) - mWindowWidth;
+    horizontalCameraPos = Math::Clamp(horizontalCameraPos, 0.0f, maxCameraPosH);
+    mCameraPos.x = horizontalCameraPos;
 
-    if (horizontalCameraPos > mCameraPos.x)
-    {
-        // Limit camera to the right side of the level
-        float maxCameraPos = (LEVEL_WIDTH * TILE_SIZE) - mWindowWidth;
-        horizontalCameraPos = Math::Clamp(horizontalCameraPos, 0.0f, maxCameraPos);
-
-        mCameraPos.x = horizontalCameraPos;
-    }
+    float verticalCameraPos = mChar->GetPosition().y - (mWindowHeight / 2.0f);
+    float maxCameraPosV = (LEVEL_HEIGHT * TILE_SIZE) - mWindowHeight;
+    verticalCameraPos = Math::Clamp(verticalCameraPos, 0.0f, maxCameraPosV);
+    mCameraPos.y = verticalCameraPos;
 }
 
 void Game::UpdateActors(float deltaTime)

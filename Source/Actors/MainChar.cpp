@@ -17,6 +17,7 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
         , mJumpSpeed(jumpSpeed)
         , mPoleSlideTimer(0.0f)
         , mElement(element)
+        , mHasDoubleJumped(false)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
     mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE - 4.0f,Game::TILE_SIZE,
@@ -65,20 +66,31 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
     if(mGame->GetGamePlayState() != Game::GamePlayState::Playing) return;
 
     // Jump
-    if (key == SDLK_SPACE && isPressed && mIsOnGround)
+    if (key == SDLK_SPACE && isPressed)
     {
-        mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
-        mIsOnGround = false;
+        if (mIsOnGround)
+        {
+            mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
+            mIsOnGround = false;
+            mHasDoubleJumped = false;
 
-        auto temp = mGame->GetAudio()->PlaySound("Jump.wav", false);
-        if (!temp.IsValid()) {
-            SDL_Log("Failed to play background music: Jump.wav");
-        } else {
-            SDL_Log("Playing musical effect: Jump.wav");
+            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.wav", false); !temp.IsValid()) {
+                SDL_Log("Failed to play background music: Jump.wav");
+            } else {
+                SDL_Log("Playing musical effect: Jump.wav");
+            }
         }
-    } else if (key == SDLK_SPACE && isPressed && !mIsOnGround && mDoubleJumpTimer <= 0.0f) {
-        mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
-        mIsOnGround = false;
+        else if (!mHasDoubleJumped)
+        {
+            mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
+            mHasDoubleJumped = true;
+
+            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.wav", false); !temp.IsValid()) {
+                SDL_Log("Failed to play background music: Jump.wav");
+            } else {
+                SDL_Log("Playing musical effect: Jump.wav");
+            }
+        }
     } else if (key == SDLK_z && isPressed) {
         SwapElement();
     }
@@ -121,10 +133,6 @@ void MainChar::OnUpdate(float deltaTime)
             mIsOnPole = false;
             mIsRunning = true;
         }
-    }
-
-    if (mDoubleJumpTimer > 0.0f) {
-        mDoubleJumpTimer -= deltaTime;
     }
 
     // If Mario is leaving the level, kill him if he enters the castle

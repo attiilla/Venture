@@ -82,10 +82,10 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
             mIsOnGround = false;
             mHasDoubleJumped = false;
 
-            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.wav", false); !temp.IsValid()) {
-                SDL_Log("Failed to play background music: Jump.wav");
+            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.mp3", false); !temp.IsValid()) {
+                SDL_Log("Failed to play background music: Jump.mp3");
             } else {
-                SDL_Log("Playing musical effect: Jump.wav");
+                SDL_Log("Playing musical effect: Jump.mp3");
             }
         }
         else if (mElement == ElementState::Water && !mHasDoubleJumped)
@@ -93,10 +93,10 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
             mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
             mHasDoubleJumped = true;
 
-            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.wav", false); !temp.IsValid()) {
-                SDL_Log("Failed to play background music: Jump.wav");
+            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.mp3", false); !temp.IsValid()) {
+                SDL_Log("Failed to play background music: Jump.mp3");
             } else {
-                SDL_Log("Playing musical effect: Jump.wav");
+                SDL_Log("Playing musical effect: Jump.mp3");
             }
         }
     } else if (key == SDLK_z && isPressed) {

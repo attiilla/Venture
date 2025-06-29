@@ -26,13 +26,13 @@ HUD::HUD(class Game* game, const std::string& fontName)
 
     // TODO 2.: Adicione um texto com a string "400" (400 segundos) logo abaixo do texto "Time".
     //  Guarde o ponteiro do texto em um membro chamado mTimeText.
-    mTimeText = AddText("400",
+    mTimeText = AddText("300",
         Vector2(mGame->GetWindowWidth() - (WORD_OFFSET + (3 * CHAR_WIDTH)), HUD_POS_Y+WORD_HEIGHT),
         Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
 
     // TODO 3.: Adicione um texto com a string "World" à esquerda do texto "Time", como no jogo original.
-    AddText("World",
+    AddText("Level",
         Vector2(mGame->GetWindowWidth() - (WORD_OFFSET + (11 * CHAR_WIDTH)), HUD_POS_Y),
         Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
@@ -44,26 +44,26 @@ HUD::HUD(class Game* game, const std::string& fontName)
         POINT_SIZE);
 
     // TODO 5.: Adicione um texto com a string "Mario" no canto superior esquerdo da tela
-    AddText("Mario",
+    AddText("Venture",
         Vector2(WORD_OFFSET, HUD_POS_Y),
         Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
 
     // TODO 6.: Adicione um texto com a string "000000" logo abaixo do texto "Mario"
-    mScoreCounter = AddText("000000",
+    mScoreCounter = AddText("Schmucks!",
         Vector2(WORD_OFFSET, HUD_POS_Y + WORD_HEIGHT),
         Vector2(6 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
 
-    AddText("Coins",
-        Vector2(WORD_OFFSET+ (8 * CHAR_WIDTH), HUD_POS_Y),
-        Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
-        POINT_SIZE);
+    // AddText("Coins",
+    //     Vector2(WORD_OFFSET+ (8 * CHAR_WIDTH), HUD_POS_Y),
+    //     Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
+    //     POINT_SIZE);
 
-    mCoinsCounter = AddText("000",
-    Vector2(WORD_OFFSET+ (9 * CHAR_WIDTH), HUD_POS_Y+WORD_HEIGHT),
-        Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
-        POINT_SIZE);
+    // mCoinsCounter = AddText("000",
+    // Vector2(WORD_OFFSET+ (9 * CHAR_WIDTH), HUD_POS_Y+WORD_HEIGHT),
+    //     Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
+    //     POINT_SIZE);
 
 }
 

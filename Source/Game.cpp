@@ -17,6 +17,10 @@
 #include "CSV.h"
 #include "Random.h"
 #include "Game.h"
+
+#include <iomanip>
+#include <sstream>
+
 #include "HUD.h"
 #include "SpatialHashing.h"
 #include "Actors/Actor.h"
@@ -193,7 +197,7 @@ void Game::ChangeScene()
         new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
 
         // Initialize actors
-        LoadLevel("../Assets/Levels/Level 1-1.csv", 80, 16);
+        LoadLevel("../Assets/Levels/Level 1-1.csv", 162, 16);
     }
     else if (mNextScene == GameScene::Level2)
     {
@@ -269,6 +273,12 @@ void Game::BuildLevel(int** levelData, int width, int height)
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x) {
+            auto formatTile = [](const int tile) {
+                std::ostringstream ss;
+                ss << std::setw(4) << std::setfill('0') << tile;
+                return ss.str();
+            };
+
             int tile = levelData[y][x];
 
             if (tile == 852) {
@@ -276,13 +286,16 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 continue;
             }
+
             if (tile >= 1200) { // Solid Blocks
-                Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + std::to_string(tile) + ".png");
+                std::string string = formatTile(tile);
+                Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 continue;
             }
+
             if (tile >= 0) { // Decorations
-                auto string = tile < 1000 ? "0" + std::to_string(tile) : std::to_string(tile);
+                std::string string = formatTile(tile);
                 Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 block->GetCollider()->SetEnabled(false);

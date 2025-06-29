@@ -169,11 +169,11 @@ void Game::ChangeScene()
         mGameTimeLimit = 400;
         mHUD->SetTime(mGameTimeLimit);
         mHUD->SetLevelName("1-1");
-        mMusicHandle = mAudio->PlaySound("MusicMain.ogg", true);
+        mMusicHandle = mAudio->PlaySound("MusicMain.wav", true);
         if (!mMusicHandle.IsValid()) {
-            SDL_Log("Failed to play background music: MusicMain.ogg");
+            SDL_Log("Failed to play background music: MusicMain.wav");
         } else {
-            SDL_Log("Playing background music: MusicMain.ogg");
+            SDL_Log("Playing background music: MusicMain.wav");
         }
 
         // Set background color
@@ -681,15 +681,15 @@ void Game::GenerateOutput()
     SDL_RenderClear(mRenderer);
 
     // Draw background texture considering camera position
-    if (mBackgroundTexture)
-    {
-        SDL_Rect dstRect = { static_cast<int>(mBackgroundPosition.x - mCameraPos.x),
-                             static_cast<int>(mBackgroundPosition.y - mCameraPos.y),
-                             static_cast<int>(mBackgroundSize.x),
-                             static_cast<int>(mBackgroundSize.y) };
-
-        SDL_RenderCopy(mRenderer, mBackgroundTexture, nullptr, &dstRect);
-    }
+    // if (mBackgroundTexture)
+    // {
+    //     SDL_Rect dstRect = { static_cast<int>(mBackgroundPosition.x - mCameraPos.x),
+    //                          static_cast<int>(mBackgroundPosition.y - mCameraPos.y),
+    //                          static_cast<int>(mBackgroundSize.x),
+    //                          static_cast<int>(mBackgroundSize.y) };
+    //
+    //     SDL_RenderCopy(mRenderer, mBackgroundTexture, nullptr, &dstRect);
+    // }
 
     // Get actors on camera
     std::vector<Actor*> actorsOnCamera =

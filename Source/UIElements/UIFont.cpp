@@ -47,7 +47,7 @@ void UIFont::Unload()
 
     // TODO 2.: Percorra o mapa mFontData e feche cada fonte usando TTF_CloseFont.
     //  Em seguida, limpe o mapa mFontData.
-	for (std::pair<const int, _TTF_Font*> font : mFontData) {
+	for (std::pair<const int, TTF_Font*> font : mFontData) {
 		TTF_CloseFont(font.second);
 	}
 	mFontData.clear();

@@ -59,6 +59,12 @@ void MainChar::OnProcessInput(const uint8_t* state)
     {
         mIsRunning = false;
     }
+    if (mElement == ElementState::Fire && !mIsOnGround && state[SDL_SCANCODE_SPACE]) {
+        if (const Vector2 currentVelocity = mRigidBodyComponent->GetVelocity(); currentVelocity.y > 0) {
+            constexpr float slowFallVelocity = 50.0f;
+            mRigidBodyComponent->SetVelocity(Vector2(currentVelocity.x, Math::Min(currentVelocity.y, slowFallVelocity)));
+        }
+    }
 }
 
 void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
@@ -80,7 +86,7 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
                 SDL_Log("Playing musical effect: Jump.wav");
             }
         }
-        else if (!mHasDoubleJumped)
+        else if (mElement == ElementState::Water && !mHasDoubleJumped)
         {
             mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
             mHasDoubleJumped = true;

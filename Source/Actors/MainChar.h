@@ -46,4 +46,7 @@ private:
     class RigidBodyComponent* mRigidBodyComponent;
     class DrawAnimatedComponent* mDrawComponent;
     class AABBColliderComponent* mColliderComponent;
+
+    float mProjectileCooldown;
+    const float PROJECTILE_COOLDOWN_TIME = 1.0f;
 };

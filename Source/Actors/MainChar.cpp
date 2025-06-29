@@ -4,6 +4,7 @@
 
 #include "MainChar.h"
 #include "Block.h"
+#include "Projectile.h"
 #include "../Game.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
@@ -18,6 +19,7 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
         , mPoleSlideTimer(0.0f)
         , mElement(element)
         , mHasDoubleJumped(false)
+        , mProjectileCooldown(0.0f)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
     mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE - 4.0f,Game::TILE_SIZE,
@@ -99,6 +101,38 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         }
     } else if (key == SDLK_z && isPressed) {
         SwapElement();
+    } else if (key == SDLK_j && isPressed) {
+        if (mProjectileCooldown <= 0.0f) {
+            Projectile::ProjectileType projectileType;
+            if (mElement == ElementState::Water) {
+                projectileType = Projectile::ProjectileType::Water;
+            } else {
+                projectileType = Projectile::ProjectileType::Fire;
+            }
+
+            Vector2 spawnPos = GetPosition();
+            float direction;
+
+            if (mRotation == 0.0f) { // Facing right
+                spawnPos.x += mColliderComponent->GetWidth() / 2 + 10.0f;
+                direction = 1.0f;
+            } else { // Facing left
+                spawnPos.x -= mColliderComponent->GetWidth() / 2 + 10.0f;
+                direction = -1.0f;
+            }
+            spawnPos.y += mColliderComponent->GetHeight() / 4.0f;
+
+            new Projectile(mGame, projectileType, spawnPos, direction, 2.0f);
+
+            const auto soundName = (projectileType == Projectile::ProjectileType::Fire) ? "Fire.wav" : "Water.wav";
+            if (const auto temp = mGame->GetAudio()->PlaySound(soundName, false); !temp.IsValid()) {
+                SDL_Log("Failed to play shoot sound");
+            }
+
+            mProjectileCooldown = PROJECTILE_COOLDOWN_TIME;
+        } else {
+            SDL_Log("Projectile on cooldown! %.2f seconds remaining.", mProjectileCooldown);
+        }
     }
 }
 
@@ -108,6 +142,10 @@ void MainChar::OnUpdate(float deltaTime)
     if (mRigidBodyComponent && mRigidBodyComponent->GetVelocity().y != 0)
     {
         mIsOnGround = false;
+    }
+
+    if (mProjectileCooldown > 0.0f) {
+        mProjectileCooldown -= deltaTime;
     }
 
     // Limit Mario's position to the camera view

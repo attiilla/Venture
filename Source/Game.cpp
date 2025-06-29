@@ -193,7 +193,7 @@ void Game::ChangeScene()
         new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
 
         // Initialize actors
-        LoadLevel("../Assets/Levels/Level 1-1.csv", 48, 16);
+        LoadLevel("../Assets/Levels/Level 1-1.csv", 80, 16);
     }
     else if (mNextScene == GameScene::Level2)
     {
@@ -681,15 +681,15 @@ void Game::GenerateOutput()
     SDL_RenderClear(mRenderer);
 
     // Draw background texture considering camera position
-    // if (mBackgroundTexture)
-    // {
-    //     SDL_Rect dstRect = { static_cast<int>(mBackgroundPosition.x - mCameraPos.x),
-    //                          static_cast<int>(mBackgroundPosition.y - mCameraPos.y),
-    //                          static_cast<int>(mBackgroundSize.x),
-    //                          static_cast<int>(mBackgroundSize.y) };
-    //
-    //     SDL_RenderCopy(mRenderer, mBackgroundTexture, nullptr, &dstRect);
-    // }
+    if (mBackgroundTexture)
+    {
+        SDL_Rect dstRect = { static_cast<int>(mBackgroundPosition.x - mCameraPos.x),
+                             static_cast<int>(mBackgroundPosition.y - mCameraPos.y),
+                             static_cast<int>(mBackgroundSize.x),
+                             static_cast<int>(mBackgroundSize.y) };
+
+        SDL_RenderCopy(mRenderer, mBackgroundTexture, nullptr, &dstRect);
+    }
 
     // Get actors on camera
     std::vector<Actor*> actorsOnCamera =

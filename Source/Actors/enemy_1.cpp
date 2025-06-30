@@ -72,16 +72,21 @@ void enemy_1::OnUpdate(float deltaTime)
         mState = ActorState::Destroy;
     }
 
-    if (IsHole(NextTile)) {
-
-    }
-
-    if (
-        (mGame->GetMainChar()->IsCharToLeft(mPosition) && mRigidBodyComponent->GetVelocity().x > 0.0f) || //char to left and enemy going to right
-        (!mGame->GetMainChar()->IsCharToLeft(mPosition) && mRigidBodyComponent->GetVelocity().x < 0.0f)   //char to right and enemy going to left
-    )
-    {
+    if (!FloorForward()) {
+        mScareTimer = -deltaTime;
         mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+    }
+    float vx = mRigidBodyComponent->GetVelocity().x;
+    if(
+        (mGame->GetMainChar()->IsCharToLeft(mPosition) && vx > 0.0f) || //char to left and enemy going to right
+        (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx < 0.0f)   //char to right and enemy going to left
+      )
+    {
+        if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
+            mScareTimer += deltaTime;
+        } else { //se o NPC não está se afastando de um buraco, ele vira na direção do MainChar
+            mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+        }
     }
 }
 

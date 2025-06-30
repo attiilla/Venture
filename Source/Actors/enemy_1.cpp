@@ -75,9 +75,7 @@ void enemy_1::OnUpdate(float deltaTime)
         (!mGame->GetMainChar()->IsCharToLeft(mPosition) && mRigidBodyComponent->GetVelocity().x < 0.0f)   //char to right and enemy going to left
     )
     {
-        float vx = mRigidBodyComponent->GetVelocity().x;
-        float vy = mRigidBodyComponent->GetVelocity().y;
-        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
+        mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
     }
 }
 

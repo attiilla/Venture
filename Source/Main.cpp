@@ -6,11 +6,13 @@
 // See LICENSE in root directory for full details.
 // ----------------------------------------------------------------
 
+#define SDL_MAIN_HANDLED
+
 #include "Game.h"
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 448;
+const int SCREEN_WIDTH = 720;
+const int SCREEN_HEIGHT = 500;
 
 int main(int argc, char** argv)
 {

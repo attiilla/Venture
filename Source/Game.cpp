@@ -17,6 +17,10 @@
 #include "CSV.h"
 #include "Random.h"
 #include "Game.h"
+
+#include <iomanip>
+#include <sstream>
+
 #include "HUD.h"
 #include "SpatialHashing.h"
 #include "Actors/Actor.h"
@@ -67,7 +71,7 @@ bool Game::Initialize()
         return false;
     }
 
-    mWindow = SDL_CreateWindow("TP4: Super Mario Bros", 0, 0, mWindowWidth, mWindowHeight, 0);
+    mWindow = SDL_CreateWindow("Venture", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, mWindowWidth, mWindowHeight, SDL_WINDOW_SHOWN);
     if (!mWindow)
     {
         SDL_Log("Failed to create window: %s", SDL_GetError());
@@ -169,11 +173,11 @@ void Game::ChangeScene()
         mGameTimeLimit = 400;
         mHUD->SetTime(mGameTimeLimit);
         mHUD->SetLevelName("1-1");
-        mMusicHandle = mAudio->PlaySound("MusicMain.ogg", true);
+        mMusicHandle = mAudio->PlaySound("MusicMain.wav", true);
         if (!mMusicHandle.IsValid()) {
-            SDL_Log("Failed to play background music: MusicMain.ogg");
+            SDL_Log("Failed to play background music: MusicMain.wav");
         } else {
-            SDL_Log("Playing background music: MusicMain.ogg");
+            SDL_Log("Playing background music: MusicMain.wav");
         }
 
         // Set background color
@@ -193,7 +197,7 @@ void Game::ChangeScene()
         new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
 
         // Initialize actors
-        LoadLevel("../Assets/Levels/level1-1.csv", LEVEL_WIDTH, LEVEL_HEIGHT);
+        LoadLevel("../Assets/Levels/Level 1-1.csv", 162, 16);
     }
     else if (mNextScene == GameScene::Level2)
     {
@@ -232,9 +236,9 @@ void Game::LoadMainMenu()
         SetGameScene(GameScene::Level1);
     });
 
-    const Vector2 titleSize = Vector2(192.0f, 192.0f);
+    const Vector2 titleSize = Vector2(288.0f, 288.0f);
     const Vector2 titlePos = Vector2(mWindowWidth/2.0f - titleSize.x/2.0f, 50.0f);
-    mainMenu->AddImage(mRenderer, "../Assets/Sprites/TitleLogo.png", titlePos, titleSize);
+    mainMenu->AddImage(mRenderer, "../Assets/Sprites/Logo.png", titlePos, titleSize);
 }
 
 void Game::LoadLevel(const std::string& levelName, const int levelWidth, const int levelHeight)
@@ -266,57 +270,88 @@ void Game::BuildLevel(int** levelData, int width, int height)
             {12, "../Assets/Sprites/Blocks/BlockG.png"}
     };
 
-    for (int y = 0; y < LEVEL_HEIGHT; ++y)
+    for (int y = 0; y < height; ++y)
     {
-        for (int x = 0; x < LEVEL_WIDTH; ++x)
-        {
+        for (int x = 0; x < width; ++x) {
+            auto formatTile = [](const int tile) {
+                std::ostringstream ss;
+                ss << std::setw(4) << std::setfill('0') << tile;
+                return ss.str();
+            };
+
             int tile = levelData[y][x];
 
-            switch (tile){
-                case 3: {
-                    const char* coin_texture = "../Assets/Sprites/Collectables/Coin.png";
-                    Coin* coin = new Coin(this, coin_texture);
-                    coin->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                    break;
-                }
-                case 5: {
-                    const char* permeable_texture = "../Assets/Sprites/Blocks/sand.png";
-                    // Create a block actor
-                    Block* block = new Block(this, permeable_texture, true, true);
-                    block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                    break;
-                }
-                case 7: {
-                    Rope* r = new Rope(this, "../Assets/Sprites/Blocks/rope_h.png", true, false);
-                    r->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                    break;
-                }
-                case 10: {
-                    Spawner* spawner = new Spawner(this, SPAWN_DISTANCE);
-                    spawner->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                    break;
-                }
-                case 11: {
-                    Rope* r = new Rope(this, "../Assets/Sprites/Blocks/rope_v.png", true, true);
-                    r->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                    break;
-                }
-                case 16: {
-                    mChar = new MainChar(this);
-                    mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                    break;
-                }
-                default: {
-                    auto it = tileMap.find(tile);
-                    if (it != tileMap.end())
-                    {
-                        // Create a block actor
-                        Block* block = new Block(this, it->second);
-                        block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                    }
-                    break;
-                }
+            if (tile == 852) {
+                mChar = new MainChar(this);
+                mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                continue;
             }
+
+            if (tile >= 1200) { // Solid Blocks
+                std::string string = formatTile(tile);
+                Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+                block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                continue;
+            }
+
+            if (tile >= 0) { // Decorations
+                std::string string = formatTile(tile);
+                Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+                block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                block->GetCollider()->SetEnabled(false);
+                continue;
+            }
+
+
+            //             // Create a block actor
+            //             Block* block = new Block(this, it->second);
+            //             block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+
+            // switch (tile){
+            //     case 3: {
+            //         const char* coin_texture = "../Assets/Sprites/Collectables/Coin.png";
+            //         Coin* coin = new Coin(this, coin_texture);
+            //         coin->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //         break;
+            //     }
+            //     case 5: {
+            //         const char* permeable_texture = "../Assets/Sprites/Blocks/sand.png";
+            //         // Create a block actor
+            //         Block* block = new Block(this, permeable_texture, true, true);
+            //         block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //         break;
+            //     }
+            //     case 7: {
+            //         Rope* r = new Rope(this, "../Assets/Sprites/Blocks/rope_h.png", true, false);
+            //         r->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //         break;
+            //     }
+            //     case 10: {
+            //         Spawner* spawner = new Spawner(this, SPAWN_DISTANCE);
+            //         spawner->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //         break;
+            //     }
+            //     case 11: {
+            //         Rope* r = new Rope(this, "../Assets/Sprites/Blocks/rope_v.png", true, true);
+            //         r->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //         break;
+            //     }
+            //     case 16: {
+            //         mChar = new MainChar(this);
+            //         mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //         break;
+            //     }
+            //     default: {
+            //         auto it = tileMap.find(tile);
+            //         if (it != tileMap.end())
+            //         {
+            //             // Create a block actor
+            //             Block* block = new Block(this, it->second);
+            //             block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //         }
+            //         break;
+            //     }
+        // }
         }
     }
 }
@@ -659,15 +694,15 @@ void Game::GenerateOutput()
     SDL_RenderClear(mRenderer);
 
     // Draw background texture considering camera position
-    if (mBackgroundTexture)
-    {
-        SDL_Rect dstRect = { static_cast<int>(mBackgroundPosition.x - mCameraPos.x),
-                             static_cast<int>(mBackgroundPosition.y - mCameraPos.y),
-                             static_cast<int>(mBackgroundSize.x),
-                             static_cast<int>(mBackgroundSize.y) };
-
-        SDL_RenderCopy(mRenderer, mBackgroundTexture, nullptr, &dstRect);
-    }
+    // if (mBackgroundTexture)
+    // {
+    //     SDL_Rect dstRect = { static_cast<int>(mBackgroundPosition.x - mCameraPos.x),
+    //                          static_cast<int>(mBackgroundPosition.y - mCameraPos.y),
+    //                          static_cast<int>(mBackgroundSize.x),
+    //                          static_cast<int>(mBackgroundSize.y) };
+    //
+    //     SDL_RenderCopy(mRenderer, mBackgroundTexture, nullptr, &dstRect);
+    // }
 
     // Get actors on camera
     std::vector<Actor*> actorsOnCamera =

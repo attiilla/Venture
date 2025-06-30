@@ -63,6 +63,8 @@ add_executable(${PROJECT_NAME}
         Source/Actors/Coin.cpp
         Source/Actors/Rope.h
         Source/Actors/Rope.cpp
+        Source/Actors/Projectile.cpp
+        Source/Actors/Projectile.h
         Source/Components/DrawComponents/DrawModularComponent.h
         Source/Components/DrawComponents/DrawModularComponent.cpp
 )

@@ -20,6 +20,7 @@ enum class ColliderLayer
     Coin = 5,
     Pole = 6,
     Rope = 7,
+    Projectile = 8,
 };
 
 class AABBColliderComponent : public Component
@@ -27,14 +28,15 @@ class AABBColliderComponent : public Component
 public:
     // Collider ignore map
     const std::map<ColliderLayer, const std::set<ColliderLayer>> ColliderIgnoreMap = {
-        {ColliderLayer::PlayerF, {}},
-        {ColliderLayer::PlayerW, {ColliderLayer::Permeable}},
+        {ColliderLayer::PlayerF, {ColliderLayer::Projectile}},
+        {ColliderLayer::PlayerW, {ColliderLayer::Permeable, ColliderLayer::Projectile}},
         {ColliderLayer::Enemy,  {ColliderLayer::Coin}},
         {ColliderLayer::Blocks, {ColliderLayer::Blocks}},
         {ColliderLayer::Permeable, {}},
         {ColliderLayer::Coin, {ColliderLayer::Enemy}},
         {ColliderLayer::Pole, {}},
         {ColliderLayer::Rope, {}},
+        {ColliderLayer::Projectile, {ColliderLayer::PlayerW, ColliderLayer::PlayerF}},
     };
 
     AABBColliderComponent(class Actor* owner, int dx, int dy, int w, int h,
@@ -53,6 +55,9 @@ public:
     Vector2 GetCenter() const;
     void SetLayer(ColliderLayer layer) { mLayer = layer; }
     ColliderLayer GetLayer() const { return mLayer; }
+
+    int GetWidth() const { return mWidth; }
+    int GetHeight() const { return mHeight; }
 
 private:
     float GetMinVerticalOverlap(AABBColliderComponent* b) const;

@@ -4,6 +4,7 @@
 
 #include "MainChar.h"
 #include "Block.h"
+#include "Projectile.h"
 #include "../Game.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
@@ -17,6 +18,8 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
         , mJumpSpeed(jumpSpeed)
         , mPoleSlideTimer(0.0f)
         , mElement(element)
+        , mHasDoubleJumped(false)
+        , mProjectileCooldown(0.0f)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
     mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE - 4.0f,Game::TILE_SIZE,
@@ -58,6 +61,12 @@ void MainChar::OnProcessInput(const uint8_t* state)
     {
         mIsRunning = false;
     }
+    if (mElement == ElementState::Fire && !mIsOnGround && state[SDL_SCANCODE_SPACE]) {
+        if (const Vector2 currentVelocity = mRigidBodyComponent->GetVelocity(); currentVelocity.y > 0) {
+            constexpr float slowFallVelocity = 50.0f;
+            mRigidBodyComponent->SetVelocity(Vector2(currentVelocity.x, Math::Min(currentVelocity.y, slowFallVelocity)));
+        }
+    }
 }
 
 void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
@@ -65,22 +74,65 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
     if(mGame->GetGamePlayState() != Game::GamePlayState::Playing) return;
 
     // Jump
-    if (key == SDLK_SPACE && isPressed && mIsOnGround)
+    if (key == SDLK_SPACE && isPressed)
     {
-        mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
-        mIsOnGround = false;
+        if (mIsOnGround)
+        {
+            mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
+            mIsOnGround = false;
+            mHasDoubleJumped = false;
 
-        auto temp = mGame->GetAudio()->PlaySound("Jump.wav", false);
-        if (!temp.IsValid()) {
-            SDL_Log("Failed to play background music: Jump.wav");
-        } else {
-            SDL_Log("Playing musical effect: Jump.wav");
+            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.mp3", false); !temp.IsValid()) {
+                SDL_Log("Failed to play background music: Jump.mp3");
+            } else {
+                SDL_Log("Playing musical effect: Jump.mp3");
+            }
         }
-    } else if (key == SDLK_SPACE && isPressed && !mIsOnGround && mDoubleJumpTimer <= 0.0f) {
-        mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
-        mIsOnGround = false;
+        else if (mElement == ElementState::Water && !mHasDoubleJumped)
+        {
+            mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
+            mHasDoubleJumped = true;
+
+            if (const auto temp = mGame->GetAudio()->PlaySound("Jump.mp3", false); !temp.IsValid()) {
+                SDL_Log("Failed to play background music: Jump.mp3");
+            } else {
+                SDL_Log("Playing musical effect: Jump.mp3");
+            }
+        }
     } else if (key == SDLK_z && isPressed) {
         SwapElement();
+    } else if (key == SDLK_j && isPressed) {
+        if (mProjectileCooldown <= 0.0f) {
+            Projectile::ProjectileType projectileType;
+            if (mElement == ElementState::Water) {
+                projectileType = Projectile::ProjectileType::Water;
+            } else {
+                projectileType = Projectile::ProjectileType::Fire;
+            }
+
+            Vector2 spawnPos = GetPosition();
+            float direction;
+
+            if (mRotation == 0.0f) { // Facing right
+                spawnPos.x += mColliderComponent->GetWidth() / 2 + 10.0f;
+                direction = 1.0f;
+            } else { // Facing left
+                spawnPos.x -= mColliderComponent->GetWidth() / 2 + 10.0f;
+                direction = -1.0f;
+            }
+            spawnPos.y += mColliderComponent->GetHeight() / 4.0f;
+
+            new Projectile(mGame, projectileType, spawnPos, direction, 2.0f);
+
+            const auto soundName = (projectileType == Projectile::ProjectileType::Fire) ? "Fire.wav" : "Water.wav";
+            if (const auto temp = mGame->GetAudio()->PlaySound(soundName, false); !temp.IsValid()) {
+                SDL_Log("Failed to play shoot sound");
+            }
+
+            mProjectileCooldown = PROJECTILE_COOLDOWN_TIME;
+        } else {
+            SDL_Log("Projectile on cooldown! %.2f seconds remaining.", mProjectileCooldown);
+        }
     }
 }
 
@@ -90,6 +142,10 @@ void MainChar::OnUpdate(float deltaTime)
     if (mRigidBodyComponent && mRigidBodyComponent->GetVelocity().y != 0)
     {
         mIsOnGround = false;
+    }
+
+    if (mProjectileCooldown > 0.0f) {
+        mProjectileCooldown -= deltaTime;
     }
 
     // Limit Mario's position to the camera view
@@ -121,10 +177,6 @@ void MainChar::OnUpdate(float deltaTime)
             mIsOnPole = false;
             mIsRunning = true;
         }
-    }
-
-    if (mDoubleJumpTimer > 0.0f) {
-        mDoubleJumpTimer -= deltaTime;
     }
 
     // If Mario is leaving the level, kill him if he enters the castle

@@ -14,7 +14,7 @@ enum class ElementState
 class MainChar : public Actor
 {
 public:
-    explicit MainChar(Game* game, float forwardSpeed = 1500.0f, float jumpSpeed = -750.0f, ElementState element = ElementState::Water);
+    explicit MainChar(Game* game, float forwardSpeed = 850.0f, float jumpSpeed = -550.0f, ElementState element = ElementState::Water);
 
     void OnProcessInput(const Uint8* keyState) override;
     void OnUpdate(float deltaTime) override;
@@ -31,14 +31,13 @@ public:
     ElementState GetElement() { return mElement; }
 private:
     static const int POLE_SLIDE_TIME = 1; // Time in seconds to slide down the pole
-    static constexpr float DOUBLE_JUMP_COOLDOWN = 0.5f;
 
     void ManageAnimations();
 
     float mForwardSpeed;
     float mJumpSpeed;
     float mPoleSlideTimer;
-    float mDoubleJumpTimer;
+    bool mHasDoubleJumped;
     bool mIsRunning;
     bool mIsOnPole;
     bool mIsDying;
@@ -47,4 +46,7 @@ private:
     class RigidBodyComponent* mRigidBodyComponent;
     class DrawAnimatedComponent* mDrawComponent;
     class AABBColliderComponent* mColliderComponent;
+
+    float mProjectileCooldown;
+    const float PROJECTILE_COOLDOWN_TIME = 1.0f;
 };

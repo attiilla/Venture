@@ -1,17 +1,16 @@
 //
 // Created by atila-rex on 6/27/25.
 //
-#include "DrawModularComponent.h"
+/*#include "DrawModularComponent.h"
 #include "../../Actors/Actor.h"
 #include "../../Game.h"
 
 
-DrawModularComponent::DrawModularComponent(class Actor* owner, const std::string &texturePath, const int width, const int height, int length, bool vertical, const int drawOrder)
+DrawModularComponent::DrawModularComponent(class Actor* owner, const std::string &texturePath, const int width, const int height, int length, const int drawOrder)
         :DrawComponent(owner, drawOrder)
         ,mWidth(width)
         ,mHeight(height)
         ,mLength(length)
-        ,mVert(vertical)
 {
     for (int i = 0; i< mLength; i++)
     {
@@ -51,4 +50,4 @@ void DrawModularComponent::Draw(SDL_Renderer *renderer, const Vector3 &modColor)
                            static_cast<Uint8>(modColor.z));
 
     SDL_RenderCopyEx(renderer, mSpriteSheetSurface, nullptr, &dstRect, mOwner->GetRotation(), nullptr, flip);
-}
+}*/

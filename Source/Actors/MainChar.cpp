@@ -22,20 +22,19 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
         , mProjectileCooldown(0.0f)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
-    mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE - 4.0f,Game::TILE_SIZE,
+    mColliderComponent = new AABBColliderComponent(this, 0, 0, 32,64,
     element==ElementState::Water?ColliderLayer::PlayerW:ColliderLayer::PlayerF);
 
     mDrawComponent = new DrawAnimatedComponent(this,
-                                              "../Assets/Sprites/Mario/Mario.png",
-                                              "../Assets/Sprites/Mario/Mario.json");
+                                              "../Assets/Sprites/Chars/chars.png",
+                                              "../Assets/Sprites/Chars/chars.json");
 
-    mDrawComponent->AddAnimation("Dead", {0});
-    mDrawComponent->AddAnimation("idle", {1});
-    mDrawComponent->AddAnimation("jump", {2});
-    mDrawComponent->AddAnimation("run", {3, 4, 5});
-    mDrawComponent->AddAnimation("win", {7});
+    mDrawComponent->AddAnimation("Idle_Fire", {0});
+    mDrawComponent->AddAnimation("Walking_Fire", {0,1,2,3});
+    mDrawComponent->AddAnimation("Idle_Water", {4});
+    mDrawComponent->AddAnimation("Walking_Water", {4,5,6,7,8});
 
-    mDrawComponent->SetAnimation("idle");
+    mDrawComponent->SetAnimation(element == ElementState::Water ? "Idle_Water" : "Idle_Fire");
     mDrawComponent->SetAnimFPS(10.0f);
 }
 
@@ -197,25 +196,18 @@ void MainChar::OnUpdate(float deltaTime)
 
 void MainChar::ManageAnimations()
 {
-    if(mIsDying)
-    {
-        mDrawComponent->SetAnimation("Dead");
-    }
-    else if(mIsOnPole)
-    {
-        mDrawComponent->SetAnimation("win");
-    }
-    else if (mIsOnGround && mIsRunning)
-    {
-        mDrawComponent->SetAnimation("run");
-    }
-    else if (mIsOnGround && !mIsRunning)
-    {
-        mDrawComponent->SetAnimation("idle");
-    }
-    else if (!mIsOnGround)
-    {
-        mDrawComponent->SetAnimation("jump");
+    if (mIsRunning) {
+        if (mElement == ElementState::Water) {
+            mDrawComponent->SetAnimation("Walking_Water");
+        } else if (mElement == ElementState::Fire) {
+            mDrawComponent->SetAnimation("Walking_Fire");
+        }
+    } else {
+        if (mElement == ElementState::Water) {
+            mDrawComponent->SetAnimation("Idle_Water");
+        } else if (mElement == ElementState::Fire) {
+            mDrawComponent->SetAnimation("Idle_Fire");
+        }
     }
 }
 
@@ -223,7 +215,6 @@ void MainChar::Kill()
 {
     mIsDying = true;
     mGame->SetGamePlayState(Game::GamePlayState::GameOver);
-    mDrawComponent->SetAnimation("Dead");
 
     // Disable collider and rigid body
     mRigidBodyComponent->SetEnabled(false);
@@ -243,7 +234,6 @@ void MainChar::Kill()
 
 void MainChar::Win(AABBColliderComponent *poleCollider)
 {
-    mDrawComponent->SetAnimation("win");
     mGame->SetGamePlayState(Game::GamePlayState::LevelComplete);
 
     // Set mario velocity to go down
@@ -335,6 +325,7 @@ void MainChar::SwapElement() {
     if (mElement == ElementState::Water) {
         mElement = ElementState::Fire;
         mColliderComponent->SetLayer(ColliderLayer::PlayerF);
+        // mDrawComponent.
     } else {
         mElement = ElementState::Water;
         mColliderComponent->SetLayer(ColliderLayer::PlayerW);

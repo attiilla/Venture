@@ -10,11 +10,13 @@
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
 #include "../Random.h"
 
-enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime)
+enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime, float exitation)
         : Actor(game)
         , mDyingTimer(deathTime)
         , mIsDying(false)
         , mForwardSpeed(forwardSpeed)
+        , mExitation(exitation)
+        , mExitationTimer(exitation)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
     mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
@@ -70,6 +72,10 @@ void enemy_1::OnUpdate(float deltaTime)
         mState = ActorState::Destroy;
     }
 
+    if (IsHole(NextTile)) {
+
+    }
+
     if (
         (mGame->GetMainChar()->IsCharToLeft(mPosition) && mRigidBodyComponent->GetVelocity().x > 0.0f) || //char to left and enemy going to right
         (!mGame->GetMainChar()->IsCharToLeft(mPosition) && mRigidBodyComponent->GetVelocity().x < 0.0f)   //char to right and enemy going to left
@@ -78,6 +84,7 @@ void enemy_1::OnUpdate(float deltaTime)
         mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
     }
 }
+
 
 void enemy_1::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
 {

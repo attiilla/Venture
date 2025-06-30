@@ -64,7 +64,7 @@ Game::Game(int windowWidth, int windowHeight)
 
 bool Game::Initialize()
 {
-    // SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
+     SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
     {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -284,6 +284,12 @@ void Game::BuildLevel(int** levelData, int width, int height)
             if (tile == 852) {
                 mChar = new MainChar(this);
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                continue;
+            }
+
+            if (tile == 853) {
+                Spawner* s = new Spawner(this, 1000);
+                s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 continue;
             }
 

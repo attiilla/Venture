@@ -18,8 +18,8 @@ void Spawner::OnUpdate(float deltaTime)
 {
     if (abs(GetGame()->GetMainChar()->GetPosition().x - GetPosition().x) < mSpawnDistance)
     {
-        auto goomba = new enemy_1(GetGame());
-        goomba->SetPosition(GetPosition());
+        auto enemy = new enemy_1(GetGame());
+        enemy->SetPosition(GetPosition());
         mState = ActorState::Destroy;
     }
 }

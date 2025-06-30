@@ -6,6 +6,7 @@
 
 #include "MainChar.h"
 #include "../Game.h"
+#include "Block.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
 #include "../Random.h"
@@ -18,7 +19,7 @@ enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime)
         , mForwardSpeed(forwardSpeed)
         , mScareTimer(SCARE_TIME)
 {
-    mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
+    mRigidBodyComponent = new RigidBodyComponent(this, 0.1f);
     mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
 
     mColliderComponent = new AABBColliderComponent(this, 0, 0,
@@ -71,7 +72,6 @@ void enemy_1::OnUpdate(float deltaTime)
     {
         mState = ActorState::Destroy;
     }
-
     if (!FloorForward()) {
         mScareTimer = -deltaTime;
         mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
@@ -85,7 +85,7 @@ void enemy_1::OnUpdate(float deltaTime)
         if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
             mScareTimer += deltaTime;
         } else { //se o NPC não está se afastando de um buraco, ele vira na direção do MainChar
-            mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+            mRigidBodyComponent->SetVelocity(Vector2(-vx, mRigidBodyComponent->GetVelocity().y));
         }
     }
 }
@@ -116,19 +116,17 @@ void enemy_1::OnVerticalCollision(const float minOverlap, AABBColliderComponent*
 }
 
 bool enemy_1::FloorForward() {
-    bool floor_found = false;
     float px = mPosition.x;
     float py = mPosition.y;
     float vx = mRigidBodyComponent->GetVelocity().x;
-    Vector2 nextTile = Vector2(vx>0?px+1:px-1, py-1);
+    Vector2 nextTile = Vector2(vx>0?px+1:px-1, py+1);
     std::vector<AABBColliderComponent*> nearbyColliders = mGame->GetNearbyColliders(mPosition, 1);
     for (auto collider : nearbyColliders) {
-        Vector2 center = collider->GetCenter();
-        Vector2 temp = center - nextTile;
-        if (temp.LengthSq()<1){
-            floor_found = true;
-            break;
+        Vector2 collider_pos = collider->GetOwner()->GetPosition();
+        Vector2 temp = collider_pos - nextTile;
+        if (temp.LengthSq()<32){
+            return true;
         }
     }
-    return floor_found;
+    return false;
 }

@@ -9,7 +9,8 @@
 class enemy_1 : public Actor
 {
 public:
-    explicit enemy_1(Game* game, float forwardSpeed = 100.0f, float deathTime = 0.5f, float exitation = 5.0f);
+    static const float SCARE_TIME;
+    explicit enemy_1(Game* game, float forwardSpeed = 100.0f, float deathTime = 0.5f);
 
     void OnUpdate(float deltaTime) override;
     void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
@@ -18,12 +19,13 @@ public:
     void Kill() override;
     void BumpKill(const float bumpForce = 300.0f);
 
+    bool FloorForward();
+
 private:
     bool mIsDying;
     float mForwardSpeed;
     float mDyingTimer;
-    const float mExitation;
-    float mExitationTimer;
+    float mScareTimer;
     class RigidBodyComponent* mRigidBodyComponent;
     class DrawAnimatedComponent* mDrawComponent;
     class AABBColliderComponent* mColliderComponent;

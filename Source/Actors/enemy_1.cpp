@@ -10,13 +10,13 @@
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
 #include "../Random.h"
 
-enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime, float exitation)
+const float enemy_1::SCARE_TIME = 3.0f;
+enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime)
         : Actor(game)
         , mDyingTimer(deathTime)
         , mIsDying(false)
         , mForwardSpeed(forwardSpeed)
-        , mExitation(exitation)
-        , mExitationTimer(exitation)
+        , mScareTimer(SCARE_TIME)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
     mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
@@ -108,4 +108,22 @@ void enemy_1::OnVerticalCollision(const float minOverlap, AABBColliderComponent*
     if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF) {
         other->GetOwner()->Kill();
     }
+}
+
+bool enemy_1::FloorForward() {
+    bool floor_found = false;
+    float px = mPosition.x;
+    float py = mPosition.y;
+    float vx = mRigidBodyComponent->GetVelocity().x;
+    Vector2 nextTile = Vector2(vx>0?px+1:px-1, py-1);
+    std::vector<AABBColliderComponent*> nearbyColliders = mGame->GetNearbyColliders(mPosition, 1);
+    for (auto collider : nearbyColliders) {
+        Vector2 center = collider->GetCenter();
+        Vector2 temp = center - nextTile;
+        if (temp.LengthSq()<1){
+            floor_found = true;
+            break;
+        }
+    }
+    return floor_found;
 }

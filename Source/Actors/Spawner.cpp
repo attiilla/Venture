@@ -5,7 +5,7 @@
 #include "Spawner.h"
 #include "../Game.h"
 #include "MainChar.h"
-#include "Goomba.h"
+#include "enemy_1.h"
 
 Spawner::Spawner(Game* game, float spawnDistance)
         :Actor(game)
@@ -18,7 +18,7 @@ void Spawner::OnUpdate(float deltaTime)
 {
     if (abs(GetGame()->GetMainChar()->GetPosition().x - GetPosition().x) < mSpawnDistance)
     {
-        auto goomba = new Goomba(GetGame());
+        auto goomba = new enemy_1(GetGame());
         goomba->SetPosition(GetPosition());
         mState = ActorState::Destroy;
     }

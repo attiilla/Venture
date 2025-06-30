@@ -341,3 +341,6 @@ void MainChar::SwapElement() {
     }
 }
 
+bool MainChar::IsCharToLeft(Vector2 position) const{
+    return mPosition.x < position.x;
+}

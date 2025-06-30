@@ -28,6 +28,8 @@ public:
 
     void SetElement(ElementState element);
     void SwapElement();
+
+    bool IsCharToLeft(Vector2 position) const;
     ElementState GetElement() { return mElement; }
 private:
     static const int POLE_SLIDE_TIME = 1; // Time in seconds to slide down the pole

@@ -3,6 +3,8 @@
 //
 
 #include "enemy_1.h"
+
+#include "MainChar.h"
 #include "../Game.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
@@ -66,6 +68,16 @@ void enemy_1::OnUpdate(float deltaTime)
     if (GetPosition().y > GetGame()->GetWindowHeight())
     {
         mState = ActorState::Destroy;
+    }
+
+    if (
+        (mGame->GetMainChar()->IsCharToLeft(mPosition) && mRigidBodyComponent->GetVelocity().x > 0.0f) || //char to left and enemy going to right
+        (!mGame->GetMainChar()->IsCharToLeft(mPosition) && mRigidBodyComponent->GetVelocity().x < 0.0f)   //char to right and enemy going to left
+    )
+    {
+        float vx = mRigidBodyComponent->GetVelocity().x;
+        float vy = mRigidBodyComponent->GetVelocity().y;
+        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
     }
 }
 

@@ -42,21 +42,21 @@ void MainChar::OnProcessInput(const uint8_t* state)
 {
     if(mGame->GetGamePlayState() != Game::GamePlayState::Playing) return;
 
-    if (state[SDL_SCANCODE_D])
+    if (state[SDL_SCANCODE_RIGHT])
     {
         mRigidBodyComponent->ApplyForce(Vector2::UnitX * mForwardSpeed);
         mRotation = 0.0f;
         mIsRunning = true;
     }
 
-    if (state[SDL_SCANCODE_A])
+    if (state[SDL_SCANCODE_LEFT])
     {
         mRigidBodyComponent->ApplyForce(Vector2::UnitX * -mForwardSpeed);
         mRotation = Math::Pi;
         mIsRunning = true;
     }
 
-    if (!state[SDL_SCANCODE_D] && !state[SDL_SCANCODE_A])
+    if (!state[SDL_SCANCODE_RIGHT] && !state[SDL_SCANCODE_LEFT])
     {
         mIsRunning = false;
     }
@@ -100,7 +100,7 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         }
     } else if (key == SDLK_z && isPressed) {
         SwapElement();
-    } else if (key == SDLK_j && isPressed) {
+    } else if (key == SDLK_x && isPressed) {
         if (mProjectileCooldown <= 0.0f) {
             Projectile::ProjectileType projectileType;
             if (mElement == ElementState::Water) {

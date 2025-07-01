@@ -1,5 +1,8 @@
 # Screenshots
 
+![image1](screenshot1.png)
+![image2](screenshot2.png)
+
 # Venture
 
 Venture é um jogo de plataforma 2D single-player focado em precisão e reflexos rápidos.
@@ -12,7 +15,14 @@ Morte por armadilhas, inimigos ou falhas de execução faz parte constante da ex
 
 # Funcionalidades
 
-O jogador pode alternar entre as formas de água e fogo pressionando a tecla Z. Na forma de água, o personagem tem a habilidade de realizar um pulo duplo, permitindo alcançar plataformas mais altas. Já na forma de fogo, o personagem pode planar por alguns segundos após um salto, prolongando sua distância no ar. O jogo exige que o jogador combine essas duas habilidades, alternando de forma durante o salto para alcançar locais mais distantes ou superar obstáculos.
+O jogador pode alternar entre as formas de água e fogo. Na forma de água, o personagem tem a habilidade de realizar um pulo duplo, permitindo alcançar plataformas mais altas. Já na forma de fogo, o personagem pode planar por alguns segundos após um salto, prolongando sua distância no ar. O jogo exige que o jogador combine essas duas habilidades, alternando de forma durante o salto para alcançar locais mais distantes ou superar obstáculos.
+
+### Controles
+
+- Arrow keys: movimento
+- Z: troca de forma
+- X: lança projétil
+- Espaço: pula
 
 # Créditos
 
@@ -20,6 +30,6 @@ O jogador pode alternar entre as formas de água e fogo pressionando a tecla Z. 
 
 Brendo Gético Eugênio: Sprites dos personagens, level design, sons, música, mecânicas de movimentação, ui.
 
-João: (Preencher)
+João Pedro Reis Teclo de Miranda: Câmera, mecânicas de movimentação
 
 Gustavo: (Preencher)

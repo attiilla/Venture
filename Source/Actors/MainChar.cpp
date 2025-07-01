@@ -243,12 +243,11 @@ void MainChar::Win(AABBColliderComponent *chestCollider)
     // Disable collider
     chestCollider->SetEnabled(false);
 
-    // Adjust mario x position to grab the pole
-    mPosition.Set(chestCollider->GetOwner()->GetPosition().x + Game::TILE_SIZE / 4.0f, mPosition.y);
+    //mPosition.Set(chestCollider->GetOwner()->GetPosition().x + Game::TILE_SIZE / 4.0f, mPosition.y);
 
     mGame->GetAudio()->StopAllSounds();
 
-    //mGame->WriteWinMessage();
+    mGame->WinGame();
 }
 
 void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)

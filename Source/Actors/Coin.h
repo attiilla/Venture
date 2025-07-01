@@ -2,8 +2,7 @@
 // Created by atila-rex on 6/15/25.
 //
 
-#ifndef COIN_H
-#define COIN_H
+
 #pragma once
 #include <string>
 #include "Actor.h"
@@ -25,4 +24,3 @@ private:
     class AABBColliderComponent* mColliderComponent;
 };
 
-#endif //COIN_H

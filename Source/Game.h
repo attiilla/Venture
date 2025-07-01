@@ -84,6 +84,7 @@ public:
     void AddScore(const int score);
     void ResetScore();
     void ResetCoins();
+    void WinGame();
 
     // Window functions
     int GetWindowWidth() const { return mWindowWidth; }

@@ -19,7 +19,7 @@ public:
 
     HUD(class Game* game, const std::string& fontName);
     ~HUD();
-
+    void Win();
     // Reinsert the HUD elements
     void SetTime(int time);
 
@@ -30,6 +30,7 @@ public:
     void SetCoinCount(unsigned int coinCount);
 private:
     // HUD elements
+    UIText* mWinText;
     UIText* mCoinsCounter;
     UIText* mScoreCounter;
     UIText* mLevelName;

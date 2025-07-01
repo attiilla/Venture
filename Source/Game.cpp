@@ -28,6 +28,8 @@
 #include "Actors/Block.h"
 #include "Actors/Chest.h"
 #include "Actors/Coin.h"
+#include "Actors/enemy_1.h"
+#include "Actors/Gerold.h"
 #include "Actors/Rope.h"
 #include "Actors/Spawner.h"
 #include "UIElements/UIScreen.h"
@@ -294,7 +296,7 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 continue;
             }
 
-            if (tile == 854) {
+            if (tile == 867) {
                 std::string string = formatTile(tile);
                 Chest* chest = new Chest(this, "../Assets/Sprites/Blocks2/" + string + ".png");
                 chest->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
@@ -914,4 +916,19 @@ void Game::Shutdown()
     SDL_DestroyRenderer(mRenderer);
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
+}
+
+void Game::WinGame() {
+    auto actors = GetNearbyActors(mChar->GetPosition(),5);
+    for (auto actor : actors){
+        enemy_1* e = dynamic_cast<enemy_1*>(actor);
+        Gerold* g = dynamic_cast<Gerold*>(actor);
+        if (e != nullptr) {
+            e->~enemy_1();
+        }
+        if (g != nullptr) {
+            g->~Gerold();
+        }
+    }
+    mHUD->Win();
 }

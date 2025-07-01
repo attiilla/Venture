@@ -72,6 +72,13 @@ HUD::~HUD()
 
 }
 
+void HUD::Win() {
+    AddText("YOU WIN!",
+        Vector2(mGame->GetWindowWidth()/2 - (16 * CHAR_WIDTH),mGame->GetWindowHeight()/2-2*WORD_HEIGHT),
+        Vector2(32 * CHAR_WIDTH, 4*WORD_HEIGHT),
+        POINT_SIZE);
+}
+
 void HUD::SetTime(int time)
 {
     // --------------

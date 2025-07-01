@@ -18,7 +18,7 @@ enum class ColliderLayer
     Blocks = 3,
     Permeable = 4,
     Coin = 5,
-    Pole = 6,
+    Chest = 6,
     Rope = 7,
     Projectile = 8,
 };
@@ -34,7 +34,7 @@ public:
         {ColliderLayer::Blocks, {ColliderLayer::Blocks}},
         {ColliderLayer::Permeable, {}},
         {ColliderLayer::Coin, {ColliderLayer::Enemy}},
-        {ColliderLayer::Pole, {}},
+        {ColliderLayer::Chest, {}},
         {ColliderLayer::Rope, {}},
         {ColliderLayer::Projectile, {ColliderLayer::PlayerW, ColliderLayer::PlayerF}},
     };

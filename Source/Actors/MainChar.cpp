@@ -137,7 +137,7 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
 
 void MainChar::OnUpdate(float deltaTime)
 {
-    // Check if Mario is off the ground
+    //SDL_Log("Position: %d;%d",static_cast<int>(mPosition.x),static_cast<int>(mPosition.y));
     if (mRigidBodyComponent && mRigidBodyComponent->GetVelocity().y != 0)
     {
         mIsOnGround = false;
@@ -232,23 +232,23 @@ void MainChar::Kill()
     mGame->ResetGameScene(3.5f); // Reset the game scene after 3 seconds
 }
 
-void MainChar::Win(AABBColliderComponent *poleCollider)
+void MainChar::Win(AABBColliderComponent *chestCollider)
 {
     mGame->SetGamePlayState(Game::GamePlayState::LevelComplete);
 
     // Set mario velocity to go down
-    mRigidBodyComponent->SetVelocity(Vector2::UnitY * 100.0f); // 100 pixels per second
+    mRigidBodyComponent->SetVelocity(Vector2::Zero); // 100 pixels per second
     mRigidBodyComponent->SetApplyGravity(false);
 
     // Disable collider
-    poleCollider->SetEnabled(false);
+    chestCollider->SetEnabled(false);
 
     // Adjust mario x position to grab the pole
-    mPosition.Set(poleCollider->GetOwner()->GetPosition().x + Game::TILE_SIZE / 4.0f, mPosition.y);
+    mPosition.Set(chestCollider->GetOwner()->GetPosition().x + Game::TILE_SIZE / 4.0f, mPosition.y);
 
     mGame->GetAudio()->StopAllSounds();
 
-    mPoleSlideTimer = POLE_SLIDE_TIME; // Start the pole slide timer
+    //mGame->WriteWinMessage();
 }
 
 void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
@@ -257,9 +257,9 @@ void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderCompone
     {
         Kill();
     }
-    else if (other->GetLayer() == ColliderLayer::Pole)
+    else if (other->GetLayer() == ColliderLayer::Chest)
     {
-        mIsOnPole = true;
+        SDL_Log("Chest pick");
         Win(other);
     }
     else if (other->GetLayer() == ColliderLayer::Coin)
@@ -313,6 +313,9 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
             SDL_Log("Playing musical effect: Coin.wav");
         }
         other->GetOwner()->Kill();
+    }else if (other->GetLayer() == ColliderLayer::Chest) {
+        SDL_Log("Chest pick");
+        Win(other);
     }
 }
 

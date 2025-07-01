@@ -26,6 +26,7 @@
 #include "Actors/Actor.h"
 #include "Actors/MainChar.h"
 #include "Actors/Block.h"
+#include "Actors/Chest.h"
 #include "Actors/Coin.h"
 #include "Actors/Rope.h"
 #include "Actors/Spawner.h"
@@ -194,7 +195,7 @@ void Game::ChangeScene()
         new DrawSpriteComponent(flag, "../Assets/Sprites/Background_Flag.png", 32.0f, 32.0f, 1);
 
         // Add a flag pole taking the entire height
-        new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
+        //new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
 
         // Initialize actors
         LoadLevel("../Assets/Levels/Level 1-1.csv", 162, 16);
@@ -290,6 +291,13 @@ void Game::BuildLevel(int** levelData, int width, int height)
             if (tile == 853) {
                 Spawner* s = new Spawner(this, 1000, true);
                 s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                continue;
+            }
+
+            if (tile == 854) {
+                std::string string = formatTile(tile);
+                Chest* chest = new Chest(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+                chest->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 continue;
             }
 

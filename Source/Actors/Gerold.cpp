@@ -11,15 +11,24 @@
 #include "../Random.h"
 
 const float Gerold::SCARE_TIME = 3.0f;
-Gerold::Gerold(Game* game, float forwardSpeed, float deathTime)
+const float Gerold::STATE_DURATION = 2.0f;
+const float Gerold::JUMP_INTERVAL = 6.0f;
+
+Gerold::Gerold(Game* game, float forwardSpeed, float jumpSpeed, float deathTime)
         : Actor(game)
+        , mJumpSpeed(jumpSpeed)
         , mDyingTimer(deathTime)
         , mIsDying(false)
         , mForwardSpeed(forwardSpeed)
         , mScareTimer(SCARE_TIME)
+        , mSleepState(GeroldState::Sleepy)
+        , mStateTimer(0.0f)
+        , mJumpTimer(JUMP_INTERVAL)
+        , mStateCounter(0)
 {
-    mRigidBodyComponent = new RigidBodyComponent(this, 0.1f);
-    mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+
+    mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
+    mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed/2, 0.0f));
 
     mColliderComponent = new AABBColliderComponent(this, 0, 0,
                                                    Game::TILE_SIZE, Game::TILE_SIZE,
@@ -59,34 +68,67 @@ void Gerold::OnUpdate(float deltaTime)
     {
         mState = ActorState::Destroy;
     }
+
+
+    float vx = mRigidBodyComponent->GetVelocity().x;
+    float vy = mRigidBodyComponent->GetVelocity().y;
+    // Evita buraco
     if (!FloorForward()) {
         mScareTimer = -deltaTime;
-        mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
     }
-    float vx = mRigidBodyComponent->GetVelocity().x;
+
+
     if(
-        (mGame->GetMainChar()->IsCharToLeft(mPosition) && vx > 0.0f) || //char to left and enemy going to right
-        (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx < 0.0f)   //char to right and enemy going to left
+        (mGame->GetMainChar()->IsCharToLeft(mPosition) && vx > 0.0f) || //personagem a esquerda enquanto inimigo se move para direita
+        (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx < 0.0f)   //personagem a direita enquanto inimigo se move para esquerda
       )
     {
         if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
             mScareTimer += deltaTime;
-        } else { //se o NPC não está se afastando de um buraco, ele vira na direção do MainChar
-            mRigidBodyComponent->SetVelocity(Vector2(-vx, mRigidBodyComponent->GetVelocity().y));
+        } else { //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
+            mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
+        }
+    }
+
+    //Controla a lógica da mudança de estado
+    mStateTimer += deltaTime;
+    if (mStateTimer >= STATE_DURATION) {
+        mStateTimer = 0.0f;
+        ChangeState(DecideNextState(mStateCounter++));
+    }
+
+    // Dá uns pulos de uma forma que parece aleatória
+    /*mJumpTimer -= deltaTime;
+    if (mJumpTimer <= 0.0f){
+        mJumpTimer = JUMP_INTERVAL;
+        if (mSleepState == GeroldState::Mad) {
+            Jump();
+        }
+    }*/
+}
+
+void Gerold::Jump() {
+    if (mIsOnGround) {
+        mIsOnGround = false;
+        mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
+        if (const auto temp = mGame->GetAudio()->PlaySound("Jump.mp3", false); !temp.IsValid()) {
+            SDL_Log("Failed to play background music: Jump.mp3");
+        } else {
+            SDL_Log("Playing musical effect: Jump.mp3");
         }
     }
 }
-
 
 void Gerold::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
 {
     if ((other->GetLayer() == ColliderLayer::Blocks || other->GetLayer() == ColliderLayer::Enemy))
     {
         if (minOverlap > 0) {
-            mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+            mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, mRigidBodyComponent->GetVelocity().y));
         }
         else {
-            mRigidBodyComponent->SetVelocity(Vector2(mForwardSpeed, 0.0f));
+            mRigidBodyComponent->SetVelocity(Vector2(mForwardSpeed, mRigidBodyComponent->GetVelocity().y));
         }
     }
 
@@ -116,4 +158,51 @@ bool Gerold::FloorForward() {
         }
     }
     return false;
+}
+
+void Gerold::ChangeState(GeroldState newState) {
+    Vector2 v = mRigidBodyComponent->GetVelocity();
+    float direction = v.x>0?1.0f:-1.0f;
+    mSleepState = newState;
+    switch (newState) {
+        case GeroldState::Sleepy:{
+            SDL_Log("Gerold is sleeepyy...");
+            mRigidBodyComponent->SetVelocity(Vector2(direction*mForwardSpeed/2, v.y));
+            break;
+        }
+        case GeroldState::Wake: {
+            SDL_Log("Gerold is wake.");
+            mRigidBodyComponent->SetVelocity(Vector2(direction*mForwardSpeed, v.y));
+            break;
+        }
+        case GeroldState::Mad: {
+            SDL_Log("Gerold is MAD!!!");
+            mRigidBodyComponent->SetVelocity(Vector2(1.5*direction*mForwardSpeed, v.y));
+            Jump();
+            break;
+        }
+    }
+}
+
+GeroldState Gerold::DecideNextState(int i) {
+    switch (i%8) {
+        case 0:
+            return GeroldState::Sleepy;
+        case 1:
+            return GeroldState::Wake;
+        case 2:
+            return GeroldState::Sleepy;
+        case 3:
+            return GeroldState::Mad;
+        case 4:
+            return GeroldState::Wake;
+        case 5:
+            return GeroldState::Sleepy;
+        case 6:
+            return GeroldState::Wake;
+        case 7:
+            return GeroldState::Mad;
+        default:
+            return GeroldState::Wake;
+    }
 }

@@ -18,7 +18,7 @@ public:
     }
 
     void OnUpdate(float deltaTime) override;
-    void OnBump();
+    //void OnBump();
     void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
     AABBColliderComponent* GetCollider() const { return  mColliderComponent;};
 

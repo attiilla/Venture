@@ -18,7 +18,7 @@ Block::Block(Game* game, const std::string &texturePath, const bool isStatic, co
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 0.0f, false);
 }
 
-void Block::OnBump()
+/*void Block::OnBump()
 {
     if (mPosition.y != mOriginalPosition.y)
     {
@@ -29,7 +29,7 @@ void Block::OnBump()
     mColliderComponent->SetStatic(false);
     mRigidBodyComponent->SetVelocity(Vector2::NegUnitY * BUMP_FORCE);
     mRigidBodyComponent->SetApplyGravity(true);
-}
+}*/
 
 void Block::OnUpdate(float deltaTime)
 {

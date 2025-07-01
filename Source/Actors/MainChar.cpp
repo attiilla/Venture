@@ -300,7 +300,7 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
 
             // Cast actor to Block to call OnBump
             auto* block = dynamic_cast<Block*>(other->GetOwner());
-            block->OnBump();
+            //block->OnBump();
         }
     }
     else if (other->GetLayer() == ColliderLayer::Coin)

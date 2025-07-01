@@ -621,16 +621,44 @@ void Game::UpdateCamera()
 {
     if (!mChar) return;
 
-    float horizontalCameraPos = mChar->GetPosition().x - (mWindowWidth / 2.0f);
-    // Limit camera to the right side of the level
-    float maxCameraPosH = (LEVEL_WIDTH * TILE_SIZE) - mWindowWidth;
-    horizontalCameraPos = Math::Clamp(horizontalCameraPos, 0.0f, maxCameraPosH);
-    mCameraPos.x = horizontalCameraPos;
+    // Deadzone config
+    const float deadzoneWidth = 100.0f;  // Largura da zona morta horizontal
+    const float deadzoneHeight = 100.0f; // Altura da zona morta vertical
 
-    float verticalCameraPos = mChar->GetPosition().y - (mWindowHeight / 2.0f);
+    Vector2 charScreenPos = mChar->GetPosition() - mCameraPos;
+
+    float targetX = mCameraPos.x;
+    float charOffsetX = charScreenPos.x - (mWindowWidth / 2.0f);
+
+    if (abs(charOffsetX) > deadzoneWidth / 2.0f)
+    {
+        targetX = mChar->GetPosition().x - (mWindowWidth / 2.0f);
+        if (charOffsetX > 0) {
+            targetX = mChar->GetPosition().x - (mWindowWidth / 2.0f + deadzoneWidth / 2.0f);
+        } else {
+            targetX = mChar->GetPosition().x - (mWindowWidth / 2.0f - deadzoneWidth / 2.0f);
+        }
+    }
+
+    float targetY = mCameraPos.y;
+    float charOffsetY = charScreenPos.y - (mWindowHeight / 2.0f);
+
+    if (abs(charOffsetY) > deadzoneHeight / 2.0f)
+    {
+        targetY = mChar->GetPosition().y - (mWindowHeight / 2.0f);
+        if (charOffsetY > 0) {
+            targetY = mChar->GetPosition().y - (mWindowHeight / 2.0f + deadzoneHeight / 2.0f);
+        } else {
+            targetY = mChar->GetPosition().y - (mWindowHeight / 2.0f - deadzoneHeight / 2.0f);
+        }
+    }
+
+    // Limit camera to the limits of the level
+    float maxCameraPosH = (LEVEL_WIDTH * TILE_SIZE) - mWindowWidth;
     float maxCameraPosV = (LEVEL_HEIGHT * TILE_SIZE) - mWindowHeight;
-    verticalCameraPos = Math::Clamp(verticalCameraPos, 0.0f, maxCameraPosV);
-    mCameraPos.y = verticalCameraPos;
+
+    mCameraPos.x = Math::Clamp(targetX, 0.0f, maxCameraPosH);
+    mCameraPos.y = Math::Clamp(targetY, 0.0f, maxCameraPosV);
 }
 
 void Game::UpdateActors(float deltaTime)

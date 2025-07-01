@@ -2,6 +2,8 @@
 
 ![image1](screenshot1.png)
 ![image2](screenshot2.png)
+![imagem3](screenshot3.png)
+![imagem4](screenshot4.png)
 
 # Venture
 
@@ -15,8 +17,9 @@ Morte por armadilhas, inimigos ou falhas de execução faz parte constante da ex
 
 # Funcionalidades
 
-O jogador pode alternar entre as formas de água e fogo. Na forma de água, o personagem tem a habilidade de realizar um pulo duplo, permitindo alcançar plataformas mais altas. Já na forma de fogo, o personagem pode planar por alguns segundos após um salto, prolongando sua distância no ar. O jogo exige que o jogador combine essas duas habilidades, alternando de forma durante o salto para alcançar locais mais distantes ou superar obstáculos.
-
+O jogador pode alternar entre as formas de água e fogo. Na forma de água, o personagem tem habilidade de atravessar alguns blocos e de realizar um pulo duplo, permitindo alcançar plataformas mais altas. Já na forma de fogo, o personagem pode planar por alguns segundos após um salto, prolongando sua distância no ar. O jogo exige que o jogador combine essas duas habilidades, alternando de forma durante o salto para alcançar locais mais distantes ou superar obstáculos.
+O jogo contém inimigos, ambos evitam buracos e quando não estão a evitar um buraco, estão a perseguir o jogador. Um dos inimigos fica alterando sua velocidade e dando pulos de forma aparentemente aleatória.
+Você ganha o jogo quando chegar no baú.
 ### Controles
 
 - Arrow keys: movimento
@@ -26,7 +29,7 @@ O jogador pode alternar entre as formas de água e fogo. Na forma de água, o pe
 
 # Créditos
 
-Átila: Mecânicas, npcs
+Átila: Mecânicas, npcs, vitória
 
 Brendo Gético Eugênio: Sprites dos personagens, level design, sons, música, mecânicas de movimentação, ui.
 

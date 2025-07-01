@@ -67,16 +67,17 @@ void enemy_1::OnUpdate(float deltaTime)
             mState = ActorState::Destroy;
         }
     }
-
     if (GetPosition().y > GetGame()->GetWindowHeight())
     {
         mState = ActorState::Destroy;
     }
+
+    float vx = mRigidBodyComponent->GetVelocity().x;
+    float vy = mRigidBodyComponent->GetVelocity().y;
     if (!FloorForward()) {
         mScareTimer = -deltaTime;
-        mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
     }
-    float vx = mRigidBodyComponent->GetVelocity().x;
     if(
         (mGame->GetMainChar()->IsCharToLeft(mPosition) && vx > 0.0f) || //char to left and enemy going to right
         (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx < 0.0f)   //char to right and enemy going to left
@@ -119,14 +120,20 @@ bool enemy_1::FloorForward() {
     float px = mPosition.x;
     float py = mPosition.y;
     float vx = mRigidBodyComponent->GetVelocity().x;
-    Vector2 nextTile = Vector2(vx>0?px+1:px-1, py+1);
+    Vector2 nextTile = Vector2(vx>0?px+Game::TILE_SIZE:px-Game::TILE_SIZE, py+Game::TILE_SIZE);
+    int nextX = static_cast<int>(nextTile.x/32);
+    int nextY = static_cast<int>(nextTile.y/32);
     std::vector<AABBColliderComponent*> nearbyColliders = mGame->GetNearbyColliders(mPosition, 1);
     for (auto collider : nearbyColliders) {
-        Vector2 collider_pos = collider->GetOwner()->GetPosition();
-        Vector2 temp = collider_pos - nextTile;
-        if (temp.LengthSq()<32){
-            return true;
+        if (collider->IsEnabled() ) {  //Ignora colisores desbilitados
+            Vector2 collider_pos = collider->GetOwner()->GetPosition();
+            int cX = static_cast<int>(collider_pos.x/32);
+            int cY = static_cast<int>(collider_pos.y/32);
+            if (cX==nextX && cY==nextY) {
+                return true;
+            }
         }
     }
     return false;
 }
+

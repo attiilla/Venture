@@ -73,7 +73,7 @@ void Gerold::OnUpdate(float deltaTime)
     float vx = mRigidBodyComponent->GetVelocity().x;
     float vy = mRigidBodyComponent->GetVelocity().y;
     // Evita buraco
-    if (!FloorForward()) {
+    if (mIsOnGround && !FloorForward()) {
         mScareTimer = -deltaTime;
         mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
     }
@@ -98,14 +98,14 @@ void Gerold::OnUpdate(float deltaTime)
         ChangeState(DecideNextState(mStateCounter++));
     }
 
-    // Dá uns pulos de uma forma que parece aleatória
-    /*mJumpTimer -= deltaTime;
+    //Dá uns pulos de uma forma que parece aleatória
+    mJumpTimer -= deltaTime;
     if (mJumpTimer <= 0.0f){
         mJumpTimer = JUMP_INTERVAL;
         if (mSleepState == GeroldState::Mad) {
             Jump();
         }
-    }*/
+    }
 }
 
 void Gerold::Jump() {
@@ -148,13 +148,18 @@ bool Gerold::FloorForward() {
     float px = mPosition.x;
     float py = mPosition.y;
     float vx = mRigidBodyComponent->GetVelocity().x;
-    Vector2 nextTile = Vector2(vx>0?px+1:px-1, py+1);
+    Vector2 nextTile = Vector2(vx>0?px+Game::TILE_SIZE:px-Game::TILE_SIZE, py+Game::TILE_SIZE);
+    int nextX = static_cast<int>(nextTile.x/32);
+    int nextY = static_cast<int>(nextTile.y/32);
     std::vector<AABBColliderComponent*> nearbyColliders = mGame->GetNearbyColliders(mPosition, 1);
     for (auto collider : nearbyColliders) {
-        Vector2 collider_pos = collider->GetOwner()->GetPosition();
-        Vector2 temp = collider_pos - nextTile;
-        if (temp.LengthSq()<32){
-            return true;
+        if (collider->IsEnabled() ) {  //Ignora colisores desbilitados
+            Vector2 collider_pos = collider->GetOwner()->GetPosition();
+            int cX = static_cast<int>(collider_pos.x/32);
+            int cY = static_cast<int>(collider_pos.y/32);
+            if (cX==nextX && cY==nextY) {
+                return true;
+            }
         }
     }
     return false;
@@ -166,17 +171,17 @@ void Gerold::ChangeState(GeroldState newState) {
     mSleepState = newState;
     switch (newState) {
         case GeroldState::Sleepy:{
-            SDL_Log("Gerold is sleeepyy...");
+            //SDL_Log("Gerold is sleeepyy...");
             mRigidBodyComponent->SetVelocity(Vector2(direction*mForwardSpeed/2, v.y));
             break;
         }
         case GeroldState::Wake: {
-            SDL_Log("Gerold is wake.");
+            //SDL_Log("Gerold is wake.");
             mRigidBodyComponent->SetVelocity(Vector2(direction*mForwardSpeed, v.y));
             break;
         }
         case GeroldState::Mad: {
-            SDL_Log("Gerold is MAD!!!");
+            //SDL_Log("Gerold is MAD!!!");
             mRigidBodyComponent->SetVelocity(Vector2(1.5*direction*mForwardSpeed, v.y));
             Jump();
             break;

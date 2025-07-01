@@ -19,7 +19,7 @@ enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime)
         , mForwardSpeed(forwardSpeed)
         , mScareTimer(SCARE_TIME)
 {
-    mRigidBodyComponent = new RigidBodyComponent(this, 0.1f);
+    mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
     mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
 
     mColliderComponent = new AABBColliderComponent(this, 0, 0,

@@ -32,4 +32,4 @@ Brendo Gético Eugênio: Sprites dos personagens, level design, sons, música, m
 
 João Pedro Reis Teclo de Miranda: Câmera, mecânicas de movimentação
 
-Gustavo: (Preencher)
+Gustavo Barros Borba Perdigão: Logo, câmera

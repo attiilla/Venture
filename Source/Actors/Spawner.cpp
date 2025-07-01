@@ -6,10 +6,12 @@
 #include "../Game.h"
 #include "MainChar.h"
 #include "enemy_1.h"
+#include "Gerold.h"
 
-Spawner::Spawner(Game* game, float spawnDistance)
+Spawner::Spawner(Game* game, float spawnDistance, bool gerold)
         :Actor(game)
         ,mSpawnDistance(spawnDistance)
+        ,mGerold(gerold)
 {
 
 }
@@ -18,8 +20,14 @@ void Spawner::OnUpdate(float deltaTime)
 {
     if (abs(GetGame()->GetMainChar()->GetPosition().x - GetPosition().x) < mSpawnDistance)
     {
-        auto enemy = new enemy_1(GetGame());
-        enemy->SetPosition(GetPosition());
-        mState = ActorState::Destroy;
+        if (mGerold) {
+            auto enemy = new Gerold(GetGame());
+            enemy->SetPosition(GetPosition());
+            mState = ActorState::Destroy;
+        } else {
+            auto enemy = new enemy_1(GetGame());
+            enemy->SetPosition(GetPosition());
+            mState = ActorState::Destroy;
+        }
     }
 }

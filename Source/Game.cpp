@@ -288,7 +288,7 @@ void Game::BuildLevel(int** levelData, int width, int height)
             }
 
             if (tile == 853) {
-                Spawner* s = new Spawner(this, 1000);
+                Spawner* s = new Spawner(this, 1000, true);
                 s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 continue;
             }

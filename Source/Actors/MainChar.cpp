@@ -5,6 +5,7 @@
 #include "MainChar.h"
 #include "Block.h"
 #include "Projectile.h"
+#include "CloudEffect.h"
 #include "../Game.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
@@ -91,6 +92,11 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         {
             mRigidBodyComponent->SetVelocity(Vector2(mRigidBodyComponent->GetVelocity().x, mJumpSpeed));
             mHasDoubleJumped = true;
+
+            Vector2 cloudPos = GetPosition();
+            cloudPos.y += mColliderComponent->GetHeight();
+
+            new CloudEffect(GetGame(), cloudPos);
 
             if (const auto temp = mGame->GetAudio()->PlaySound("Jump.mp3", false); !temp.IsValid()) {
                 SDL_Log("Failed to play background music: Jump.mp3");

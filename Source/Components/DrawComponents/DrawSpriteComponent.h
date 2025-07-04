@@ -15,6 +15,11 @@ public:
 
     void Draw(SDL_Renderer* renderer, const Vector3 &modColor = Color::White) override;
 
+    void SetAlpha(Uint8 alpha)
+    {
+        SDL_SetTextureAlphaMod(mSpriteSheetSurface, alpha);
+    }
+
 protected:
     // Map of textures loaded
     SDL_Texture* mSpriteSheetSurface;

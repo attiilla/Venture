@@ -24,25 +24,26 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
         , mProjectileCooldown(0.0f)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
-    float collider_width = Game::TILE_SIZE;
-    float collider_height = Game::TILE_SIZE *1.5;
-    float offsetY = Game::TILE_SIZE * 0.5f;
-    Vector2 v1 = Vector2(0, offsetY);
-    Vector2 v2 = Vector2(0, offsetY+collider_height);
-    Vector2 v3 = Vector2(collider_width, collider_height+offsetY);
-    Vector2 v4 = Vector2(collider_width, offsetY);
-    std::vector<Vector2> v = { v1, v2, v3, v4 };
-    mColliderComponent = new AABBColliderComponent(this, 0, offsetY, collider_width,collider_height,
+
+    // float collider_width = Game::TILE_SIZE;
+    // float collider_height = Game::TILE_SIZE;
+    // float offsetY = Game::TILE_SIZE * 0.5f;
+    // Vector2 v1 = Vector2(0, offsetY);
+    // Vector2 v2 = Vector2(0, offsetY+collider_height);
+    // Vector2 v3 = Vector2(collider_width, collider_height+offsetY);
+    // Vector2 v4 = Vector2(collider_width, offsetY);
+    // std::vector<Vector2> v = { v1, v2, v3, v4 };
+    mColliderComponent = new AABBColliderComponent(this, 0, 0, 26,32,
     element==ElementState::Water?ColliderLayer::PlayerW:ColliderLayer::PlayerF);
 
     mDrawComponent = new DrawAnimatedComponent(this,
-                                              "../Assets/Sprites/Chars/chars.png",
-                                              "../Assets/Sprites/Chars/chars.json");
-    new DrawPolygonComponent(this, v,101);
+                                              "../Assets/Sprites/Chars/animations.png",
+                                              "../Assets/Sprites/Chars/animations.json");
+    // new DrawPolygonComponent(this, v,101);
     mDrawComponent->AddAnimation("Idle_Fire", {0});
-    mDrawComponent->AddAnimation("Walking_Fire", {0,1,2,3});
-    mDrawComponent->AddAnimation("Idle_Water", {4});
-    mDrawComponent->AddAnimation("Walking_Water", {4,5,6,7,8});
+    mDrawComponent->AddAnimation("Walking_Fire", {0,1,2,3,4});
+    mDrawComponent->AddAnimation("Idle_Water", {5});
+    mDrawComponent->AddAnimation("Walking_Water", {5,6,7,8,9});
 
     mDrawComponent->SetAnimation(element == ElementState::Water ? "Idle_Water" : "Idle_Fire");
     mDrawComponent->SetAnimFPS(10.0f);
@@ -167,7 +168,7 @@ void MainChar::OnUpdate(float deltaTime)
     mPosition.x = Math::Max(mPosition.x, mGame->GetCameraPos().x);
 
     // Kill mario if he falls below the screen
-    if (mGame->GetGamePlayState() == Game::GamePlayState::Playing && mPosition.y > mGame->GetWindowHeight())
+    if (mGame->GetGamePlayState() == Game::GamePlayState::Playing && mPosition.y > 4200)
     {
         Kill();
     }

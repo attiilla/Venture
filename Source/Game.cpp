@@ -67,11 +67,16 @@ Game::Game(int windowWidth, int windowHeight)
 
 bool Game::Initialize()
 {
-     //SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
+
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
     {
-        SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
-        return false;
+
+        SDL_setenv("SDL_AUDIODRIVER", "dummy", 1);
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
+        {
+            SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+            return false;
+        }
     }
 
     mWindow = SDL_CreateWindow("Venture", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, mWindowWidth, mWindowHeight, SDL_WINDOW_SHOWN);

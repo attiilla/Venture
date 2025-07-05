@@ -1,0 +1,69 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 23,
+            "scaleInEditor": 1
+        },
+        "#Blocks": {
+            "dynamicWrapping": true
+        },
+        "#Decorations": {
+            "dynamicWrapping": true
+        },
+        "#Main-Tileset": {
+            "dynamicWrapping": false
+        },
+        "#Spritesheet": {
+            "scaleInDock": 8
+        },
+        "1-1.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 61.27272727272725,
+                "y": 966.5454545454545
+            }
+        },
+        "1-1.tmx#Main-Tileset": {
+            "dynamicWrapping": false,
+            "scaleInDock": 11
+        },
+        "111.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 204.66666666666669,
+                "y": 3959.333333333333
+            }
+        },
+        "111.tmx#Main-Tileset": {
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Brendo/CLionProjects/Venture/Assets/Level",
+    "last.imagePath": "C:/Users/Brendo/CLionProjects/Venture/Assets/Sprites",
+    "map.height": 4096,
+    "map.lastUsedExportFilter": "CSV files (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 4096,
+    "openFiles": [
+    ],
+    "project": "1-1.tiled-project",
+    "recentFiles": [
+        "111.tmx",
+        "1-1.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    },
+    "tileset.type": 0
+}

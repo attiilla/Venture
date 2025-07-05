@@ -9,10 +9,10 @@
 class Spawner : public Actor
 {
 public:
-    explicit Spawner(Game* game, float spawnDistance, bool gerold);
+    explicit Spawner(Game* game, float spawnDistance, int enemy);
 
     void OnUpdate(float deltaTime) override;
 private:
     float mSpawnDistance;
-    bool mGerold;
+    int mEnemy;
 };

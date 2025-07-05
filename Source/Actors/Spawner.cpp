@@ -8,23 +8,24 @@
 #include "enemy_1.h"
 #include "Gerold.h"
 
-Spawner::Spawner(Game* game, float spawnDistance, bool gerold)
+Spawner::Spawner(Game* game, float spawnDistance, int enemy)
         :Actor(game)
         ,mSpawnDistance(spawnDistance)
-        ,mGerold(gerold)
+        ,mEnemy(enemy)
 {
 
 }
 
-void Spawner::OnUpdate(float deltaTime)
+void SpawneMultir::OnUpdate(float deltaTime)
 {
     if (abs(GetGame()->GetMainChar()->GetPosition().x - GetPosition().x) < mSpawnDistance)
     {
-        if (mGerold) {
+        SDL_Log("enemy %d",mEnemy);
+        if (mEnemy == 1) {
             auto enemy = new Gerold(GetGame());
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
-        } else {
+        } else if (mEnemy==0){
             auto enemy = new enemy_1(GetGame());
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;

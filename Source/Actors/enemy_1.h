@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "Actor.h"
+#include "Enemy.h"
 
-class enemy_1 : public Actor
+class enemy_1 : public Enemy
 {
 public:
     static const float SCARE_TIME;
@@ -15,18 +15,6 @@ public:
     void OnUpdate(float deltaTime) override;
     void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
     void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
-
-    void Kill() override;
-    void BumpKill(const float bumpForce = 300.0f);
-
-    bool FloorForward();
-
 private:
-    bool mIsDying;
-    float mForwardSpeed;
-    float mDyingTimer;
     float mScareTimer;
-    class RigidBodyComponent* mRigidBodyComponent;
-    class DrawAnimatedComponent* mDrawComponent;
-    class AABBColliderComponent* mColliderComponent;
 };

@@ -49,7 +49,6 @@ void Block::OnVerticalCollision(const float minOverlap, AABBColliderComponent* o
     if (other->GetLayer() == ColliderLayer::Enemy)
     {
         enemy_1* goomba = static_cast<enemy_1*>(other->GetOwner());
-        goomba->BumpKill();
 
         mRigidBodyComponent->SetVelocity(Vector2::NegUnitY * BUMP_FORCE);
         mRigidBodyComponent->SetApplyGravity(true);

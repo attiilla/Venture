@@ -73,6 +73,8 @@ add_executable(${PROJECT_NAME}
         Source/Actors/Chest.cpp
 		Source/Actors/CloudEffect.h
         Source/Actors/CloudEffect.cpp
+		Source/Actors/Enemy.h
+		Source/Actors/Enemy.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)

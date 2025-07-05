@@ -15,11 +15,8 @@ const float Gerold::STATE_DURATION = 2.0f;
 const float Gerold::JUMP_INTERVAL = 6.0f;
 
 Gerold::Gerold(Game* game, float forwardSpeed, float jumpSpeed, float deathTime)
-        : Actor(game)
+        : Enemy(game)
         , mJumpSpeed(jumpSpeed)
-        , mDyingTimer(deathTime)
-        , mIsDying(false)
-        , mForwardSpeed(forwardSpeed)
         , mScareTimer(SCARE_TIME)
         , mSleepState(GeroldState::Sleepy)
         , mStateTimer(0.0f)
@@ -43,15 +40,6 @@ Gerold::Gerold(Game* game, float forwardSpeed, float jumpSpeed, float deathTime)
     mDrawComponent->AddAnimation("walk", {1, 2});
     mDrawComponent->SetAnimation("walk");
     mDrawComponent->SetAnimFPS(5.0f);
-}
-
-void Gerold::Kill()
-{
-    mIsDying = true;
-    mDrawComponent->SetAnimation("Dead");
-    mRigidBodyComponent->SetEnabled(false);
-    mColliderComponent->SetEnabled(false);
-    mGame->AddScore(500);
 }
 
 void Gerold::OnUpdate(float deltaTime)
@@ -142,27 +130,6 @@ void Gerold::OnVerticalCollision(const float minOverlap, AABBColliderComponent* 
     if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF) {
         other->GetOwner()->Kill();
     }
-}
-
-bool Gerold::FloorForward() {
-    float px = mPosition.x;
-    float py = mPosition.y;
-    float vx = mRigidBodyComponent->GetVelocity().x;
-    Vector2 nextTile = Vector2(vx>0?px+Game::TILE_SIZE:px-Game::TILE_SIZE, py+Game::TILE_SIZE);
-    int nextX = static_cast<int>(nextTile.x/32);
-    int nextY = static_cast<int>(nextTile.y/32);
-    std::vector<AABBColliderComponent*> nearbyColliders = mGame->GetNearbyColliders(mPosition, 1);
-    for (auto collider : nearbyColliders) {
-        if (collider->IsEnabled() ) {  //Ignora colisores desbilitados
-            Vector2 collider_pos = collider->GetOwner()->GetPosition();
-            int cX = static_cast<int>(collider_pos.x/32);
-            int cY = static_cast<int>(collider_pos.y/32);
-            if (cX==nextX && cY==nextY) {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 void Gerold::ChangeState(GeroldState newState) {

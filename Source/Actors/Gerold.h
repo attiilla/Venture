@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Actor.h"
+#include "Enemy.h"
 
 enum class GeroldState
 {
@@ -13,7 +13,7 @@ enum class GeroldState
     Mad = 2,
 };
 
-class Gerold : public Actor
+class Gerold : public Enemy
 {
 public:
     static const float SCARE_TIME;
@@ -25,22 +25,13 @@ public:
     void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
     void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
     void Jump();
-    void Kill() override;
-
-    bool FloorForward();
     void ChangeState(GeroldState newState);
     GeroldState DecideNextState(int i);
 private:
-    bool mIsDying;
-    float mForwardSpeed;
     float mJumpSpeed;
-    float mDyingTimer;
     float mScareTimer;
     float mStateTimer;
     float mJumpTimer;
     int mStateCounter;
-    class RigidBodyComponent* mRigidBodyComponent;
-    class DrawAnimatedComponent* mDrawComponent;
-    class AABBColliderComponent* mColliderComponent;
     GeroldState mSleepState;
 };

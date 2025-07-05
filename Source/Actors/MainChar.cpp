@@ -23,13 +23,20 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
         , mProjectileCooldown(0.0f)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
+    float collider_width = Game::TILE_SIZE;
+    float collider_height = Game::TILE_SIZE * 1.5f;
+    Vector2 v1 = Vector2::Zero;
+    Vector2 v2 = Vector2(0, collider_height);
+    Vector2 v3 = Vector2(collider_width, collider_height);
+    Vector2 v4 = Vector2(collider_width, 0);
+    std::vector<Vector2> v = { v1, v2, v3, v4 };
     mColliderComponent = new AABBColliderComponent(this, 0, 0, 32,64,
     element==ElementState::Water?ColliderLayer::PlayerW:ColliderLayer::PlayerF);
 
     mDrawComponent = new DrawAnimatedComponent(this,
                                               "../Assets/Sprites/Chars/chars.png",
                                               "../Assets/Sprites/Chars/chars.json");
-
+    new DrawPolygonComponent(this, v,101);
     mDrawComponent->AddAnimation("Idle_Fire", {0});
     mDrawComponent->AddAnimation("Walking_Fire", {0,1,2,3});
     mDrawComponent->AddAnimation("Idle_Water", {4});

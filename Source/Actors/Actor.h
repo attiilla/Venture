@@ -69,6 +69,21 @@ public:
         return nullptr;
     }
 
+    template <typename T>
+    std::vector<T*> GetComponents() const
+    {
+        std::vector<T*> components;
+        for (auto c : mComponents)
+        {
+            T* t = dynamic_cast<T*>(c);
+            if (t != nullptr)
+            {
+                components.push_back(t);
+            }
+        }
+        return components;
+    }
+
     // Game specific
     void SetOnGround() { mIsOnGround = true; };
     void SetOffGround() { mIsOnGround = false; };

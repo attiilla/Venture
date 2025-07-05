@@ -682,18 +682,18 @@ void Game::UpdateActors(float deltaTime)
     std::vector<Actor*> actorsOnCamera =
             mSpatialHashing->QueryOnCamera(mCameraPos,mWindowWidth,mWindowHeight);
 
-    bool isMarioOnCamera = false;
+    bool isMainCharOnCamera = false;
     for (auto actor : actorsOnCamera)
     {
         actor->Update(deltaTime);
         if (actor == mChar)
         {
-            isMarioOnCamera = true;
+            isMainCharOnCamera = true;
         }
     }
 
     // If Mario is not on camera, reset camera position
-    if (!isMarioOnCamera && mChar)
+    if (!isMainCharOnCamera && mChar)
     {
         mChar->Update(deltaTime);
     }
@@ -742,41 +742,32 @@ void Game::GenerateOutput()
     // Clear back buffer
     SDL_RenderClear(mRenderer);
 
-    // Draw background texture considering camera position
-    // if (mBackgroundTexture)
-    // {
-    //     SDL_Rect dstRect = { static_cast<int>(mBackgroundPosition.x - mCameraPos.x),
-    //                          static_cast<int>(mBackgroundPosition.y - mCameraPos.y),
-    //                          static_cast<int>(mBackgroundSize.x),
-    //                          static_cast<int>(mBackgroundSize.y) };
-    //
-    //     SDL_RenderCopy(mRenderer, mBackgroundTexture, nullptr, &dstRect);
-    // }
-
     // Get actors on camera
     std::vector<Actor*> actorsOnCamera =
             mSpatialHashing->QueryOnCamera(mCameraPos,mWindowWidth,mWindowHeight);
 
     // Get list of drawables in draw order
-    std::vector<DrawComponent*> drawables;
+    std::vector<DrawComponent*> visible_drawables;
 
     for (auto actor : actorsOnCamera)
     {
-        auto drawable = actor->GetComponent<DrawComponent>();
-        if (drawable && drawable->IsVisible())
-        {
-            drawables.emplace_back(drawable);
+        auto drawables = actor->GetComponents<DrawComponent>();
+        for (auto drawable : drawables) {
+            if (drawable && drawable->IsVisible())
+            {
+                visible_drawables.emplace_back(drawable);
+            }
         }
     }
 
     // Sort drawables by draw order
-    std::sort(drawables.begin(), drawables.end(),
+    std::sort(visible_drawables.begin(), visible_drawables.end(),
               [](const DrawComponent* a, const DrawComponent* b) {
                   return a->GetDrawOrder() < b->GetDrawOrder();
               });
 
     // Draw all drawables
-    for (auto drawable : drawables)
+    for (auto drawable : visible_drawables)
     {
         drawable->Draw(mRenderer, mModColor);
     }

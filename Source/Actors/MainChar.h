@@ -4,6 +4,7 @@
 
 #pragma once
 #include "Actor.h"
+#include "FlameEffect.h"
 
 enum class ElementState
 {
@@ -31,6 +32,8 @@ public:
 
     bool IsCharToLeft(Vector2 position) const;
     ElementState GetElement() { return mElement; }
+
+    float GetColliderHeight() const;
 private:
     static const int POLE_SLIDE_TIME = 1; // Time in seconds to slide down the pole
 
@@ -51,4 +54,6 @@ private:
 
     float mProjectileCooldown;
     const float PROJECTILE_COOLDOWN_TIME = 1.0f;
+
+    FlameEffect* mFlameEffect = nullptr;
 };

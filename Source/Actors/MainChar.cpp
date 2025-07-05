@@ -6,6 +6,7 @@
 #include "Block.h"
 #include "Projectile.h"
 #include "CloudEffect.h"
+#include "FlameEffect.h"
 #include "../Game.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
@@ -207,6 +208,32 @@ void MainChar::OnUpdate(float deltaTime)
     }
 
     ManageAnimations();
+
+    const Uint8* state = SDL_GetKeyboardState(nullptr);
+    // Só planear quando estiver no modo fogo, no ar, caindo e segurando Space
+    bool wantGlide =
+        (mElement == ElementState::Fire) &&
+        (!mIsOnGround) &&
+        (mRigidBodyComponent->GetVelocity().y > 0.0f) &&
+        state[SDL_SCANCODE_SPACE];
+
+    if (wantGlide)
+    {
+        // cria só se ainda não existir
+        if (!mFlameEffect)
+        {
+            mFlameEffect = new FlameEffect(GetGame(), this);
+        }
+    }
+    else
+    {
+        // remove se existir
+        if (mFlameEffect)
+        {
+            mFlameEffect->SetState(ActorState::Destroy);
+            mFlameEffect = nullptr;
+        }
+    }
 }
 
 void MainChar::ManageAnimations()
@@ -351,4 +378,9 @@ void MainChar::SwapElement() {
 
 bool MainChar::IsCharToLeft(Vector2 position) const{
     return mPosition.x < position.x;
+}
+
+float MainChar::GetColliderHeight() const
+{
+    return mColliderComponent->GetHeight();
 }

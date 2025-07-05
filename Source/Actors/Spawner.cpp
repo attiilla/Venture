@@ -16,7 +16,7 @@ Spawner::Spawner(Game* game, float spawnDistance, int enemy)
 
 }
 
-void SpawneMultir::OnUpdate(float deltaTime)
+void Spawner::OnUpdate(float deltaTime)
 {
     if (abs(GetGame()->GetMainChar()->GetPosition().x - GetPosition().x) < mSpawnDistance)
     {

@@ -7,12 +7,11 @@ FlameEffect::FlameEffect(Game* game, MainChar* ownerChar)
   : Actor(game)
   , mOwnerChar(ownerChar)
 {
-    // Posiciona logo ao construir
     Vector2 pos = mOwnerChar->GetPosition();
-    pos.y += mOwnerChar->GetColliderHeight();
+    pos.x -= 5;
+    pos.y += mOwnerChar->GetColliderHeight() - 7;
     SetPosition(pos);
 
-    // Sprite da chama (ajuste width/height ao seu asset)
     mSprite = new DrawSpriteComponent(
         this,
         "../Assets/Sprites/Effects/flame.png",
@@ -24,13 +23,12 @@ FlameEffect::FlameEffect(Game* game, MainChar* ownerChar)
     mSoundHandle = game->GetAudio()->PlaySound("FlameLoop.wav", true);
     if (!mSoundHandle.IsValid())
     {
-        SDL_Log("❌ FlameEffect: falha ao tocar 'FlameLoop.wav'!");
+        SDL_Log("FlameEffect: falha ao tocar 'FlameLoop.wav'!");
     }
 }
 
 FlameEffect::~FlameEffect()
 {
-    // Para o som quando o efeito morre
     if (mSoundHandle.IsValid())
     {
         GetGame()->GetAudio()->StopSound(mSoundHandle);
@@ -39,9 +37,8 @@ FlameEffect::~FlameEffect()
 
 void FlameEffect::OnUpdate(float deltaTime)
 {
-    // Continua sob os pés do MainChar
     Vector2 pos = mOwnerChar->GetPosition();
-    pos.y += mOwnerChar->GetColliderHeight();
+    pos.x -= 5;
+    pos.y += mOwnerChar->GetColliderHeight() - 7;
     SetPosition(pos);
-    // Este ator só morre quando MainChar sete Destroy (controle no MainChar)
 }

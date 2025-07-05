@@ -551,11 +551,11 @@ void Game::TogglePause()
             if (mMusicHandle.IsValid()) {
                 mAudio->PauseSound(mMusicHandle);
             }
-            auto temp = mAudio->PlaySound("Coin.wav", false);
+            auto temp = mAudio->PlaySound("PauseOn.wav", false);
             if (!temp.IsValid()) {
-                SDL_Log("Failed to play background music: Coin.wav");
+                SDL_Log("Failed to play background music: PauseOn.wav");
             } else {
-                SDL_Log("Playing musical effect: Coin.wav");
+                SDL_Log("Playing musical effect: PauseOn.wav");
             }
         }
         else if (mGamePlayState == GamePlayState::Paused)
@@ -564,11 +564,11 @@ void Game::TogglePause()
             if (mMusicHandle.IsValid()) {
                 mAudio->ResumeSound(mMusicHandle);
             }
-            auto temp = mAudio->PlaySound("Coin.wav", false);
+            auto temp = mAudio->PlaySound("PauseOff.wav", false);
             if (!temp.IsValid()) {
-                SDL_Log("Failed to play background music: Coin.wav");
+                SDL_Log("Failed to play background music: PauseOff.wav");
             } else {
-                SDL_Log("Playing musical effect: Coin.wav");
+                SDL_Log("Playing musical effect: PauseOff.wav");
             }
         }
     }

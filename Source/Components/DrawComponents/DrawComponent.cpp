@@ -20,7 +20,7 @@ DrawComponent::~DrawComponent()
 }
 
 
-void DrawComponent::Draw(SDL_Renderer* renderer, const Vector3 &modColor)
+void DrawComponent::Draw(SDL_Renderer* renderer, const Vector3 &modColor, const bool seeHitbox)
 {
 
 }

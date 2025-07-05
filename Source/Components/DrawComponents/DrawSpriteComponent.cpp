@@ -24,7 +24,7 @@ DrawSpriteComponent::~DrawSpriteComponent()
     }
 }
 
-void DrawSpriteComponent::Draw(SDL_Renderer *renderer, const Vector3 &modColor)
+void DrawSpriteComponent::Draw(SDL_Renderer *renderer, const Vector3 &modColor, const bool seeHitbox)
 {
     SDL_Rect dstRect = {
         static_cast<int>(mOwner->GetPosition().x - mOwner->GetGame()->GetCameraPos().x),

@@ -108,7 +108,11 @@ public:
     void SetGamePlayState(GamePlayState state) { mGamePlayState = state; }
     GamePlayState GetGamePlayState() const { return mGamePlayState; }
 
+    void ToggleHitBoxes() {
+        mSeeHitbox = !mSeeHitbox;
+    }
 private:
+    bool mSeeHitbox;
     void ProcessInput();
     void UpdateGame();
     void UpdateCamera();

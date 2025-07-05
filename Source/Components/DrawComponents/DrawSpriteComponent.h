@@ -13,7 +13,7 @@ public:
     DrawSpriteComponent(class Actor* owner, const std::string &texturePath, int width = 0, int height = 0, int drawOrder = 100);
     ~DrawSpriteComponent() override;
 
-    void Draw(SDL_Renderer* renderer, const Vector3 &modColor = Color::White) override;
+    void Draw(SDL_Renderer* renderer, const Vector3 &modColor = Color::White, const bool seeHitbox = false) override;
 
     void SetAlpha(Uint8 alpha)
     {

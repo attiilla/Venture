@@ -61,6 +61,7 @@ Game::Game(int windowWidth, int windowHeight)
         ,mBackgroundPosition(Vector2::Zero)
         ,mScore(0)
         ,mCoinCount(0)
+        ,mSeeHitbox(false)
 {
 
 }
@@ -456,6 +457,10 @@ void Game::ProcessInput()
                 {
                     TogglePause();
                 }
+                if (event.key.keysym.sym == SDLK_c)
+                {
+                    ToggleHitBoxes();
+                }
                 break;
         }
     }
@@ -769,7 +774,7 @@ void Game::GenerateOutput()
     // Draw all drawables
     for (auto drawable : visible_drawables)
     {
-        drawable->Draw(mRenderer, mModColor);
+        drawable->Draw(mRenderer, mModColor, mSeeHitbox);
     }
 
     // Draw all UI screens

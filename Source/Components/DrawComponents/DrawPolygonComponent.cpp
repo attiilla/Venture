@@ -13,8 +13,8 @@ DrawPolygonComponent::DrawPolygonComponent(class Actor* owner, std::vector<Vecto
 {
 }
 
-void DrawPolygonComponent::Draw(SDL_Renderer *renderer, const Vector3 &modColor)
-{
+void DrawPolygonComponent::Draw(SDL_Renderer *renderer, const Vector3 &modColor, const bool seeHitbox)
+{   if (seeHitbox) {
     // Set draw color to green
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 
@@ -34,4 +34,5 @@ void DrawPolygonComponent::Draw(SDL_Renderer *renderer, const Vector3 &modColor)
                                  pos.y + mVertices[mVertices.size() - 1].y - cameraPos.y,
                                  pos.x + mVertices[0].x - cameraPos.x,
                                  pos.y + mVertices[0].y - cameraPos.y);
+    }
 }

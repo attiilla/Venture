@@ -24,13 +24,14 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
     float collider_width = Game::TILE_SIZE;
-    float collider_height = Game::TILE_SIZE *2;
-    Vector2 v1 = Vector2::Zero;
-    Vector2 v2 = Vector2(0, collider_height);
-    Vector2 v3 = Vector2(collider_width, collider_height);
-    Vector2 v4 = Vector2(collider_width, 0);
+    float collider_height = Game::TILE_SIZE *1.5;
+    float offsetY = Game::TILE_SIZE * 0.5f;
+    Vector2 v1 = Vector2(0, offsetY);
+    Vector2 v2 = Vector2(0, offsetY+collider_height);
+    Vector2 v3 = Vector2(collider_width, collider_height+offsetY);
+    Vector2 v4 = Vector2(collider_width, offsetY);
     std::vector<Vector2> v = { v1, v2, v3, v4 };
-    mColliderComponent = new AABBColliderComponent(this, 0, 0, 32,64,
+    mColliderComponent = new AABBColliderComponent(this, 0, offsetY, collider_width,collider_height,
     element==ElementState::Water?ColliderLayer::PlayerW:ColliderLayer::PlayerF);
 
     mDrawComponent = new DrawAnimatedComponent(this,

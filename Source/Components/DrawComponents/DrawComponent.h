@@ -15,7 +15,7 @@ public:
     explicit DrawComponent(class Actor* owner, int drawOrder = 100);
     ~DrawComponent() override;
 
-    virtual void Draw(SDL_Renderer* renderer, const Vector3 &modColor = Color::White);
+    virtual void Draw(SDL_Renderer* renderer, const Vector3 &modColor = Color::White, const bool seeHitbox = false);
 
     bool IsVisible() const { return mIsVisible; }
     void SetIsVisible(const bool isVisible) { mIsVisible = isVisible; }

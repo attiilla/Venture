@@ -19,6 +19,15 @@ Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position,
     mRigidBodyComponent->SetVelocity(Vector2(PROJECTILE_SPEED * direction, 0.0f));
     mRigidBodyComponent->SetApplyGravity(false);
 
+    if (direction < 0.0f)
+    {
+        SetRotation(Math::Pi);
+    }
+    else
+    {
+        SetRotation(0.0f);
+    }
+
     mColliderComponent = new AABBColliderComponent(this, 0, 0, 21, 9,
                                                    ColliderLayer::Projectile);
 

@@ -24,7 +24,7 @@ MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, 
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 5.0f);
     float collider_width = Game::TILE_SIZE;
-    float collider_height = Game::TILE_SIZE * 1.5f;
+    float collider_height = Game::TILE_SIZE *2;
     Vector2 v1 = Vector2::Zero;
     Vector2 v2 = Vector2(0, collider_height);
     Vector2 v3 = Vector2(collider_width, collider_height);

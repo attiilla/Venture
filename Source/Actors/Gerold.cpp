@@ -159,22 +159,22 @@ void Gerold::ChangeState(GeroldState newState) {
 GeroldState Gerold::DecideNextState(int i) {
     switch (i%8) {
         case 0:
-            return GeroldState::Sleepy;
-        case 1:
             return GeroldState::Wake;
+        case 1:
+            return GeroldState::Mad;
         case 2:
-            return GeroldState::Sleepy;
+            return GeroldState::Wake;
         case 3:
             return GeroldState::Mad;
         case 4:
-            return GeroldState::Wake;
-        case 5:
             return GeroldState::Sleepy;
+        case 5:
+            return GeroldState::Mad;
         case 6:
-            return GeroldState::Wake;
+            return GeroldState::Mad;
         case 7:
             return GeroldState::Mad;
         default:
-            return GeroldState::Wake;
+            return GeroldState::Sleepy;
     }
 }

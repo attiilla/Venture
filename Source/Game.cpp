@@ -206,7 +206,7 @@ void Game::ChangeScene()
         //new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
 
         // Initialize actors
-        LoadLevel("../Assets/Levels/Level 1-1.csv", 162, 16);
+        LoadLevel("../Assets/Level/1-1.csv", 128, 128);
     }
     else if (mNextScene == GameScene::Level2)
     {
@@ -245,9 +245,9 @@ void Game::LoadMainMenu()
         SetGameScene(GameScene::Level1);
     });
 
-    const Vector2 titleSize = Vector2(288.0f, 288.0f);
+    const Vector2 titleSize = Vector2(384.0f, 256.0f);
     const Vector2 titlePos = Vector2(mWindowWidth/2.0f - titleSize.x/2.0f, 50.0f);
-    mainMenu->AddImage(mRenderer, "../Assets/Sprites/Logo.png", titlePos, titleSize);
+    mainMenu->AddImage(mRenderer, "../Assets/Sprites/Logo2.png", titlePos, titleSize);
 }
 
 void Game::LoadLevel(const std::string& levelName, const int levelWidth, const int levelHeight)
@@ -290,39 +290,57 @@ void Game::BuildLevel(int** levelData, int width, int height)
 
             int tile = levelData[y][x];
 
-            if (tile == 852) {
+            if (tile == 0) {
                 mChar = new MainChar(this);
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                continue;
             }
 
-            if (tile == 853) {
-                Spawner* s = new Spawner(this, 1000, true);
-                s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                continue;
-            }
-
-            if (tile == 867) {
+            else if (tile > 0 && tile < 832 ) {
                 std::string string = formatTile(tile);
-                Chest* chest = new Chest(this, "../Assets/Sprites/Blocks2/" + string + ".png");
-                chest->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                continue;
-            }
-
-            if (tile >= 1200) { // Solid Blocks
-                std::string string = formatTile(tile);
-                Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+                Block* block = new Block(this, "../Assets/Sprites/Blocks/" + string + ".png");
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-                continue;
-            }
-
-            if (tile >= 0) { // Decorations
+            } else if (tile != -1) {
                 std::string string = formatTile(tile);
-                Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+                Block* block = new Block(this, "../Assets/Sprites/Blocks/" + string + ".png");
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 block->GetCollider()->SetEnabled(false);
-                continue;
             }
+
+
+
+            // if (tile == 852) {
+            //     mChar = new MainChar(this);
+            //     mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //     continue;
+            // }
+            //
+            // if (tile == 853) {
+            //     Spawner* s = new Spawner(this, 1000, true);
+            //     s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //     continue;
+            // }
+            //
+            // if (tile == 867) {
+            //     std::string string = formatTile(tile);
+            //     Chest* chest = new Chest(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+            //     chest->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //     continue;
+            // }
+            //
+            // if (tile >= 1200) { // Solid Blocks
+            //     std::string string = formatTile(tile);
+            //     Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+            //     block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //     continue;
+            // }
+            //
+            // if (tile >= 0) { // Decorations
+            //     std::string string = formatTile(tile);
+            //     Block* block = new Block(this, "../Assets/Sprites/Blocks2/" + string + ".png");
+            //     block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            //     block->GetCollider()->SetEnabled(false);
+            //     continue;
+            // }
 
 
             //             // Create a block actor
@@ -533,11 +551,11 @@ void Game::TogglePause()
             if (mMusicHandle.IsValid()) {
                 mAudio->PauseSound(mMusicHandle);
             }
-            auto temp = mAudio->PlaySound("Coin.wav", false);
+            auto temp = mAudio->PlaySound("PauseOn.wav", false);
             if (!temp.IsValid()) {
-                SDL_Log("Failed to play background music: Coin.wav");
+                SDL_Log("Failed to play background music: PauseOn.wav");
             } else {
-                SDL_Log("Playing musical effect: Coin.wav");
+                SDL_Log("Playing musical effect: PauseOn.wav");
             }
         }
         else if (mGamePlayState == GamePlayState::Paused)
@@ -546,11 +564,11 @@ void Game::TogglePause()
             if (mMusicHandle.IsValid()) {
                 mAudio->ResumeSound(mMusicHandle);
             }
-            auto temp = mAudio->PlaySound("Coin.wav", false);
+            auto temp = mAudio->PlaySound("PauseOff.wav", false);
             if (!temp.IsValid()) {
-                SDL_Log("Failed to play background music: Coin.wav");
+                SDL_Log("Failed to play background music: PauseOff.wav");
             } else {
-                SDL_Log("Playing musical effect: Coin.wav");
+                SDL_Log("Playing musical effect: PauseOff.wav");
             }
         }
     }

@@ -10,7 +10,7 @@ CloudEffect::CloudEffect(Game* game, const Vector2& pos, float lifetime)
 
     mSprite = new DrawSpriteComponent(this,
         "../Assets/Sprites/Effects/cloud.png",
-        /*width=*/60, /*height=*/40,
+        /*width=*/60, /*height=*/60,
         /*drawOrder=*/50);
 
     mSprite->SetAlpha(255);

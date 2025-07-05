@@ -299,6 +299,13 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 std::string string = formatTile(tile);
                 Block* block = new Block(this, "../Assets/Sprites/Blocks/" + string + ".png");
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            } else if (tile>10000) {
+                SDL_Log("Tentou");
+                //Spawner* s = new Spawner(this, 100, 1);
+                //SDL_Log("Conseguiu");
+                Gerold* g = new Gerold(this);
+                g->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                SDL_Log("Conseguiu");
             } else if (tile != -1) {
                 std::string string = formatTile(tile);
                 Block* block = new Block(this, "../Assets/Sprites/Blocks/" + string + ".png");

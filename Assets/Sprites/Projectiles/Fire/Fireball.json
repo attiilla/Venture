@@ -1,24 +1,24 @@
 {
   "frames": [
     {
-      "filename": "00.png",
+      "filename": "fire01.png",
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -26,24 +26,24 @@
       }
     },
     {
-      "filename": "01.png",
+      "filename": "fire02.png",
       "frame": {
-        "x": 0,
-        "y": 10,
-        "w": 19,
-        "h": 10
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -51,24 +51,24 @@
       }
     },
     {
-      "filename": "02.png",
+      "filename": "fire03.png",
       "frame": {
-        "x": 19,
+        "x": 64,
         "y": 0,
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -76,24 +76,24 @@
       }
     },
     {
-      "filename": "03.png",
+      "filename": "fire04.png",
       "frame": {
-        "x": 0,
-        "y": 20,
-        "w": 19,
-        "h": 10
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -101,24 +101,24 @@
       }
     },
     {
-      "filename": "04.png",
+      "filename": "fire05.png",
       "frame": {
-        "x": 19,
-        "y": 10,
-        "w": 19,
-        "h": 10
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -126,24 +126,24 @@
       }
     },
     {
-      "filename": "05.png",
+      "filename": "fire06.png",
       "frame": {
-        "x": 38,
+        "x": 160,
         "y": 0,
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -151,24 +151,24 @@
       }
     },
     {
-      "filename": "06.png",
+      "filename": "fire07.png",
       "frame": {
-        "x": 0,
-        "y": 30,
-        "w": 19,
-        "h": 10
+        "x": 192,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -176,24 +176,24 @@
       }
     },
     {
-      "filename": "07.png",
+      "filename": "fire08.png",
       "frame": {
-        "x": 19,
-        "y": 20,
-        "w": 19,
-        "h": 10
+        "x": 224,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -201,49 +201,24 @@
       }
     },
     {
-      "filename": "08.png",
+      "filename": "fire09.png",
       "frame": {
-        "x": 38,
-        "y": 10,
-        "w": 19,
-        "h": 10
+        "x": 256,
+        "y": 0,
+        "w": 28,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
+        "x": 4,
+        "y": 4,
+        "w": 28,
+        "h": 24
       },
       "sourceSize": {
-        "w": 19,
-        "h": 10
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
-      "filename": "09.png",
-      "frame": {
-        "x": 57,
-        "y": 0,
-        "w": 19,
-        "h": 10
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 19,
-        "h": 10
-      },
-      "sourceSize": {
-        "w": 19,
-        "h": 10
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -254,11 +229,11 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "Fireball.png",
+    "image": "texture.png",
     "format": "RGBA8888",
     "size": {
-      "w": 76,
-      "h": 40
+      "w": 284,
+      "h": 24
     },
     "scale": 1
   }

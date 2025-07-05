@@ -245,9 +245,9 @@ void Game::LoadMainMenu()
         SetGameScene(GameScene::Level1);
     });
 
-    const Vector2 titleSize = Vector2(288.0f, 288.0f);
+    const Vector2 titleSize = Vector2(384.0f, 256.0f);
     const Vector2 titlePos = Vector2(mWindowWidth/2.0f - titleSize.x/2.0f, 50.0f);
-    mainMenu->AddImage(mRenderer, "../Assets/Sprites/Logo.png", titlePos, titleSize);
+    mainMenu->AddImage(mRenderer, "../Assets/Sprites/Logo2.png", titlePos, titleSize);
 }
 
 void Game::LoadLevel(const std::string& levelName, const int levelWidth, const int levelHeight)

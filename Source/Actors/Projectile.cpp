@@ -32,7 +32,7 @@ Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position,
                                                    "../Assets/Sprites/Projectiles/Fire/Fireball.json");
     }
 
-    mDrawComponent->AddAnimation("Standard", {0,1,2,3,4,5,6,7,8,9});
+    mDrawComponent->AddAnimation("Standard", {0,1,2,3,4,5,6,7,8});
     mDrawComponent->SetAnimation("Standard");
     mDrawComponent->SetAnimFPS(9.0f);
 

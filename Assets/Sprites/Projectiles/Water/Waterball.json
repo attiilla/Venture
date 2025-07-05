@@ -1,24 +1,24 @@
 {
   "frames": [
     {
-      "filename": "00.png",
+      "filename": "Waterball1.png",
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -26,24 +26,24 @@
       }
     },
     {
-      "filename": "01.png",
+      "filename": "Waterball2.png",
       "frame": {
-        "x": 0,
-        "y": 9,
-        "w": 21,
-        "h": 9
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -51,24 +51,24 @@
       }
     },
     {
-      "filename": "02.png",
+      "filename": "Waterball3.png",
       "frame": {
-        "x": 21,
+        "x": 64,
         "y": 0,
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -76,24 +76,24 @@
       }
     },
     {
-      "filename": "03.png",
+      "filename": "Waterball4.png",
       "frame": {
-        "x": 0,
-        "y": 18,
-        "w": 21,
-        "h": 9
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -101,24 +101,24 @@
       }
     },
     {
-      "filename": "04.png",
+      "filename": "Waterball5.png",
       "frame": {
-        "x": 21,
-        "y": 9,
-        "w": 21,
-        "h": 9
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -126,24 +126,24 @@
       }
     },
     {
-      "filename": "05.png",
+      "filename": "Waterball6.png",
       "frame": {
-        "x": 42,
+        "x": 160,
         "y": 0,
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -151,24 +151,24 @@
       }
     },
     {
-      "filename": "06.png",
+      "filename": "Waterball7.png",
       "frame": {
-        "x": 0,
-        "y": 27,
-        "w": 21,
-        "h": 9
+        "x": 192,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -176,24 +176,24 @@
       }
     },
     {
-      "filename": "07.png",
+      "filename": "Waterball8.png",
       "frame": {
-        "x": 21,
-        "y": 18,
-        "w": 21,
-        "h": 9
+        "x": 224,
+        "y": 0,
+        "w": 32,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "y": 4,
+        "w": 32,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -201,49 +201,24 @@
       }
     },
     {
-      "filename": "08.png",
+      "filename": "Waterball9.png",
       "frame": {
-        "x": 42,
-        "y": 9,
-        "w": 21,
-        "h": 9
+        "x": 256,
+        "y": 0,
+        "w": 28,
+        "h": 24
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
+        "x": 4,
+        "y": 4,
+        "w": 28,
+        "h": 24
       },
       "sourceSize": {
-        "w": 21,
-        "h": 9
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
-      "filename": "09.png",
-      "frame": {
-        "x": 63,
-        "y": 0,
-        "w": 21,
-        "h": 9
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 21,
-        "h": 9
-      },
-      "sourceSize": {
-        "w": 21,
-        "h": 9
+        "w": 32,
+        "h": 32
       },
       "pivot": {
         "x": 0.5,
@@ -254,11 +229,11 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "Waterball.png",
+    "image": "texture.png",
     "format": "RGBA8888",
     "size": {
-      "w": 84,
-      "h": 36
+      "w": 284,
+      "h": 24
     },
     "scale": 1
   }

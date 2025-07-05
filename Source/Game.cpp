@@ -190,7 +190,7 @@ void Game::ChangeScene()
         }
 
         // Set background color
-        mBackgroundColor.Set(107.0f, 140.0f, 255.0f);
+        mBackgroundColor.Set(109.0f, 117.0f, 141.0f);
 
         // Set background color
         SetBackgroundImage("../Assets/Sprites/Background.png", Vector2(TILE_SIZE,0), Vector2(6784,448));

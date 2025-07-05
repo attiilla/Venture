@@ -101,7 +101,8 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
             mHasDoubleJumped = true;
 
             Vector2 cloudPos = GetPosition();
-            cloudPos.y += mColliderComponent->GetHeight();
+            cloudPos.y += mColliderComponent->GetHeight() / 3;
+            cloudPos.x -= mColliderComponent->GetWidth() / 3;
 
             new CloudEffect(GetGame(), cloudPos);
 

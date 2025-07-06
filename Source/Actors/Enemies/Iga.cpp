@@ -18,6 +18,22 @@ Iga::Iga(Game* game, ElementState s)
 {
     mLives = IGA_LIVES;
     mScareTimer = SCARE_TIME;
+    mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
+    mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
+
+    mColliderComponent = new AABBColliderComponent(this, 0, 0,
+                                                   Game::TILE_SIZE, Game::TILE_SIZE,
+                                                   ColliderLayer::Enemy);
+
+    mDrawComponent = new DrawAnimatedComponent(this,
+                                                  "../Assets/Sprites/Goomba/Goomba.png",
+                                                  "../Assets/Sprites/Goomba/Goomba.json");
+
+    mDrawComponent->AddAnimation("Dead", {0});
+    mDrawComponent->AddAnimation("Idle", {1});
+    mDrawComponent->AddAnimation("walk", {1, 2});
+    mDrawComponent->SetAnimation("walk");
+    mDrawComponent->SetAnimFPS(5.0f);
 }
 
 void Iga::OnUpdate(float deltaTime) {

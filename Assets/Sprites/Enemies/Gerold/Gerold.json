@@ -1,59 +1,9 @@
 {
   "frames": [
     {
-      "filename": "enemy-two1.png",
+      "filename": "Gerold1.png",
       "frame": {
         "x": 0,
-        "y": 0,
-        "w": 28,
-        "h": 32
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 4,
-        "y": 0,
-        "w": 28,
-        "h": 32
-      },
-      "sourceSize": {
-        "w": 32,
-        "h": 32
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
-      "filename": "enemy-two2.png",
-      "frame": {
-        "x": 0,
-        "y": 32,
-        "w": 24,
-        "h": 32
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 4,
-        "y": 0,
-        "w": 24,
-        "h": 32
-      },
-      "sourceSize": {
-        "w": 32,
-        "h": 32
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
-      "filename": "enemy-two3.png",
-      "frame": {
-        "x": 28,
         "y": 0,
         "w": 32,
         "h": 32
@@ -76,19 +26,69 @@
       }
     },
     {
-      "filename": "enemy-two4.png",
+      "filename": "Gerold2.png",
+      "frame": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 32
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Gerold3.png",
+      "frame": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 32
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Gerold4.png",
       "frame": {
         "x": 0,
         "y": 64,
-        "w": 28,
+        "w": 32,
         "h": 32
       },
       "rotated": false,
-      "trimmed": true,
+      "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 28,
+        "w": 32,
         "h": 32
       },
       "sourceSize": {
@@ -101,19 +101,19 @@
       }
     },
     {
-      "filename": "enemy-two5.png",
+      "filename": "Gerold5.png",
       "frame": {
-        "x": 60,
-        "y": 0,
-        "w": 28,
+        "x": 32,
+        "y": 32,
+        "w": 32,
         "h": 32
       },
       "rotated": false,
-      "trimmed": true,
+      "trimmed": false,
       "spriteSourceSize": {
-        "x": 4,
+        "x": 0,
         "y": 0,
-        "w": 28,
+        "w": 32,
         "h": 32
       },
       "sourceSize": {
@@ -126,19 +126,44 @@
       }
     },
     {
-      "filename": "enemy-two6.png",
+      "filename": "Gerold6.png",
+      "frame": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 32
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Gerold7.png",
       "frame": {
         "x": 0,
         "y": 96,
-        "w": 24,
+        "w": 32,
         "h": 32
       },
       "rotated": false,
-      "trimmed": true,
+      "trimmed": false,
       "spriteSourceSize": {
-        "x": 4,
+        "x": 0,
         "y": 0,
-        "w": 24,
+        "w": 32,
         "h": 32
       },
       "sourceSize": {
@@ -151,44 +176,19 @@
       }
     },
     {
-      "filename": "enemy-two7.png",
+      "filename": "Gerold8.png",
       "frame": {
-        "x": 24,
-        "y": 32,
-        "w": 24,
-        "h": 32
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 24,
-        "h": 32
-      },
-      "sourceSize": {
+        "x": 32,
+        "y": 64,
         "w": 32,
         "h": 32
       },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
-      "filename": "enemy-two8.png",
-      "frame": {
-        "x": 88,
-        "y": 0,
-        "w": 28,
-        "h": 32
-      },
       "rotated": false,
-      "trimmed": true,
+      "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 28,
+        "w": 32,
         "h": 32
       },
       "sourceSize": {
@@ -204,10 +204,10 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "texture.png",
+    "image": "Gerold.png",
     "format": "RGBA8888",
     "size": {
-      "w": 116,
+      "w": 96,
       "h": 128
     },
     "scale": 1

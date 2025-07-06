@@ -1,7 +1,7 @@
 {
   "frames": [
     {
-      "filename": "enemy-three1.png",
+      "filename": "Iga1.png",
       "frame": {
         "x": 0,
         "y": 0,
@@ -26,7 +26,7 @@
       }
     },
     {
-      "filename": "enemy-three2.png",
+      "filename": "Iga2.png",
       "frame": {
         "x": 0,
         "y": 32,
@@ -51,60 +51,35 @@
       }
     },
     {
-      "filename": "enemy-three3.png",
+      "filename": "Iga3.png",
+      "frame": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 32
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Iga4.png",
       "frame": {
         "x": 0,
         "y": 64,
-        "w": 24,
-        "h": 32
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 4,
-        "y": 0,
-        "w": 24,
-        "h": 32
-      },
-      "sourceSize": {
-        "w": 32,
-        "h": 32
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
-      "filename": "enemy-three4.png",
-      "frame": {
-        "x": 32,
-        "y": 32,
-        "w": 28,
-        "h": 32
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 28,
-        "h": 32
-      },
-      "sourceSize": {
-        "w": 32,
-        "h": 32
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    {
-      "filename": "enemy-three5.png",
-      "frame": {
-        "x": 32,
-        "y": 0,
         "w": 32,
         "h": 32
       },
@@ -126,7 +101,32 @@
       }
     },
     {
-      "filename": "enemy-three6.png",
+      "filename": "Iga5.png",
+      "frame": {
+        "x": 32,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 32
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Iga6.png",
       "frame": {
         "x": 64,
         "y": 0,
@@ -151,19 +151,19 @@
       }
     },
     {
-      "filename": "enemy-three7.png",
+      "filename": "Iga7.png",
       "frame": {
         "x": 0,
         "y": 96,
-        "w": 24,
+        "w": 32,
         "h": 32
       },
       "rotated": false,
-      "trimmed": true,
+      "trimmed": false,
       "spriteSourceSize": {
-        "x": 4,
+        "x": 0,
         "y": 0,
-        "w": 24,
+        "w": 32,
         "h": 32
       },
       "sourceSize": {
@@ -176,19 +176,19 @@
       }
     },
     {
-      "filename": "enemy-three8.png",
+      "filename": "Iga8.png",
       "frame": {
-        "x": 24,
+        "x": 32,
         "y": 64,
-        "w": 28,
+        "w": 32,
         "h": 32
       },
       "rotated": false,
-      "trimmed": true,
+      "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 28,
+        "w": 32,
         "h": 32
       },
       "sourceSize": {
@@ -204,7 +204,7 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "texture.png",
+    "image": "Iga.png",
     "format": "RGBA8888",
     "size": {
       "w": 96,

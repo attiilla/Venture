@@ -28,7 +28,7 @@
 #include "Actors/Block.h"
 #include "Actors/Chest.h"
 #include "Actors/Diamond.h"
-#include "Actors/enemy_1.h"
+#include "Actors/Junim.h"
 #include "Actors/Gerold.h"
 #include "Actors/Rope.h"
 #include "Actors/Spawner.h"
@@ -317,6 +317,8 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile>10000) {
+                // Ímpares: elemento fogo
+                // Pares:   elemento água
                 Spawner* s = new Spawner(this, 1000, tile-10000);
                 s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             } else if (tile != -1) {
@@ -885,10 +887,10 @@ void Game::Shutdown()
 void Game::WinGame() {
     auto actors = GetNearbyActors(mChar->GetPosition(),5);
     for (auto actor : actors){
-        enemy_1* e = dynamic_cast<enemy_1*>(actor);
+        Junim* e = dynamic_cast<Junim*>(actor);
         Gerold* g = dynamic_cast<Gerold*>(actor);
         if (e != nullptr) {
-            e->~enemy_1();
+            e->~Junim();
         }
         if (g != nullptr) {
             g->~Gerold();

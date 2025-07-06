@@ -5,7 +5,7 @@
 #include "Spawner.h"
 #include "../Game.h"
 #include "MainChar.h"
-#include "enemy_1.h"
+#include "Junim.h"
 #include "Gerold.h"
 
 Spawner::Spawner(Game* game, float spawnDistance, int enemy)
@@ -34,7 +34,7 @@ void Spawner::OnUpdate(float deltaTime)
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         } else if (mEnemy==4) {
-            auto enemy = new enemy_1(GetGame(), ElementState::Water);
+            auto enemy = new Junim(GetGame(), ElementState::Water);
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         }

@@ -22,10 +22,10 @@ Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, 
         , mStateTimer(0.0f)
         , mJumpTimer(JUMP_INTERVAL)
         , mStateCounter(0)
-        , mLives(GEROLD_LIVES)
         , mBaseSpeed(forwardSpeed)
 {
     mScareTimer = SCARE_TIME;
+    mLives = GEROLD_LIVES;
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
     mRigidBodyComponent->SetVelocity(Vector2(-mBaseSpeed/2, 0.0f));
 
@@ -94,7 +94,6 @@ void Gerold::Jump() {
 }
 
 void Gerold::Damage(int d) {
-    SDL_Log("Damaged");
     mLives-=d;
     if (mLives <= 0) {
         Kill();

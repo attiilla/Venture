@@ -27,6 +27,7 @@ protected:
     float mForwardSpeed;
     float mDyingTimer;
     float mScareTimer;
+    int mLives;
     ElementState mElement;
     class RigidBodyComponent* mRigidBodyComponent;
     class DrawAnimatedComponent* mDrawComponent;

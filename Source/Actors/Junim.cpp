@@ -2,7 +2,7 @@
 // Created by Lucas N. Ferreira on 30/09/23.
 //
 
-#include "enemy_1.h"
+#include "Junim.h"
 
 #include "MainChar.h"
 #include "../Game.h"
@@ -11,10 +11,13 @@
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
 #include "../Random.h"
 
-const float enemy_1::SCARE_TIME = 3.0f;
-enemy_1::enemy_1(Game* game, ElementState s ,float forwardSpeed, float deathTime)
+const float Junim::SCARE_TIME = 3.0f;
+const int Junim::JUNIM_LIVES = 2;
+
+Junim::Junim(Game* game, ElementState s ,float forwardSpeed, float deathTime)
         : Enemy(game, ElementState::Neutral)
 {
+    mLives = JUNIM_LIVES;
     mScareTimer = SCARE_TIME;
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
     mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
@@ -34,7 +37,7 @@ enemy_1::enemy_1(Game* game, ElementState s ,float forwardSpeed, float deathTime
     mDrawComponent->SetAnimFPS(5.0f);
 }
 
-void enemy_1::OnUpdate(float deltaTime)
+void Junim::OnUpdate(float deltaTime)
 {
     if (mIsDying)
     {
@@ -50,8 +53,14 @@ void enemy_1::OnUpdate(float deltaTime)
     Pursuit(deltaTime, SCARE_TIME);
 }
 
+void Junim::Damage(int d) {
+    mLives-=d;
+    if (mLives <= 0) {
+        Kill();
+    }
+}
 
-void enemy_1::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
+void Junim::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
 {
     if ((other->GetLayer() == ColliderLayer::Blocks || other->GetLayer() == ColliderLayer::Enemy))
     {
@@ -68,7 +77,7 @@ void enemy_1::OnHorizontalCollision(const float minOverlap, AABBColliderComponen
     }
 }
 
-void enemy_1::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other)
+void Junim::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other)
 {
     if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF) {
         other->GetOwner()->Kill();

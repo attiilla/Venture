@@ -71,6 +71,9 @@ void Projectile::OnHorizontalCollision(const float minOverlap, AABBColliderCompo
         }
     } else if (other->GetLayer() == ColliderLayer::Blocks) {
         SetState(ActorState::Destroy);
+    } else if (other->GetLayer() == ColliderLayer::Projectile) {
+        SetState(ActorState::Destroy);
+        other->GetOwner()->Kill();
     }
 }
 

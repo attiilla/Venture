@@ -38,8 +38,8 @@ add_executable(${PROJECT_NAME}
         Source/Components/DrawComponents/DrawAnimatedComponent.h
         Source/Actors/Block.cpp
         Source/Actors/Block.h
-        Source/Actors/enemy_1.cpp
-        Source/Actors/enemy_1.h
+		Source/Actors/Junim.cpp
+		Source/Actors/Junim.h
         Source/Actors/Spawner.cpp
         Source/Actors/Spawner.h
         Source/AudioSystem.cpp

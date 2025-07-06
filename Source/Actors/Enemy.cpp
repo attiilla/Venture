@@ -12,6 +12,7 @@ Enemy::Enemy(Game* game, ElementState s, float forwardSpeed, float deathTime)
     , mDyingTimer(deathTime)
     , mIsDying(false)
     , mForwardSpeed(forwardSpeed)
+    , mLives(0)
     , mDrawComponent(nullptr)
     , mRigidBodyComponent(nullptr)
     , mColliderComponent(nullptr)
@@ -21,7 +22,7 @@ Enemy::Enemy(Game* game, ElementState s, float forwardSpeed, float deathTime)
 void Enemy::OnUpdate(float deltaTime){}
 void Enemy::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other){}
 void Enemy::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other){}
-void Enemy::Damage(int d){}
+void Enemy::Damage(int d){ SDL_Log("ui"); }
 void Enemy::Kill() {
     if (mRigidBodyComponent!=nullptr && mColliderComponent!=nullptr) {
         mIsDying = true;

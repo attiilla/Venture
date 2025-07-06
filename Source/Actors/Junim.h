@@ -6,12 +6,14 @@
 
 #include "Enemy.h"
 
-class enemy_1 : public Enemy
+class Junim : public Enemy
 {
 public:
     static const float SCARE_TIME;
-    explicit enemy_1(Game* game, ElementState s, float forwardSpeed = 100.0f, float deathTime = 0.5f);
+    static const int JUNIM_LIVES;
+    explicit Junim(Game* game, ElementState s, float forwardSpeed = 100.0f, float deathTime = 0.5f);
     void OnUpdate(float deltaTime) override;
     void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
     void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
+    void Damage(int d) override;
 };

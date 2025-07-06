@@ -76,11 +76,14 @@ public:
 
     // Audio functions
     class AudioSystem* GetAudio() { return mAudio; }
+    SoundHandle GetMusicHandle() const { return mMusicHandle; }
 
     // UI functions
     void PushUI(class UIScreen* screen) { mUIStack.emplace_back(screen); }
     const std::vector<class UIScreen*>& GetUIStack() { return mUIStack; }
     void IncreaseDiamond();
+    void DecreaseDiamond();
+    unsigned int GetDiamondCount() const;
     void AddScore(const int score);
     void ResetScore();
     void ResetCoins();
@@ -111,6 +114,10 @@ public:
     void ToggleHitBoxes() {
         mSeeHitbox = !mSeeHitbox;
     }
+
+    void SetLastCheckpoint(const Vector2& cp) { mLastCheckpoint = cp; }
+    const Vector2& GetLastCheckpoint() const    { return mLastCheckpoint; }
+
 private:
     bool mSeeHitbox;
     void ProcessInput();
@@ -178,4 +185,6 @@ private:
     unsigned int mDiamondCount;
 
     UIScreen* mPauseScreen = nullptr;
+
+    Vector2 mLastCheckpoint{0,0};
 };

@@ -33,6 +33,7 @@
 #include "Actors/Rope.h"
 #include "Actors/Spawner.h"
 #include "Actors/Checkpoint.h"
+#include "UIElements/BannerScreen.h"
 #include "Actors/ElementBlock.h"
 #include "UIElements/UIScreen.h"
 #include "Components/DrawComponents/DrawComponent.h"
@@ -207,6 +208,14 @@ void Game::ChangeScene()
         // Add a flag pole taking the entire height
         //new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
 
+        new BannerScreen(this,
+            "../Assets/Sprites/PauseOverlay.png",
+            /*delay=*/0.5f,
+            /*stay=*/4.0f,
+            /*speed=*/600.0f,
+            /*size=*/Vector2((float)mWindowWidth/3, (float)mWindowHeight/3)
+        );
+
         // Initialize actors
         LoadLevel("../Assets/Level/1-1.csv", 128, 128);
     }
@@ -343,7 +352,6 @@ void Game::BuildLevel(int** levelData, int width, int height)
                     true);
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
-
             else if (tile>10000) {
                 // Ímpares: elemento fogo
                 // Pares:   elemento água

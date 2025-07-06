@@ -150,13 +150,6 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         } else {
             SDL_Log("Projectile on cooldown! %.2f seconds remaining.", mProjectileCooldown);
         }
-    } else if (key == SDLK_r && isPressed)
-    {
-        if (mGame->GetDiamondCount() > 0)
-        {
-            //mGame->DecreaseDiamond();
-            Kill();
-        }
     }
 }
 

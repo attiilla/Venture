@@ -15,7 +15,7 @@ Diamond::Diamond(Game *game, std::string texturePath, const bool isStatic)
 
 void Diamond::Kill() {
     mGame->RemoveActor(this);
-    mGame->IncreaseCoin();
+    mGame->IncreaseDiamond();
     //mGame->AddScore(100);
 
 }

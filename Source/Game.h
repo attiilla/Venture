@@ -80,7 +80,7 @@ public:
     // UI functions
     void PushUI(class UIScreen* screen) { mUIStack.emplace_back(screen); }
     const std::vector<class UIScreen*>& GetUIStack() { return mUIStack; }
-    void IncreaseCoin();
+    void IncreaseDiamond();
     void AddScore(const int score);
     void ResetScore();
     void ResetCoins();
@@ -175,7 +175,7 @@ private:
     Vector2 mBackgroundSize;
     Vector2 mBackgroundPosition;
     unsigned int mScore;
-    unsigned int mCoinCount;
+    unsigned int mDiamondCount;
 
     UIScreen* mPauseScreen = nullptr;
 };

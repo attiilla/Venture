@@ -60,7 +60,7 @@ Game::Game(int windowWidth, int windowHeight)
         ,mBackgroundSize(Vector2::Zero)
         ,mBackgroundPosition(Vector2::Zero)
         ,mScore(0)
-        ,mCoinCount(0)
+        ,mDiamondCount(0)
         ,mSeeHitbox(false)
 {
 
@@ -927,9 +927,9 @@ void Game::UnloadScene()
     }
 }
 
-void Game::IncreaseCoin() {
-    mCoinCount++;
-    mHUD->SetCoinCount(mCoinCount);
+void Game::IncreaseDiamond() {
+    mDiamondCount++;
+    mHUD->SetCoinCount(mDiamondCount);
 }
 
 void Game::AddScore(const int score) {
@@ -938,7 +938,7 @@ void Game::AddScore(const int score) {
 }
 
 void Game::ResetCoins() {
-    mCoinCount = 0;
+    mDiamondCount = 0;
 }
 
 void Game::ResetScore() {

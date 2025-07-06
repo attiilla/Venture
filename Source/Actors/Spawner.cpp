@@ -30,7 +30,7 @@ void Spawner::OnUpdate(float deltaTime)
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         } else if (mEnemy==3) {
-            auto enemy = new enemy_1(GetGame(), ElementState::Fire);
+            auto enemy = new Junim(GetGame(), ElementState::Fire);
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         } else if (mEnemy==4) {

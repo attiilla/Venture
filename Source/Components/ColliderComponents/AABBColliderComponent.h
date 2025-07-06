@@ -66,6 +66,7 @@ public:
     int GetWidth() const { return mWidth; }
     int GetHeight() const { return mHeight; }
     bool Ignore(AABBColliderComponent* collider);
+    void ChangeLayer(ColliderLayer layer);
 private:
     float GetMinVerticalOverlap(AABBColliderComponent* b) const;
     float GetMinHorizontalOverlap(AABBColliderComponent* b) const;

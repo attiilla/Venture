@@ -17,6 +17,5 @@ ElementBlock::ElementBlock(Game* game, const std::string &texturePath, ElementSt
     } else if (kill==ElementState::Water && !isLiquid) {
         layer = ColliderLayer::Flame;
     }
-    delete mColliderComponent;
-    mColliderComponent= new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE, Game::TILE_SIZE, layer, isStatic);
+    mColliderComponent->ChangeLayer(layer);
 }

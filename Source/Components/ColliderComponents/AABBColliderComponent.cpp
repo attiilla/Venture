@@ -168,3 +168,7 @@ bool AABBColliderComponent::Ignore(AABBColliderComponent* collider) {
     acc = acc || collider->GetLayer()==ColliderLayer::Water;
     return acc;
 }
+
+void AABBColliderComponent::ChangeLayer(ColliderLayer layer) {
+    mLayer = layer;
+}

@@ -17,6 +17,7 @@ class Iga : public Enemy
 public:
     static const float SCARE_TIME;
     static const float SHOOT_TIME;
+    static const float LARGE_COOLDOWN;
     static const float CALM_COOLDOWN;
     static const float SCARED_COOLDOWN;
     static const int IGA_LIVES;
@@ -37,5 +38,6 @@ private:
     float mBarrel;
     int mLives;
     int mDirection;
+    float mLargeCooldown;
     IgaState mScareState;
 };

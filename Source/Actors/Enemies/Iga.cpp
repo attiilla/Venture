@@ -7,14 +7,17 @@
 #include "../Projectile.h"
 const float Iga::SCARE_TIME = 3.0f;
 const float Iga::SHOOT_TIME = 3.0f;
-const float Iga::CALM_COOLDOWN = 0.7f;
-const float Iga::SCARED_COOLDOWN = 0.2f;
+const float Iga::LARGE_COOLDOWN = 3.0f;
+const float Iga::CALM_COOLDOWN = 1.0f;
+const float Iga::SCARED_COOLDOWN = 0.5f;
 const int Iga::IGA_LIVES = 8;
 Iga::Iga(Game* game, ElementState s)
     : Enemy(game, s, 0.0f)
     , mShootTimer(SHOOT_TIME)
     , mDirection(-1)
     , mBarrel(0.0f)
+    , mLargeCooldown(0.0f)
+    , mScareState(IgaState::Calm)
 {
     mLives = IGA_LIVES;
     mScareTimer = SCARE_TIME;
@@ -44,6 +47,11 @@ void Iga::OnUpdate(float deltaTime) {
             mState = ActorState::Destroy;
         }
     }
+    if (mLargeCooldown>0) {
+        mLargeCooldown -= deltaTime;
+    } else {
+        mLargeCooldown = 0.0f;
+    }
     if ( //Vira na direção correta
         (mGame->GetMainChar()->IsCharToLeft(mPosition) && mDirection>0) ||
         (!mGame->GetMainChar()->IsCharToLeft(mPosition) && mDirection<0)
@@ -58,16 +66,19 @@ void Iga::OnUpdate(float deltaTime) {
     }
 
 
-    if (mShootTimer<SHOOT_TIME) {
-        mBarrel += deltaTime;
-        if (mBarrel>Cooldown()) {
-            mBarrel -= Cooldown();
-            Shoot();
+    if (mLargeCooldown<=0) {
+        if(mShootTimer<SHOOT_TIME) {
+            mBarrel += deltaTime;
+            if (mBarrel>Cooldown()) {
+                mBarrel -= Cooldown();
+                Shoot();
+            }
+            mShootTimer+=deltaTime;
+        } else {
+            mShootTimer=SHOOT_TIME;
+            mLargeCooldown=LARGE_COOLDOWN;
         }
-        mShootTimer+=deltaTime;
-
     }
-
 }
 
 void Iga::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) {
@@ -127,7 +138,7 @@ void Iga::Shoot() {
     //calcula o tile na frente da Iga
     Vector2 pos = mPosition;
     Vector2 frontTile = Vector2(mDirection>0?pos.x+Game::TILE_SIZE:pos.x-Game::TILE_SIZE,
-                                pos.y+Game::TILE_SIZE);
+                                pos.y);
     Projectile::ProjectileType ProjectType = (mElement==ElementState::Fire)? Projectile::ProjectileType::Fire : Projectile::ProjectileType::Water;
     new Projectile(mGame,ProjectType,frontTile,mDirection,4.0f);
     const auto soundName = (ProjectType == Projectile::ProjectileType::Fire) ? "Fire.wav" : "Water.wav";

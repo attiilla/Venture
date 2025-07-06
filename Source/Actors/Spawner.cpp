@@ -25,7 +25,7 @@ void Spawner::OnUpdate(float deltaTime)
             auto enemy = new Gerold(GetGame());
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
-        } else if (mEnemy==0){
+        } else if (mEnemy==2){
             auto enemy = new enemy_1(GetGame());
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;

@@ -19,6 +19,13 @@ enum class ActorState
     Destroy
 };
 
+enum class ElementState
+{
+    Fire = 0,
+    Water = 1,
+    Neutral = 2,
+};
+
 class Actor
 {
 public:

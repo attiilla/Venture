@@ -317,7 +317,7 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile>10000) {
-                Spawner* s = new Spawner(this, 100, tile-10000);
+                Spawner* s = new Spawner(this, 1000, tile-10000);
                 s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             } else if (tile != -1) {
                 std::string string = formatTile(tile);

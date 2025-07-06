@@ -5,8 +5,9 @@
 #include "Enemy.h"
 #include "Actor.h"
 #include "../Game.h"
-Enemy::Enemy(Game* game, float forwardSpeed, float deathTime)
+Enemy::Enemy(Game* game, ElementState s, float forwardSpeed, float deathTime)
     : Actor(game)
+    , mElement(s)
     , mDyingTimer(deathTime)
     , mIsDying(false)
     , mForwardSpeed(forwardSpeed)

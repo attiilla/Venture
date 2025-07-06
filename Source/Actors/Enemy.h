@@ -10,7 +10,7 @@
 class Enemy : public Actor
 {
 public:
-    explicit Enemy(Game* game, float forwardSpeed = 100.0f, float deathTime = 0.5f);
+    explicit Enemy(Game* game, ElementState s, float forwardSpeed = 100.0f, float deathTime = 0.5f);
 
     virtual void OnUpdate(float deltaTime) override;
     virtual void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
@@ -23,6 +23,7 @@ protected:
     bool mIsDying;
     float mForwardSpeed;
     float mDyingTimer;
+    ElementState mElement;
     class RigidBodyComponent* mRigidBodyComponent;
     class DrawAnimatedComponent* mDrawComponent;
     class AABBColliderComponent* mColliderComponent;

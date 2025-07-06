@@ -6,11 +6,11 @@
 #include "Actor.h"
 #include "FlameEffect.h"
 
-enum class ElementState
+/*enum class ElementState
 {
     Fire = 0,
     Water = 1
-};
+};*/
 
 class MainChar : public Actor
 {

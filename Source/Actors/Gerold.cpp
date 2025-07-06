@@ -14,8 +14,8 @@ const float Gerold::SCARE_TIME = 3.0f;
 const float Gerold::STATE_DURATION = 2.0f;
 const float Gerold::JUMP_INTERVAL = 6.0f;
 
-Gerold::Gerold(Game* game, float forwardSpeed, float jumpSpeed, float deathTime)
-        : Enemy(game)
+Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, float deathTime)
+        : Enemy(game, s)
         , mJumpSpeed(jumpSpeed)
         , mScareTimer(SCARE_TIME)
         , mSleepState(GeroldState::Sleepy)
@@ -113,17 +113,12 @@ void Gerold::Jump() {
 
 void Gerold::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
 {
-    SDL_Log("Gerold::OnHorizontalCollision");
-    SDL_Log("Old velocity: %f, %f",mRigidBodyComponent->GetVelocity().x,mRigidBodyComponent->GetVelocity().y);
-    SDL_Log("minOverlap: %f", minOverlap);
     if (other->GetLayer() == ColliderLayer::Blocks || other->GetLayer() == ColliderLayer::Enemy)
     {
         if (minOverlap > 0) {
-            SDL_Log("New Velocity: %f;%f",-mBaseSpeed, mRigidBodyComponent->GetVelocity().y);
             mRigidBodyComponent->SetVelocity(Vector2(-mBaseSpeed, mRigidBodyComponent->GetVelocity().y));
         }
         else {
-            SDL_Log("New Velocity: %f;%f",mBaseSpeed, mRigidBodyComponent->GetVelocity().y);
             mRigidBodyComponent->SetVelocity(Vector2(mBaseSpeed, mRigidBodyComponent->GetVelocity().y));
         }
     }
@@ -144,23 +139,9 @@ void Gerold::ChangeState(GeroldState newState) {
     Vector2 v = mRigidBodyComponent->GetVelocity();
     float direction = v.x>0?1.0f:-1.0f;
     mSleepState = newState;
-    switch (newState) {
-        case GeroldState::Sleepy:{
-            //SDL_Log("Gerold is sleeepyy...");
-            mRigidBodyComponent->SetVelocity(Vector2(direction*mBaseSpeed/2, v.y));
-            break;
-        }
-        case GeroldState::Wake: {
-            //SDL_Log("Gerold is wake.");
-            mRigidBodyComponent->SetVelocity(Vector2(direction*mBaseSpeed, v.y));
-            break;
-        }
-        case GeroldState::Mad: {
-            //SDL_Log("Gerold is MAD!!!");
-            mRigidBodyComponent->SetVelocity(Vector2(1.5*direction*mBaseSpeed, v.y));
+    mRigidBodyComponent->SetVelocity(Vector2(direction*StateSpeed(), v.y));
+    if (mSleepState==GeroldState::Mad) {
             Jump();
-            break;
-        }
     }
 }
 

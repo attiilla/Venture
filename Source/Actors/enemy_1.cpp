@@ -13,7 +13,7 @@
 
 const float enemy_1::SCARE_TIME = 3.0f;
 enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime)
-        : Enemy(game)
+        : Enemy(game, ElementState::Neutral)
         , mScareTimer(SCARE_TIME)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);

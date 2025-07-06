@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(PROJECT_NAME "venture")
 project(${PROJECT_NAME})
 
-find_package(SDL2 2.32.2 EXACT REQUIRED)
+find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
@@ -61,8 +61,8 @@ add_executable(${PROJECT_NAME}
         Source/SpatialHashing.h
 		Source/Actors/Diamond.h
 		Source/Actors/Diamond.cpp
-        Source/Actors/Rope.h
-        Source/Actors/Rope.cpp
+        Source/Actors/Wood.h
+        Source/Actors/Wood.cpp
         Source/Actors/Projectile.cpp
         Source/Actors/Projectile.h
         Source/Components/DrawComponents/DrawModularComponent.h

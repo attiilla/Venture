@@ -30,7 +30,7 @@
 #include "Actors/Diamond.h"
 #include "Actors/Enemies/Junim.h"
 #include "Actors/Enemies/Gerold.h"
-#include "Actors/Rope.h"
+#include "Actors/Wood.h"
 #include "Actors/Spawner.h"
 #include "Actors/Checkpoint.h"
 #include "UIElements/BannerScreen.h"
@@ -314,6 +314,11 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 mChar = new MainChar(this);
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 SetLastCheckpoint(spawnPos);
+            }
+            else if (tile == 658 || tile == 722) {
+                std::string string = formatTile(tile);
+                Wood *wood = new Wood(this, "../Assets/Sprites/Blocks/" + string + ".png");
+                wood->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             //Mata água, sólido 708, 709
             else if (tile>=708 && tile<=709) {

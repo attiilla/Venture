@@ -186,5 +186,7 @@ float Gerold::Speed() {
             return mBaseSpeed;
         case GeroldState::Mad:
             return mBaseSpeed*2;
+        default:
+            return mBaseSpeed;
     }
 }

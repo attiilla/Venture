@@ -31,8 +31,8 @@ public:
     void SwapElement();
 
     bool IsCharToLeft(Vector2 position) const;
-    ElementState GetElement() { return mElement; }
-
+    ElementState GetElement() const { return mElement; }
+    void BloockKillCheck();
     float GetColliderHeight() const;
 private:
     static const int POLE_SLIDE_TIME = 1; // Time in seconds to slide down the pole

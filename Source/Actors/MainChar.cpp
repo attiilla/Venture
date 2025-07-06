@@ -357,6 +357,12 @@ void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderCompone
         other->GetOwner()->Kill();
         Kill();
     }
+    if (mElement==ElementState::Fire) {
+        if (other->GetLayer()==ColliderLayer::Ice || other->GetLayer()==ColliderLayer::Water) Kill();
+    }
+    else if (mElement==ElementState::Water) {
+        if (other->GetLayer()==ColliderLayer::Flame || other->GetLayer()==ColliderLayer::Lava) Kill();
+    }
 }
 
 void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other)
@@ -403,6 +409,12 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
     }else if (other->GetLayer() == ColliderLayer::Enemy_Projectile) {
         other->GetOwner()->Kill();
         Kill();
+    }
+    if (mElement==ElementState::Fire) {
+        if (other->GetLayer()==ColliderLayer::Ice || other->GetLayer()==ColliderLayer::Water) Kill();
+    }
+    else if (mElement==ElementState::Water) {
+        if (other->GetLayer()==ColliderLayer::Flame || other->GetLayer()==ColliderLayer::Lava) Kill();
     }
 }
 

@@ -8,9 +8,10 @@
 
 #include "../../Actors/Actor.h"
 #include "../../Game.h"
+#include "../../Actors/MainChar.h"
 
 AABBColliderComponent::AABBColliderComponent(class Actor* owner, int dx, int dy, int w, int h,
-        ColliderLayer layer, bool isStatic, int updateOrder)
+                                             ColliderLayer layer, bool isStatic, int updateOrder)
         :Component(owner, updateOrder)
         ,mOffset(Vector2((float)dx, (float)dy))
         ,mIsStatic(isStatic)
@@ -88,9 +89,7 @@ float AABBColliderComponent::DetectHorizontalCollision(RigidBodyComponent *rigid
         {
             float minHorizontalOverlap = GetMinHorizontalOverlap(collider);
 
-            if (collider->GetLayer()!=ColliderLayer::Coin &&
-                collider->GetLayer()!=ColliderLayer::Chest &&
-                collider->GetLayer()!=ColliderLayer::Enemy_Projectile) {
+            if (!Ignore(collider)) {
                 ResolveHorizontalCollisions(rigidBody, minHorizontalOverlap);
             }
 
@@ -130,9 +129,7 @@ float AABBColliderComponent::DetectVerticalCollision(RigidBodyComponent *rigidBo
             }
             float minVerticalOverlap = GetMinVerticalOverlap(collider);
 
-            if (collider->GetLayer()!=ColliderLayer::Coin &&
-                collider->GetLayer()!=ColliderLayer::Chest &&
-                collider->GetLayer()!=ColliderLayer::Enemy_Projectile) {
+            if (!Ignore(collider)) {
                 ResolveVerticalCollisions(rigidBody, minVerticalOverlap);
             }
 
@@ -159,4 +156,15 @@ void AABBColliderComponent::ResolveVerticalCollisions(RigidBodyComponent *rigidB
     if (minYOverlap > .0f) {
         mOwner->SetOnGround();
     }
+}
+
+bool AABBColliderComponent::Ignore(AABBColliderComponent* collider) {
+    bool acc = false;
+    auto mainChar = mOwner->GetGame()->GetMainChar();
+    acc = acc || collider->GetLayer()==ColliderLayer::Coin;
+    acc = acc || collider->GetLayer()==ColliderLayer::Chest;
+    acc = acc || collider->GetLayer()==ColliderLayer::Projectile;
+    acc = acc || collider->GetLayer()==ColliderLayer::Lava;
+    acc = acc || collider->GetLayer()==ColliderLayer::Water;
+    return acc;
 }

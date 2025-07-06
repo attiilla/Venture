@@ -33,6 +33,7 @@
 #include "Actors/Rope.h"
 #include "Actors/Spawner.h"
 #include "Actors/Checkpoint.h"
+#include "Actors/ElementBlock.h"
 #include "UIElements/UIScreen.h"
 #include "Components/DrawComponents/DrawComponent.h"
 #include "Components/DrawComponents/DrawSpriteComponent.h"
@@ -305,7 +306,30 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 SetLastCheckpoint(spawnPos);
             }
-
+            //Mata água, sólido 708, 709
+            else if (tile>=708 && tile<=709) {
+                std::string string = formatTile(tile);
+                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Water,false);
+                block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            //Mata fogo, sólido 640~647, 704~707
+            else if ((tile>=640 && tile<=647)||(tile>=704 && tile<=707)) {
+                std::string string = formatTile(tile);
+                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Fire,false);
+                block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            //Mata água, líquido 716~719
+            else if ((tile>=716 && tile<=719)) {
+                std::string string = formatTile(tile);
+                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Water,true);
+                block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            //Mata fogo, líquido 648~651, 712~715
+            else if ((tile>=648 && tile<=651)||(tile>=712 && tile<=715)) {
+                std::string string = formatTile(tile);
+                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Fire,true);
+                block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
             else if (tile > 0 && tile < 832 ) {
                 std::string string = formatTile(tile);
                 Block* block = new Block(this, "../Assets/Sprites/Blocks/" + string + ".png");
@@ -319,6 +343,7 @@ void Game::BuildLevel(int** levelData, int width, int height)
                     true);
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
+
             else if (tile>10000) {
                 // Ímpares: elemento fogo
                 // Pares:   elemento água

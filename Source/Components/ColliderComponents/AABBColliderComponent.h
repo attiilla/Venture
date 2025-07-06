@@ -22,7 +22,11 @@ enum class ColliderLayer
     Rope = 7,
     Projectile = 8,
     Checkpoint = 9,
-    Enemy_Projectile = 10
+    Enemy_Projectile = 10,
+    Flame = 11,
+    Ice = 12,
+    Lava = 13,
+    Water = 14,
 };
 
 class AABBColliderComponent : public Component
@@ -61,7 +65,7 @@ public:
 
     int GetWidth() const { return mWidth; }
     int GetHeight() const { return mHeight; }
-
+    bool Ignore(AABBColliderComponent* collider);
 private:
     float GetMinVerticalOverlap(AABBColliderComponent* b) const;
     float GetMinHorizontalOverlap(AABBColliderComponent* b) const;

@@ -22,7 +22,7 @@ public:
     void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
     AABBColliderComponent* GetCollider() const { return  mColliderComponent;};
 
-private:
+protected:
     const int BUMP_FORCE = 200;
 
     Vector2 mOriginalPosition;

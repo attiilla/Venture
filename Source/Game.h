@@ -118,6 +118,8 @@ public:
     void SetLastCheckpoint(const Vector2& cp) { mLastCheckpoint = cp; }
     const Vector2& GetLastCheckpoint() const    { return mLastCheckpoint; }
 
+    SDL_Renderer* GetRenderer() const { return mRenderer; }
+
 private:
     bool mSeeHitbox;
     void ProcessInput();

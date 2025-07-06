@@ -42,6 +42,9 @@ Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position,
                                                     "../Assets/Sprites/Projectiles/Fire/Fireball.png",
                                                     "../Assets/Sprites/Projectiles/Fire/Fireball.json");
         }
+        mDrawComponent->AddAnimation("Standard", {0,1,2,3,4,5,6,7,8});
+        mDrawComponent->SetAnimation("Standard");
+        mDrawComponent->SetAnimFPS(9.0f);
     } else {
         if (mType == ProjectileType::Water) {
             mDrawComponent = new DrawAnimatedComponent(this,
@@ -52,12 +55,13 @@ Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position,
                                                    "../Assets/Sprites/Projectiles/EnemyProjectiles/EnemyProjFire.png",
                                                    "../Assets/Sprites/Projectiles/EnemyProjectiles/EnemyProjFire.json");
         }
+        mDrawComponent->AddAnimation("Standard", {0});
+        mDrawComponent->SetAnimation("Standard");
+        mDrawComponent->SetAnimFPS(9.0f);
     }
 
 
-    mDrawComponent->AddAnimation("Standard", {0,1,2,3,4,5,6,7,8});
-    mDrawComponent->SetAnimation("Standard");
-    mDrawComponent->SetAnimFPS(9.0f);
+
 }
 
 void Projectile::OnUpdate(float deltaTime) {

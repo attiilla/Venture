@@ -40,7 +40,7 @@ Junim::Junim(Game* game, ElementState s)
         mDrawComponent->AddAnimation("Walk", {3, 4, 5});
     }
 
-    mDrawComponent->SetAnimation("walk");
+    mDrawComponent->SetAnimation("Walk");
     mDrawComponent->SetAnimFPS(5.0f);
 }
 

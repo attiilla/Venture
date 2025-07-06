@@ -42,7 +42,7 @@ Iga::Iga(Game* game, ElementState s)
         mDrawComponent->AddAnimation("Walk", {4, 5, 6, 7});
     }
 
-    mDrawComponent->SetAnimation("walk");
+    mDrawComponent->SetAnimation("Walk");
     mDrawComponent->SetAnimFPS(5.0f);
 }
 

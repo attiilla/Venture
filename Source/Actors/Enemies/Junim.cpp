@@ -27,12 +27,19 @@ Junim::Junim(Game* game, ElementState s)
                                                    ColliderLayer::Enemy);
 
     mDrawComponent = new DrawAnimatedComponent(this,
-                                                  "../Assets/Sprites/Goomba/Goomba.png",
-                                                  "../Assets/Sprites/Goomba/Goomba.json");
+                                                  "../Assets/Sprites/Enemies/Junim/Junim.png",
+                                                  "../Assets/Sprites/Enemies/Junim/Junim.json");
 
-    mDrawComponent->AddAnimation("Dead", {0});
-    mDrawComponent->AddAnimation("Idle", {1});
-    mDrawComponent->AddAnimation("walk", {1, 2});
+    if (s == ElementState::Fire) {
+        mDrawComponent->AddAnimation("Dead", {0});
+        mDrawComponent->AddAnimation("Idle", {0});
+        mDrawComponent->AddAnimation("Walk", {0, 1, 2});
+    } else {
+        mDrawComponent->AddAnimation("Dead", {3});
+        mDrawComponent->AddAnimation("Idle", {3});
+        mDrawComponent->AddAnimation("Walk", {3, 4, 5});
+    }
+
     mDrawComponent->SetAnimation("walk");
     mDrawComponent->SetAnimFPS(5.0f);
 }

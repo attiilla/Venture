@@ -12,7 +12,7 @@ public:
         Water = 1
     };
 
-    Projectile(Game* game, ProjectileType type, const Vector2& position, float direction, float lifetime, bool from_enemy = false);
+    Projectile(Game* game, ProjectileType type, const Vector2& position, float direction, float lifetime, bool fromPlayer = true);
 
     void OnUpdate(float deltaTime) override;
     void OnHorizontalCollision(float minOverlap, AABBColliderComponent* other) override;

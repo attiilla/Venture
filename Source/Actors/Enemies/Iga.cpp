@@ -29,12 +29,19 @@ Iga::Iga(Game* game, ElementState s)
                                                    ColliderLayer::Enemy);
 
     mDrawComponent = new DrawAnimatedComponent(this,
-                                                  "../Assets/Sprites/Goomba/Goomba.png",
-                                                  "../Assets/Sprites/Goomba/Goomba.json");
+                                                  "../Assets/Sprites/Enemies/Iga/Iga.png",
+                                                  "../Assets/Sprites/Enemies/Iga/Iga.json");
 
-    mDrawComponent->AddAnimation("Dead", {0});
-    mDrawComponent->AddAnimation("Idle", {1});
-    mDrawComponent->AddAnimation("walk", {1, 2});
+    if (s == ElementState::Fire) {
+        mDrawComponent->AddAnimation("Dead", {0});
+        mDrawComponent->AddAnimation("Idle", {0});
+        mDrawComponent->AddAnimation("Walk", {0, 1, 2, 3});
+    } else {
+        mDrawComponent->AddAnimation("Dead", {4});
+        mDrawComponent->AddAnimation("Idle", {4});
+        mDrawComponent->AddAnimation("Walk", {4, 5, 6, 7});
+    }
+
     mDrawComponent->SetAnimation("walk");
     mDrawComponent->SetAnimFPS(5.0f);
 }
@@ -140,7 +147,7 @@ void Iga::Shoot() {
     Vector2 frontTile = Vector2(mDirection>0?pos.x+Game::TILE_SIZE:pos.x-Game::TILE_SIZE,
                                 pos.y);
     Projectile::ProjectileType ProjectType = (mElement==ElementState::Fire)? Projectile::ProjectileType::Fire : Projectile::ProjectileType::Water;
-    new Projectile(mGame,ProjectType,frontTile,mDirection,4.0f, true);
+    new Projectile(mGame,ProjectType,frontTile,mDirection,4.0f, false);
     const auto soundName = (ProjectType == Projectile::ProjectileType::Fire) ? "Fire.wav" : "Water.wav";
     if (const auto temp = mGame->GetAudio()->PlaySound(soundName, false); !temp.IsValid()) {
         SDL_Log("Failed to play shoot sound");

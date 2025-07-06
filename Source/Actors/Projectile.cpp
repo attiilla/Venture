@@ -10,7 +10,7 @@
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawSpriteComponent.h"
 
-Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position, float direction, const float lifetime, bool from_enemy)
+Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position, float direction, const float lifetime, bool fromPlayer)
     : Actor(game)
       , mType(type)
       , mLifeTime(lifetime) {
@@ -28,19 +28,32 @@ Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position,
     {
         SetRotation(0.0f);
     }
-    auto layer = from_enemy?ColliderLayer::Enemy_Projectile:ColliderLayer::Projectile;
+    auto layer = fromPlayer?ColliderLayer::Projectile:ColliderLayer::Enemy_Projectile;
     mColliderComponent = new AABBColliderComponent(this, 0, 0, 21, 9,
                                                    layer);
 
-    if (mType == ProjectileType::Water) {
-        mDrawComponent = new DrawAnimatedComponent(this,
-                                                   "../Assets/Sprites/Projectiles/Water/Waterball.png",
-                                                   "../Assets/Sprites/Projectiles/Water/Waterball.json");
+    if (fromPlayer) {
+        if (mType == ProjectileType::Water) {
+            mDrawComponent = new DrawAnimatedComponent(this,
+                                                    "../Assets/Sprites/Projectiles/Water/Waterball.png",
+                                                    "../Assets/Sprites/Projectiles/Water/Waterball.json");
+        } else {
+            mDrawComponent = new DrawAnimatedComponent(this,
+                                                    "../Assets/Sprites/Projectiles/Fire/Fireball.png",
+                                                    "../Assets/Sprites/Projectiles/Fire/Fireball.json");
+        }
     } else {
-        mDrawComponent = new DrawAnimatedComponent(this,
-                                                   "../Assets/Sprites/Projectiles/Fire/Fireball.png",
-                                                   "../Assets/Sprites/Projectiles/Fire/Fireball.json");
+        if (mType == ProjectileType::Water) {
+            mDrawComponent = new DrawAnimatedComponent(this,
+                                                   "../Assets/Sprites/Projectiles/EnemyProjectiles/EnemyProjWater.png",
+                                                   "../Assets/Sprites/Projectiles/EnemyProjectiles/EnemyProjWater.json");
+        } else {
+            mDrawComponent = new DrawAnimatedComponent(this,
+                                                   "../Assets/Sprites/Projectiles/EnemyProjectiles/EnemyProjFire.png",
+                                                   "../Assets/Sprites/Projectiles/EnemyProjectiles/EnemyProjFire.json");
+        }
     }
+
 
     mDrawComponent->AddAnimation("Standard", {0,1,2,3,4,5,6,7,8});
     mDrawComponent->SetAnimation("Standard");

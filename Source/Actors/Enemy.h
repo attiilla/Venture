@@ -16,6 +16,8 @@ public:
     virtual void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
     virtual void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
     virtual void Damage(int d);
+    virtual float Speed();
+    virtual void Pursuit(float deltaTime, int scare_time);
 
     void Kill() override;
     bool FloorForward();
@@ -24,6 +26,7 @@ protected:
     bool mIsDying;
     float mForwardSpeed;
     float mDyingTimer;
+    float mScareTimer;
     ElementState mElement;
     class RigidBodyComponent* mRigidBodyComponent;
     class DrawAnimatedComponent* mDrawComponent;

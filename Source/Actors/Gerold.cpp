@@ -18,7 +18,6 @@ const int Gerold::GEROLD_LIVES = 3;
 Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, float deathTime)
         : Enemy(game, s)
         , mJumpSpeed(jumpSpeed)
-        , mScareTimer(SCARE_TIME)
         , mSleepState(GeroldState::Sleepy)
         , mStateTimer(0.0f)
         , mJumpTimer(JUMP_INTERVAL)
@@ -26,7 +25,7 @@ Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, 
         , mLives(GEROLD_LIVES)
         , mBaseSpeed(forwardSpeed)
 {
-
+    mScareTimer = SCARE_TIME;
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
     mRigidBodyComponent->SetVelocity(Vector2(-mBaseSpeed/2, 0.0f));
 
@@ -45,8 +44,7 @@ Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, 
     mDrawComponent->SetAnimFPS(5.0f);
 }
 
-void Gerold::OnUpdate(float deltaTime)
-{
+void Gerold::OnUpdate(float deltaTime) {
     if (mIsDying)
     {
         mDyingTimer -= deltaTime;
@@ -64,25 +62,7 @@ void Gerold::OnUpdate(float deltaTime)
     float vx = mRigidBodyComponent->GetVelocity().x;
     float vy = mRigidBodyComponent->GetVelocity().y;
     // Evita buraco
-    if (mIsOnGround && !FloorForward()) {
-        mScareTimer = -deltaTime;
-        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
-    }
-
-
-    if(mGame->GetMainChar()->IsCharToLeft(mPosition) && vx >= 0.0f) { //personagem a esquerda enquanto inimigo se move para direita
-        if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
-            mScareTimer += deltaTime;
-        } else { //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
-            mRigidBodyComponent->SetVelocity(Vector2(-StateSpeed(), vy));
-        }
-    } else if (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx <= 0.0f) { //personagem a direita enquanto inimigo se move para esquerda
-        if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
-            mScareTimer += deltaTime;
-        } else { //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
-            mRigidBodyComponent->SetVelocity(Vector2(StateSpeed(), vy));
-        }
-    }
+    Pursuit(deltaTime,SCARE_TIME);
 
     //Controla a lógica da mudança de estado
     mStateTimer += deltaTime;
@@ -151,7 +131,7 @@ void Gerold::ChangeState(GeroldState newState) {
     Vector2 v = mRigidBodyComponent->GetVelocity();
     float direction = v.x>0?1.0f:-1.0f;
     mSleepState = newState;
-    mRigidBodyComponent->SetVelocity(Vector2(direction*StateSpeed(), v.y));
+    mRigidBodyComponent->SetVelocity(Vector2(direction*Speed(), v.y));
     if (mSleepState==GeroldState::Mad) {
             Jump();
     }
@@ -180,7 +160,7 @@ GeroldState Gerold::DecideNextState(int i) {
     }
 }
 
-float Gerold::StateSpeed() {
+float Gerold::Speed() {
     switch (mSleepState){
         case GeroldState::Sleepy:
             return mBaseSpeed*0.5;

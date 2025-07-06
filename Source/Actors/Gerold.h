@@ -29,10 +29,9 @@ public:
     void ChangeState(GeroldState newState);
     void Damage(int d) override;
     GeroldState DecideNextState(int i);
-    float StateSpeed();
+    float Speed() override;
 private:
     float mJumpSpeed;
-    float mScareTimer;
     float mStateTimer;
     float mJumpTimer;
     float mBaseSpeed;

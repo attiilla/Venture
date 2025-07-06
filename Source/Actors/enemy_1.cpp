@@ -14,8 +14,8 @@
 const float enemy_1::SCARE_TIME = 3.0f;
 enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime)
         : Enemy(game, ElementState::Neutral)
-        , mScareTimer(SCARE_TIME)
 {
+    mScareTimer = SCARE_TIME;
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
     mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, 0.0f));
 
@@ -43,28 +43,11 @@ void enemy_1::OnUpdate(float deltaTime)
             mState = ActorState::Destroy;
         }
     }
-    if (GetPosition().y > GetGame()->GetWindowHeight())
+    /*if (GetPosition().y > GetGame()->GetWindowHeight())
     {
         mState = ActorState::Destroy;
-    }
-
-    float vx = mRigidBodyComponent->GetVelocity().x;
-    float vy = mRigidBodyComponent->GetVelocity().y;
-    if (!FloorForward()) {
-        mScareTimer = -deltaTime;
-        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
-    }
-    if(
-        (mGame->GetMainChar()->IsCharToLeft(mPosition) && vx > 0.0f) || //char to left and enemy going to right
-        (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx < 0.0f)   //char to right and enemy going to left
-      )
-    {
-        if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
-            mScareTimer += deltaTime;
-        } else { //se o NPC não está se afastando de um buraco, ele vira na direção do MainChar
-            mRigidBodyComponent->SetVelocity(Vector2(-vx, mRigidBodyComponent->GetVelocity().y));
-        }
-    }
+    }*/
+    Pursuit(deltaTime, SCARE_TIME);
 }
 
 
@@ -91,5 +74,4 @@ void enemy_1::OnVerticalCollision(const float minOverlap, AABBColliderComponent*
         other->GetOwner()->Kill();
     }
 }
-
 

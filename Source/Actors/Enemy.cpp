@@ -4,6 +4,7 @@
 
 #include "Enemy.h"
 #include "Actor.h"
+#include "MainChar.h"
 #include "../Game.h"
 Enemy::Enemy(Game* game, ElementState s, float forwardSpeed, float deathTime)
     : Actor(game)
@@ -31,6 +32,28 @@ void Enemy::Kill() {
     //mGame->AddScore(500);
 }
 
+float Enemy::Speed() {
+    return mForwardSpeed;
+}
+
+void Enemy::Pursuit(float deltaTime, int scare_time) {
+    float vx = mRigidBodyComponent->GetVelocity().x;
+    float vy = mRigidBodyComponent->GetVelocity().y;
+    // Evita buraco
+    if (!FloorForward()) {
+        mScareTimer = -deltaTime;
+        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
+    }
+
+    if (mScareTimer<scare_time) { // true se o NPC está se afastando de um buraco
+        mScareTimer += deltaTime;
+    } else //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
+    if(mGame->GetMainChar()->IsCharToLeft(mPosition) && vx >= 0.0f) { //personagem a esquerda enquanto inimigo se move para direita
+        mRigidBodyComponent->SetVelocity(Vector2(-Speed(), vy));
+    } else if (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx <= 0.0f) { //personagem a direita enquanto inimigo se move para esquerda
+        mRigidBodyComponent->SetVelocity(Vector2(Speed(), vy));
+    }
+}
 
 bool Enemy::FloorForward(){
    

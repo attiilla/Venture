@@ -245,6 +245,14 @@ void Game::LoadMainMenu()
         SetGameScene(GameScene::Level1);
     });
 
+    Actor* bg = new Actor(this);
+    bg->SetPosition(Vector2(0.0f, 0.0f));
+    new DrawSpriteComponent(bg,
+                            "../Assets/Sprites/MenuBackground.png",
+                            mWindowWidth,
+                            mWindowHeight,
+                            /*drawOrder=*/0);
+
     const Vector2 titleSize = Vector2(384.0f, 256.0f);
     const Vector2 titlePos = Vector2(mWindowWidth/2.0f - titleSize.x/2.0f, 50.0f);
     mainMenu->AddImage(mRenderer, "../Assets/Sprites/Logo2.png", titlePos, titleSize);
@@ -564,6 +572,14 @@ void Game::TogglePause()
             } else {
                 SDL_Log("Playing musical effect: PauseOn.wav");
             }
+
+            mPauseScreen = new UIScreen(this, "../Assets/Fonts/SMB.ttf");
+            mPauseScreen->AddImage(
+                mRenderer,
+                "../Assets/Sprites/PauseOverlay.png",
+                Vector2(0.0f, 0.0f),
+                Vector2((float)mWindowWidth, (float)mWindowHeight)
+            );
         }
         else if (mGamePlayState == GamePlayState::Paused)
         {
@@ -576,6 +592,12 @@ void Game::TogglePause()
                 SDL_Log("Failed to play background music: PauseOff.wav");
             } else {
                 SDL_Log("Playing musical effect: PauseOff.wav");
+            }
+
+            if (mPauseScreen)
+            {
+                mPauseScreen->Close();
+                mPauseScreen = nullptr;
             }
         }
     }

@@ -176,4 +176,6 @@ private:
     Vector2 mBackgroundPosition;
     unsigned int mScore;
     unsigned int mCoinCount;
+
+    UIScreen* mPauseScreen = nullptr;
 };

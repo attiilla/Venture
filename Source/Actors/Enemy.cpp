@@ -37,22 +37,27 @@ float Enemy::Speed() {
     return mForwardSpeed;
 }
 
-void Enemy::Pursuit(float deltaTime, int scare_time) {
-    float vx = mRigidBodyComponent->GetVelocity().x;
-    float vy = mRigidBodyComponent->GetVelocity().y;
-    // Evita buraco
-    if (!FloorForward()) {
-        mScareTimer = -deltaTime;
-        mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
+void Enemy::AvoidHole(float deltaTime, Vector2 velocity) {
+    if (mRigidBodyComponent!=nullptr) {
+        if (!FloorForward() && mIsOnGround) {
+            mScareTimer = -deltaTime;
+            mRigidBodyComponent->SetVelocity(Vector2(-velocity.x, velocity.y));
+        }
     }
+}
 
-    if (mScareTimer<scare_time) { // true se o NPC está se afastando de um buraco
-        mScareTimer += deltaTime;
-    } else //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
-    if(mGame->GetMainChar()->IsCharToLeft(mPosition) && vx >= 0.0f) { //personagem a esquerda enquanto inimigo se move para direita
-        mRigidBodyComponent->SetVelocity(Vector2(-Speed(), vy));
-    } else if (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx <= 0.0f) { //personagem a direita enquanto inimigo se move para esquerda
-        mRigidBodyComponent->SetVelocity(Vector2(Speed(), vy));
+
+void Enemy::Pursuit(float deltaTime, int scare_time, Vector2 velocity) {
+    if (mRigidBodyComponent!=nullptr) {
+        // Evita buraco
+        if (mScareTimer<scare_time) { // true se o NPC está se afastando de um buraco
+            mScareTimer += deltaTime;
+        } else //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
+            if(mGame->GetMainChar()->IsCharToLeft(mPosition) && velocity.x >= 0.0f) { //personagem a esquerda enquanto inimigo se move para direita
+                mRigidBodyComponent->SetVelocity(Vector2(-Speed(), velocity.y));
+            } else if (!mGame->GetMainChar()->IsCharToLeft(mPosition) && velocity.x <= 0.0f) { //personagem a direita enquanto inimigo se move para esquerda
+                mRigidBodyComponent->SetVelocity(Vector2(Speed(), velocity.y));
+            }
     }
 }
 

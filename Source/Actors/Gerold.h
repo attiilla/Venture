@@ -25,6 +25,7 @@ public:
     void OnUpdate(float deltaTime) override;
     void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
     void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
+    void AvoidHole(float deltaTime, Vector2 velocity) override;
     void Jump();
     void ChangeState(GeroldState newState);
     void Damage(int d) override;

@@ -59,10 +59,14 @@ void Gerold::OnUpdate(float deltaTime) {
     }*/
 
 
-    float vx = mRigidBodyComponent->GetVelocity().x;
-    float vy = mRigidBodyComponent->GetVelocity().y;
+    Vector2 velocity = mRigidBodyComponent->GetVelocity();
+
+
+    // Persegue o jogador
+    Pursuit(deltaTime,SCARE_TIME,velocity);
+
     // Evita buraco
-    Pursuit(deltaTime,SCARE_TIME);
+    AvoidHole(deltaTime,velocity);
 
     //Controla a lógica da mudança de estado
     mStateTimer += deltaTime;
@@ -77,6 +81,15 @@ void Gerold::OnUpdate(float deltaTime) {
         mJumpTimer = JUMP_INTERVAL;
         if (mSleepState == GeroldState::Mad) {
             Jump();
+        }
+    }
+}
+
+void Gerold::AvoidHole(float deltaTime,Vector2 velocity) {
+    if (mRigidBodyComponent!=nullptr) {
+        if (!FloorForward() && mIsOnGround) {
+            mRigidBodyComponent->SetVelocity(Vector2(0, velocity.y));
+            //SetPosition(Vector2(static_cast<int>(mPosition.x/32),static_cast<int>(mPosition.y/32)));
         }
     }
 }

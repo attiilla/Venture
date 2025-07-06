@@ -17,8 +17,8 @@ public:
     virtual void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
     virtual void Damage(int d);
     virtual float Speed();
-    virtual void Pursuit(float deltaTime, int scare_time);
-
+    virtual void AvoidHole(float deltaTime, Vector2 velocity);
+    void Pursuit(float deltaTime, int scare_time, Vector2 velocity);
     void Kill() override;
     bool FloorForward();
     ElementState GetElement() const { return mElement; }

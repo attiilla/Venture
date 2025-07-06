@@ -50,7 +50,12 @@ void Junim::OnUpdate(float deltaTime)
     {
         mState = ActorState::Destroy;
     }*/
-    Pursuit(deltaTime, SCARE_TIME);
+    Vector2 velocity = mRigidBodyComponent->GetVelocity();
+    // Evita buraco
+    AvoidHole(deltaTime, velocity);
+
+    // Persegue o jogador
+    Pursuit(deltaTime, SCARE_TIME, velocity);
 }
 
 void Junim::Damage(int d) {

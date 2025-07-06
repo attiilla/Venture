@@ -27,11 +27,13 @@ public:
     void Jump();
     void ChangeState(GeroldState newState);
     GeroldState DecideNextState(int i);
+    float StateSpeed();
 private:
     float mJumpSpeed;
     float mScareTimer;
     float mStateTimer;
     float mJumpTimer;
+    float mBaseSpeed;
     int mStateCounter;
     GeroldState mSleepState;
 };

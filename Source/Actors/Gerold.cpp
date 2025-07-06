@@ -22,10 +22,11 @@ Gerold::Gerold(Game* game, float forwardSpeed, float jumpSpeed, float deathTime)
         , mStateTimer(0.0f)
         , mJumpTimer(JUMP_INTERVAL)
         , mStateCounter(0)
+        , mBaseSpeed(forwardSpeed)
 {
 
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f);
-    mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed/2, 0.0f));
+    mRigidBodyComponent->SetVelocity(Vector2(-mBaseSpeed/2, 0.0f));
 
     mColliderComponent = new AABBColliderComponent(this, 0, 0,
                                                    Game::TILE_SIZE, Game::TILE_SIZE,
@@ -67,15 +68,17 @@ void Gerold::OnUpdate(float deltaTime)
     }
 
 
-    if(
-        (mGame->GetMainChar()->IsCharToLeft(mPosition) && vx > 0.0f) || //personagem a esquerda enquanto inimigo se move para direita
-        (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx < 0.0f)   //personagem a direita enquanto inimigo se move para esquerda
-      )
-    {
+    if(mGame->GetMainChar()->IsCharToLeft(mPosition) && vx >= 0.0f) { //personagem a esquerda enquanto inimigo se move para direita
         if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
             mScareTimer += deltaTime;
         } else { //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
-            mRigidBodyComponent->SetVelocity(Vector2(-vx, vy));
+            mRigidBodyComponent->SetVelocity(Vector2(-StateSpeed(), vy));
+        }
+    } else if (!mGame->GetMainChar()->IsCharToLeft(mPosition) && vx <= 0.0f) { //personagem a direita enquanto inimigo se move para esquerda
+        if (mScareTimer<SCARE_TIME) { // true se o NPC está se afastando de um buraco
+            mScareTimer += deltaTime;
+        } else { //faz o inimigo perseguir o jogador se ele não estiver se afastando de um buraco
+            mRigidBodyComponent->SetVelocity(Vector2(StateSpeed(), vy));
         }
     }
 
@@ -110,13 +113,18 @@ void Gerold::Jump() {
 
 void Gerold::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
 {
-    if ((other->GetLayer() == ColliderLayer::Blocks || other->GetLayer() == ColliderLayer::Enemy))
+    SDL_Log("Gerold::OnHorizontalCollision");
+    SDL_Log("Old velocity: %f, %f",mRigidBodyComponent->GetVelocity().x,mRigidBodyComponent->GetVelocity().y);
+    SDL_Log("minOverlap: %f", minOverlap);
+    if (other->GetLayer() == ColliderLayer::Blocks || other->GetLayer() == ColliderLayer::Enemy)
     {
         if (minOverlap > 0) {
-            mRigidBodyComponent->SetVelocity(Vector2(-mForwardSpeed, mRigidBodyComponent->GetVelocity().y));
+            SDL_Log("New Velocity: %f;%f",-mBaseSpeed, mRigidBodyComponent->GetVelocity().y);
+            mRigidBodyComponent->SetVelocity(Vector2(-mBaseSpeed, mRigidBodyComponent->GetVelocity().y));
         }
         else {
-            mRigidBodyComponent->SetVelocity(Vector2(mForwardSpeed, mRigidBodyComponent->GetVelocity().y));
+            SDL_Log("New Velocity: %f;%f",mBaseSpeed, mRigidBodyComponent->GetVelocity().y);
+            mRigidBodyComponent->SetVelocity(Vector2(mBaseSpeed, mRigidBodyComponent->GetVelocity().y));
         }
     }
 
@@ -139,17 +147,17 @@ void Gerold::ChangeState(GeroldState newState) {
     switch (newState) {
         case GeroldState::Sleepy:{
             //SDL_Log("Gerold is sleeepyy...");
-            mRigidBodyComponent->SetVelocity(Vector2(direction*mForwardSpeed/2, v.y));
+            mRigidBodyComponent->SetVelocity(Vector2(direction*mBaseSpeed/2, v.y));
             break;
         }
         case GeroldState::Wake: {
             //SDL_Log("Gerold is wake.");
-            mRigidBodyComponent->SetVelocity(Vector2(direction*mForwardSpeed, v.y));
+            mRigidBodyComponent->SetVelocity(Vector2(direction*mBaseSpeed, v.y));
             break;
         }
         case GeroldState::Mad: {
             //SDL_Log("Gerold is MAD!!!");
-            mRigidBodyComponent->SetVelocity(Vector2(1.5*direction*mForwardSpeed, v.y));
+            mRigidBodyComponent->SetVelocity(Vector2(1.5*direction*mBaseSpeed, v.y));
             Jump();
             break;
         }
@@ -176,5 +184,16 @@ GeroldState Gerold::DecideNextState(int i) {
             return GeroldState::Mad;
         default:
             return GeroldState::Sleepy;
+    }
+}
+
+float Gerold::StateSpeed() {
+    switch (mSleepState){
+        case GeroldState::Sleepy:
+            return mBaseSpeed*0.5;
+        case GeroldState::Wake:
+            return mBaseSpeed;
+        case GeroldState::Mad:
+            return mBaseSpeed*2;
     }
 }

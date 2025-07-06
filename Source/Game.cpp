@@ -311,7 +311,12 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 std::string string = formatTile(tile);
                 Diamond* d = new Diamond(this,"../Assets/Sprites/Blocks/"+string+".png");
                 d->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-            }else if (tile>10000) {
+            }else if (tile==842) {
+                Block* block = new Block(this, "../Assets/Sprites/Blocks/0842.png",true,
+                    true);
+                block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            else if (tile>10000) {
                 Spawner* s = new Spawner(this, 100, tile-10000);
                 s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             } else if (tile != -1) {

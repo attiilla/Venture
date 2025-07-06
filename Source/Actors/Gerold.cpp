@@ -52,10 +52,10 @@ void Gerold::OnUpdate(float deltaTime)
         }
     }
 
-    if (GetPosition().y > GetGame()->GetWindowHeight())
+    /*if (GetPosition().y > GetGame()->GetWindowHeight())
     {
         mState = ActorState::Destroy;
-    }
+    }*/
 
 
     float vx = mRigidBodyComponent->GetVelocity().x;

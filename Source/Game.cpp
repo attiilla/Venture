@@ -853,12 +853,12 @@ void Game::UnloadScene()
 
 void Game::IncreaseDiamond() {
     mDiamondCount++;
-    mHUD->SetCoinCount(mDiamondCount);
+    mHUD->SetDiamondCount(mDiamondCount);
 }
 
 void Game::DecreaseDiamond() {
     mDiamondCount--;
-    mHUD->SetCoinCount(mDiamondCount);
+    mHUD->SetDiamondCount(mDiamondCount);
 }
 
 void Game::AddScore(const int score) {
@@ -871,7 +871,7 @@ unsigned int Game::GetDiamondCount() const
     return mDiamondCount;
 }
 
-void Game::ResetCoins() {
+void Game::ResetDiamonds() {
     mDiamondCount = 0;
 }
 

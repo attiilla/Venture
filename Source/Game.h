@@ -86,7 +86,7 @@ public:
     unsigned int GetDiamondCount() const;
     void AddScore(const int score);
     void ResetScore();
-    void ResetCoins();
+    void ResetDiamonds();
     void WinGame();
 
     // Window functions

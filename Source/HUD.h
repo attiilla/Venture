@@ -27,11 +27,11 @@ public:
 
     void SetScore(unsigned int score);
 
-    void SetCoinCount(unsigned int coinCount);
+    void SetDiamondCount(unsigned int coinCount);
 private:
     // HUD elements
     UIText* mWinText;
-    UIText* mCoinsCounter;
+    UIText* mDiamondsCounter;
     UIText* mScoreCounter;
     UIText* mLevelName;
     UIText* mLivesCount;

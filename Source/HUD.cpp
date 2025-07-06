@@ -47,7 +47,7 @@ HUD::HUD(class Game* game, const std::string& fontName)
         Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
 
-    mCoinsCounter = AddText("000",
+    mDiamondsCounter = AddText("000",
     Vector2(WORD_OFFSET+ (9 * CHAR_WIDTH), HUD_POS_Y+WORD_HEIGHT),
         Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
@@ -90,12 +90,12 @@ void HUD::SetLevelName(const std::string &levelName)
     mLevelName->SetText(levelName);
 }
 
-void HUD::SetCoinCount(const unsigned int coinCount)
+void HUD::SetDiamondCount(const unsigned int coinCount)
 {
-    std::string sCoins = std::to_string(coinCount);
-    int offset = 3-sCoins.length();
+    std::string sDiamonds = std::to_string(coinCount);
+    int offset = 3-sDiamonds.length();
     std::string prefix = std::string(offset, '0');
-    mCoinsCounter->SetText(prefix + sCoins);
+    mDiamondsCounter->SetText(prefix + sDiamonds);
 }
 
 void HUD::SetScore(const unsigned int score) {

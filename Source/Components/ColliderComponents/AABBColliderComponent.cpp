@@ -88,7 +88,9 @@ float AABBColliderComponent::DetectHorizontalCollision(RigidBodyComponent *rigid
         {
             float minHorizontalOverlap = GetMinHorizontalOverlap(collider);
 
-            if (collider->GetLayer()!=ColliderLayer::Coin && collider->GetLayer()!=ColliderLayer::Chest) {
+            if (collider->GetLayer()!=ColliderLayer::Coin &&
+                collider->GetLayer()!=ColliderLayer::Chest &&
+                collider->GetLayer()!=ColliderLayer::Enemy_Projectile) {
                 ResolveHorizontalCollisions(rigidBody, minHorizontalOverlap);
             }
 
@@ -123,9 +125,14 @@ float AABBColliderComponent::DetectVerticalCollision(RigidBodyComponent *rigidBo
 
         if (Intersect(*collider))
         {
+            if (collider->GetLayer()==ColliderLayer::Projectile) {
+                SDL_Log("ColliderLayer::Projectile");
+            }
             float minVerticalOverlap = GetMinVerticalOverlap(collider);
 
-            if (collider->GetLayer()!=ColliderLayer::Coin && collider->GetLayer()!=ColliderLayer::Chest) {
+            if (collider->GetLayer()!=ColliderLayer::Coin &&
+                collider->GetLayer()!=ColliderLayer::Chest &&
+                collider->GetLayer()!=ColliderLayer::Enemy_Projectile) {
                 ResolveVerticalCollisions(rigidBody, minVerticalOverlap);
             }
 

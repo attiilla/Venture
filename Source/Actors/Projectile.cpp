@@ -10,7 +10,7 @@
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawSpriteComponent.h"
 
-Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position, float direction, const float lifetime)
+Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position, float direction, const float lifetime, bool from_enemy)
     : Actor(game)
       , mType(type)
       , mLifeTime(lifetime) {
@@ -28,9 +28,9 @@ Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position,
     {
         SetRotation(0.0f);
     }
-
+    auto layer = from_enemy?ColliderLayer::Enemy_Projectile:ColliderLayer::Projectile;
     mColliderComponent = new AABBColliderComponent(this, 0, 0, 21, 9,
-                                                   ColliderLayer::Projectile);
+                                                   layer);
 
     if (mType == ProjectileType::Water) {
         mDrawComponent = new DrawAnimatedComponent(this,
@@ -56,7 +56,7 @@ void Projectile::OnUpdate(float deltaTime) {
 
 void Projectile::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) {
     if (other->GetLayer() == ColliderLayer::PlayerW || other->GetLayer() == ColliderLayer::PlayerF) {
-        return;
+        other->GetOwner()->Kill();
     }
 
     if (other->GetLayer() == ColliderLayer::Enemy) {
@@ -79,7 +79,7 @@ void Projectile::OnHorizontalCollision(const float minOverlap, AABBColliderCompo
 
 void Projectile::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) {
     if (other->GetLayer() == ColliderLayer::PlayerW || other->GetLayer() == ColliderLayer::PlayerF) {
-        return;
+        other->GetOwner()->Kill();
     }
 
     if (other->GetLayer() == ColliderLayer::Enemy) {

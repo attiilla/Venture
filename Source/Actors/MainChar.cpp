@@ -10,6 +10,7 @@
 #include "../Game.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
+#include "Enemies/Iga.h"
 
 MainChar::MainChar(Game* game, const float forwardSpeed, const float jumpSpeed, ElementState element)
         : Actor(game)
@@ -328,9 +329,15 @@ void MainChar::Win(AABBColliderComponent *chestCollider)
 
 void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other)
 {
-    if (other->GetLayer() == ColliderLayer::Enemy)
+    if (other->GetLayer()==ColliderLayer::Enemy)
     {
-        Kill();
+        auto iga = dynamic_cast<Iga*>(other->GetOwner());
+        if (iga==nullptr) {
+            Kill();
+        } else {
+            iga->Kill();
+        }
+
     }
     else if (other->GetLayer() == ColliderLayer::Chest)
     {
@@ -345,6 +352,10 @@ void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderCompone
             SDL_Log("Playing musical effect: Coin.wav");
         }
         other->GetOwner()->Kill();
+    }
+    else if (other->GetLayer() == ColliderLayer::Enemy_Projectile) {
+        other->GetOwner()->Kill();
+        Kill();
     }
 }
 
@@ -388,8 +399,10 @@ void MainChar::OnVerticalCollision(const float minOverlap, AABBColliderComponent
         }
         other->GetOwner()->Kill();
     }else if (other->GetLayer() == ColliderLayer::Chest) {
-        SDL_Log("Chest pick");
         Win(other);
+    }else if (other->GetLayer() == ColliderLayer::Enemy_Projectile) {
+        other->GetOwner()->Kill();
+        Kill();
     }
 }
 

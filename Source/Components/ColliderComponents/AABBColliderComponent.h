@@ -22,6 +22,7 @@ enum class ColliderLayer
     Rope = 7,
     Projectile = 8,
     Checkpoint = 9,
+    Enemy_Projectile = 10
 };
 
 class AABBColliderComponent : public Component
@@ -38,6 +39,7 @@ public:
         {ColliderLayer::Chest, {}},
         {ColliderLayer::Rope, {}},
         {ColliderLayer::Projectile, {ColliderLayer::PlayerW, ColliderLayer::PlayerF}},
+        {ColliderLayer::Enemy_Projectile, {ColliderLayer::Enemy}},
     };
 
     AABBColliderComponent(class Actor* owner, int dx, int dy, int w, int h,

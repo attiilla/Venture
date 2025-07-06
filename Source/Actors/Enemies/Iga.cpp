@@ -93,13 +93,13 @@ void Iga::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* o
     }
 
     if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF){
-        other->GetOwner()->Kill();
+        Kill();
     }
 }
 
 void Iga::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) {
     if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF) {
-        other->GetOwner()->Kill();
+        Kill();
     }
 }
 
@@ -140,7 +140,7 @@ void Iga::Shoot() {
     Vector2 frontTile = Vector2(mDirection>0?pos.x+Game::TILE_SIZE:pos.x-Game::TILE_SIZE,
                                 pos.y);
     Projectile::ProjectileType ProjectType = (mElement==ElementState::Fire)? Projectile::ProjectileType::Fire : Projectile::ProjectileType::Water;
-    new Projectile(mGame,ProjectType,frontTile,mDirection,4.0f);
+    new Projectile(mGame,ProjectType,frontTile,mDirection,4.0f, true);
     const auto soundName = (ProjectType == Projectile::ProjectileType::Fire) ? "Fire.wav" : "Water.wav";
     if (const auto temp = mGame->GetAudio()->PlaySound(soundName, false); !temp.IsValid()) {
         SDL_Log("Failed to play shoot sound");

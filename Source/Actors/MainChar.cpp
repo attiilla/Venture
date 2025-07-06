@@ -149,6 +149,14 @@ void MainChar::OnHandleKeyPress(const int key, const bool isPressed)
         } else {
             SDL_Log("Projectile on cooldown! %.2f seconds remaining.", mProjectileCooldown);
         }
+    } else if (key == SDLK_r && isPressed)
+    {
+        auto& game = *GetGame();
+        if (game.GetDiamondCount() > 0)
+        {
+            //game.DecreaseDiamond();
+            Kill();
+        }
     }
 }
 
@@ -256,6 +264,30 @@ void MainChar::ManageAnimations()
 
 void MainChar::Kill()
 {
+    auto deadHandle = GetGame()->GetAudio()->PlaySound("Dead.wav", false);
+    if (!deadHandle.IsValid()) {
+        SDL_Log("Erro ao tocar Dead.wav");
+    }
+
+    Vector2 cp = GetGame()->GetLastCheckpoint();
+    Vector2 respawnPos(cp.x, cp.y);
+    SDL_Log("Respawn em (%.1f,%.1f)", respawnPos.x, respawnPos.y);
+    SetPosition(respawnPos);
+
+    mRigidBodyComponent->SetVelocity(Vector2::Zero);
+    mRigidBodyComponent->SetEnabled(true);
+    mColliderComponent   ->SetEnabled(true);
+    mIsOnGround = false;
+    mHasDoubleJumped = false;
+
+    GetGame()->SetGamePlayState(Game::GamePlayState::Playing);
+
+    auto music = GetGame()->GetMusicHandle();
+    if (music.IsValid()) {
+        GetGame()->GetAudio()->ResumeSound(music);
+    }
+
+    /*
     mIsDying = true;
     mGame->SetGamePlayState(Game::GamePlayState::GameOver);
 
@@ -270,9 +302,11 @@ void MainChar::Kill()
     } else {
         SDL_Log("Playing musical effect: Dead.wav");
     }
+
     mGame->ResetScore();
     mGame->ResetCoins();
     mGame->ResetGameScene(3.5f); // Reset the game scene after 3 seconds
+    */
 }
 
 void MainChar::Win(AABBColliderComponent *chestCollider)

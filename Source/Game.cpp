@@ -32,6 +32,7 @@
 #include "Actors/Gerold.h"
 #include "Actors/Rope.h"
 #include "Actors/Spawner.h"
+#include "Actors/Checkpoint.h"
 #include "UIElements/UIScreen.h"
 #include "Components/DrawComponents/DrawComponent.h"
 #include "Components/DrawComponents/DrawSpriteComponent.h"
@@ -299,8 +300,10 @@ void Game::BuildLevel(int** levelData, int width, int height)
             int tile = levelData[y][x];
 
             if (tile == 0) {
+                Vector2 spawnPos(x * TILE_SIZE, y * TILE_SIZE);
                 mChar = new MainChar(this);
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                SetLastCheckpoint(spawnPos);
             }
 
             else if (tile > 0 && tile < 832 ) {
@@ -326,6 +329,12 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 Block* block = new Block(this, "../Assets/Sprites/Blocks/" + string + ".png");
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 block->GetCollider()->SetEnabled(false);
+
+                if (tile == 1034 || tile == 1037)
+                {
+                    auto cp = new Checkpoint(this);
+                    cp->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                }
             }
         }
     }
@@ -847,9 +856,19 @@ void Game::IncreaseDiamond() {
     mHUD->SetCoinCount(mDiamondCount);
 }
 
+void Game::DecreaseDiamond() {
+    mDiamondCount--;
+    mHUD->SetCoinCount(mDiamondCount);
+}
+
 void Game::AddScore(const int score) {
     mScore+=score;
     mHUD->SetScore(mScore);
+}
+
+unsigned int Game::GetDiamondCount() const
+{
+    return mDiamondCount;
 }
 
 void Game::ResetCoins() {

@@ -21,6 +21,7 @@ enum class ColliderLayer
     Chest = 6,
     Rope = 7,
     Projectile = 8,
+    Checkpoint = 9,
 };
 
 class AABBColliderComponent : public Component

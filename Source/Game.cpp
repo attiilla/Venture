@@ -30,6 +30,7 @@
 #include "Actors/Diamond.h"
 #include "Actors/Enemies/Junim.h"
 #include "Actors/Enemies/Gerold.h"
+#include "Actors/Enemies/Iga.h"
 #include "Actors/Wood.h"
 #include "Actors/Spawner.h"
 #include "Actors/Checkpoint.h"
@@ -315,6 +316,38 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 SetLastCheckpoint(spawnPos);
             }
+            // Inimigos
+            else if (tile == 1) {
+                std::string string = formatTile(tile);
+                Junim *junim = new Junim(this, ElementState::Fire);
+                junim->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            else if (tile == 4) {
+                std::string string = formatTile(tile);
+                Junim *junim = new Junim(this, ElementState::Water);
+                junim->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            else if (tile == 2) {
+                std::string string = formatTile(tile);
+                Gerold *gerold = new Gerold(this, ElementState::Fire);
+                gerold->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            else if (tile == 5) {
+                std::string string = formatTile(tile);
+                Gerold *gerold = new Gerold(this, ElementState::Water);
+                gerold->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            else if (tile == 3) {
+                std::string string = formatTile(tile);
+                Iga *iga = new Iga(this, ElementState::Fire);
+                iga->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            else if (tile == 6) {
+                std::string string = formatTile(tile);
+                Iga *iga = new Iga(this, ElementState::Water);
+                iga->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            // Madeira
             else if (tile == 658 || tile == 722) {
                 std::string string = formatTile(tile);
                 Wood *wood = new Wood(this, "../Assets/Sprites/Blocks/" + string + ".png");

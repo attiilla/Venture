@@ -21,7 +21,7 @@ void Enemy::OnUpdate(float deltaTime){}
 void Enemy::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other){}
 void Enemy::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other){}
 void Enemy::Kill() {
-    if (!mRigidBodyComponent && !mColliderComponent) {
+    if (mRigidBodyComponent!=nullptr && mColliderComponent!=nullptr) {
         mIsDying = true;
         mDrawComponent->SetAnimation("Dead");
         mRigidBodyComponent->SetEnabled(false);

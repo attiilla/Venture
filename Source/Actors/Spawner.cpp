@@ -22,7 +22,7 @@ void Spawner::OnUpdate(float deltaTime)
     {
         SDL_Log("enemy %d",mEnemy);
         if (mEnemy == 1) {
-            auto enemy = new Gerold(GetGame());
+            auto enemy = new Gerold(GetGame(), ElementState::Fire);
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         } else if (mEnemy==2){

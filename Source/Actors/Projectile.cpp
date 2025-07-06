@@ -4,6 +4,7 @@
 
 #include "Projectile.h"
 
+#include "Enemy.h"
 #include "../Game.h"
 #include "../Components/RigidBodyComponent.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"
@@ -44,8 +45,6 @@ Projectile::Projectile(Game *game, ProjectileType type, const Vector2 &position,
     mDrawComponent->AddAnimation("Standard", {0,1,2,3,4,5,6,7,8});
     mDrawComponent->SetAnimation("Standard");
     mDrawComponent->SetAnimFPS(9.0f);
-
-    SDL_Log("Projectile type: %d", mType);
 }
 
 void Projectile::OnUpdate(float deltaTime) {
@@ -61,8 +60,15 @@ void Projectile::OnHorizontalCollision(const float minOverlap, AABBColliderCompo
     }
 
     if (other->GetLayer() == ColliderLayer::Enemy) {
-        other->GetOwner()->Kill();
         SetState(ActorState::Destroy);
+        auto e = dynamic_cast<Enemy*>(other->GetOwner());
+        if (e!=nullptr){
+            if (static_cast<int>(e->GetElement())==static_cast<int>(mType)){
+                e->Damage(1);
+            } else {
+                e->Damage(2);
+            }
+        }
     } else if (other->GetLayer() == ColliderLayer::Blocks) {
         SetState(ActorState::Destroy);
     }
@@ -74,8 +80,15 @@ void Projectile::OnVerticalCollision(const float minOverlap, AABBColliderCompone
     }
 
     if (other->GetLayer() == ColliderLayer::Enemy) {
-        other->GetOwner()->Kill();
         SetState(ActorState::Destroy);
+        auto e = dynamic_cast<Enemy*>(other->GetOwner());
+        if (e!=nullptr){
+            if (static_cast<int>(e->GetElement())==static_cast<int>(mType)){
+                e->Damage(1);
+            } else {
+                e->Damage(2);
+            }
+        }
     } else if (other->GetLayer() == ColliderLayer::Blocks) {
         SetState(ActorState::Destroy);
     }

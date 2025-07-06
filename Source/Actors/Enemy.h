@@ -15,10 +15,11 @@ public:
     virtual void OnUpdate(float deltaTime) override;
     virtual void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;
     virtual void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
+    virtual void Damage(int d);
 
     void Kill() override;
     bool FloorForward();
-
+    ElementState GetElement() const { return mElement; }
 protected:
     bool mIsDying;
     float mForwardSpeed;

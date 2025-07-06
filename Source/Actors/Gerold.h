@@ -27,6 +27,7 @@ public:
     void OnVerticalCollision(const float minOverlap, AABBColliderComponent* other) override;
     void Jump();
     void ChangeState(GeroldState newState);
+    void Damage(int d) override;
     GeroldState DecideNextState(int i);
     float StateSpeed();
 private:

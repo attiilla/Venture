@@ -20,6 +20,7 @@ Enemy::Enemy(Game* game, ElementState s, float forwardSpeed, float deathTime)
 void Enemy::OnUpdate(float deltaTime){}
 void Enemy::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other){}
 void Enemy::OnVerticalCollision(const float minOverlap, AABBColliderComponent* other){}
+void Enemy::Damage(int d){}
 void Enemy::Kill() {
     if (mRigidBodyComponent!=nullptr && mColliderComponent!=nullptr) {
         mIsDying = true;

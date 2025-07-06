@@ -13,6 +13,7 @@
 const float Gerold::SCARE_TIME = 3.0f;
 const float Gerold::STATE_DURATION = 2.0f;
 const float Gerold::JUMP_INTERVAL = 6.0f;
+const int Gerold::GEROLD_LIVES = 3;
 
 Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, float deathTime)
         : Enemy(game, s)
@@ -109,6 +110,14 @@ void Gerold::Jump() {
         } else {
             SDL_Log("Playing musical effect: Jump.mp3");
         }
+    }
+}
+
+void Gerold::Damage(int d) {
+    SDL_Log("Damaged");
+    mLives-=d;
+    if (mLives <= 0) {
+        Kill();
     }
 }
 

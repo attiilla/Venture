@@ -8,8 +8,8 @@
 class Projectile final : public Actor {
 public:
     enum class ProjectileType {
-        Water,
-        Fire
+        Fire = 0,
+        Water = 1
     };
 
     Projectile(Game* game, ProjectileType type, const Vector2& position, float direction, float lifetime);

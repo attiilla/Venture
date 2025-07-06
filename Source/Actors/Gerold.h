@@ -19,6 +19,7 @@ public:
     static const float SCARE_TIME;
     static const float STATE_DURATION;
     static const float JUMP_INTERVAL;
+    static const int GEROLD_LIVES;
     explicit Gerold(Game* game, ElementState s,float forwardSpeed = 150.0f, float jumpSpeed = -550.0f, float deathTime = 0.5f);
 
     void OnUpdate(float deltaTime) override;
@@ -35,5 +36,6 @@ private:
     float mJumpTimer;
     float mBaseSpeed;
     int mStateCounter;
+    int mLives;
     GeroldState mSleepState;
 };

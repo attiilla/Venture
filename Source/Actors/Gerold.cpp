@@ -22,6 +22,7 @@ Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, 
         , mStateTimer(0.0f)
         , mJumpTimer(JUMP_INTERVAL)
         , mStateCounter(0)
+        , mLives(GEROLD_LIVES)
         , mBaseSpeed(forwardSpeed)
 {
 
@@ -121,9 +122,11 @@ void Gerold::OnHorizontalCollision(const float minOverlap, AABBColliderComponent
         else {
             mRigidBodyComponent->SetVelocity(Vector2(mBaseSpeed, mRigidBodyComponent->GetVelocity().y));
         }
-    }
-
-    if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF){
+    } else if (other->GetLayer()==ColliderLayer::PlayerW || other->GetLayer()==ColliderLayer::PlayerF){
+        other->GetOwner()->Kill();
+    } else if (other->GetLayer()==ColliderLayer::Projectile) {
+        SDL_Log("Projectile type %d hit", other->GetLayer());
+        Kill();
         other->GetOwner()->Kill();
     }
 }

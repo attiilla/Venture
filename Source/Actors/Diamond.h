@@ -6,10 +6,10 @@
 #pragma once
 #include <string>
 #include "Actor.h"
-class Coin : public Actor
+class Diamond : public Actor
 {
 public:
-    explicit Coin(Game* game, const char* texturePath, const bool isStatic = true);
+    explicit Diamond(Game* game, std::string texturePath, const bool isStatic = true);
 
     void SetPosition(const Vector2& position)
     {

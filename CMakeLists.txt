@@ -59,8 +59,8 @@ add_executable(${PROJECT_NAME}
         Source/UIElements/UIImage.h
         Source/SpatialHashing.cpp
         Source/SpatialHashing.h
-        Source/Actors/Coin.h
-        Source/Actors/Coin.cpp
+		Source/Actors/Diamond.h
+		Source/Actors/Diamond.cpp
         Source/Actors/Rope.h
         Source/Actors/Rope.cpp
         Source/Actors/Projectile.cpp

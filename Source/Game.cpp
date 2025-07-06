@@ -27,7 +27,7 @@
 #include "Actors/MainChar.h"
 #include "Actors/Block.h"
 #include "Actors/Chest.h"
-#include "Actors/Coin.h"
+#include "Actors/Diamond.h"
 #include "Actors/enemy_1.h"
 #include "Actors/Gerold.h"
 #include "Actors/Rope.h"
@@ -307,7 +307,11 @@ void Game::BuildLevel(int** levelData, int width, int height)
                 std::string string = formatTile(tile);
                 Block* block = new Block(this, "../Assets/Sprites/Blocks/" + string + ".png");
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
-            } else if (tile>10000) {
+            } else if (tile==841) {
+                std::string string = formatTile(tile);
+                Diamond* d = new Diamond(this,"../Assets/Sprites/Blocks/"+string+".png");
+                d->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }else if (tile>10000) {
                 Spawner* s = new Spawner(this, 100, tile-10000);
                 s->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             } else if (tile != -1) {
@@ -360,8 +364,8 @@ void Game::BuildLevel(int** levelData, int width, int height)
 
             // switch (tile){
             //     case 3: {
-            //         const char* coin_texture = "../Assets/Sprites/Collectables/Coin.png";
-            //         Coin* coin = new Coin(this, coin_texture);
+            //         const char* coin_texture = "../Assets/Sprites/Collectables/Diamond.png";
+            //         Diamond* coin = new Diamond(this, coin_texture);
             //         coin->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             //         break;
             //     }

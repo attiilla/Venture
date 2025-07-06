@@ -301,7 +301,6 @@ void MainChar::OnHorizontalCollision(const float minOverlap, AABBColliderCompone
     }
     else if (other->GetLayer() == ColliderLayer::Chest)
     {
-        SDL_Log("Chest pick");
         Win(other);
     }
     else if (other->GetLayer() == ColliderLayer::Coin)

@@ -42,15 +42,15 @@ HUD::HUD(class Game* game, const std::string& fontName)
         Vector2(6 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
 
-    // AddText("Coins",
-    //     Vector2(WORD_OFFSET+ (8 * CHAR_WIDTH), HUD_POS_Y),
-    //     Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
-    //     POINT_SIZE);
+    AddText("Coins",
+        Vector2(WORD_OFFSET+ (8 * CHAR_WIDTH), HUD_POS_Y),
+        Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
+        POINT_SIZE);
 
-    // mCoinsCounter = AddText("000",
-    // Vector2(WORD_OFFSET+ (9 * CHAR_WIDTH), HUD_POS_Y+WORD_HEIGHT),
-    //     Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
-    //     POINT_SIZE);
+    mCoinsCounter = AddText("000",
+    Vector2(WORD_OFFSET+ (9 * CHAR_WIDTH), HUD_POS_Y+WORD_HEIGHT),
+        Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
+        POINT_SIZE);
 
 }
 

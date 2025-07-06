@@ -12,7 +12,7 @@
 #include "../Random.h"
 
 const float enemy_1::SCARE_TIME = 3.0f;
-enemy_1::enemy_1(Game* game, float forwardSpeed, float deathTime)
+enemy_1::enemy_1(Game* game, ElementState s ,float forwardSpeed, float deathTime)
         : Enemy(game, ElementState::Neutral)
 {
     mScareTimer = SCARE_TIME;

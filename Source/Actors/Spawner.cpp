@@ -26,7 +26,15 @@ void Spawner::OnUpdate(float deltaTime)
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         } else if (mEnemy==2){
-            auto enemy = new enemy_1(GetGame());
+            auto enemy = new Gerold(GetGame(), ElementState::Water);
+            enemy->SetPosition(GetPosition());
+            mState = ActorState::Destroy;
+        } else if (mEnemy==3) {
+            auto enemy = new enemy_1(GetGame(), ElementState::Fire);
+            enemy->SetPosition(GetPosition());
+            mState = ActorState::Destroy;
+        } else if (mEnemy==4) {
+            auto enemy = new enemy_1(GetGame(), ElementState::Water);
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         }

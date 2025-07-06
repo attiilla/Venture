@@ -76,3 +76,8 @@ void RigidBodyComponent::Update(float deltaTime)
     mAcceleration.Set(0.f, 0.f);
 }
 
+void RigidBodyComponent::SetVelocity(const Vector2 &velocity) {
+    mVelocity = velocity;
+    float rotation = velocity.x<0?Math::Pi : 0.0f;
+    mOwner->SetRotation(rotation);
+}

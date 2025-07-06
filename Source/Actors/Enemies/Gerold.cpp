@@ -33,13 +33,20 @@ Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed)
                                                    ColliderLayer::Enemy);
 
     mDrawComponent = new DrawAnimatedComponent(this,
-                                                  "../Assets/Sprites/Goomba/Goomba.png",
-                                                  "../Assets/Sprites/Goomba/Goomba.json");
+                                                  "../Assets/Sprites/Enemies/Gerold/Gerold.png",
+                                                  "../Assets/Sprites/Enemies/Gerold/Gerold.json");
 
-    mDrawComponent->AddAnimation("Dead", {0});
-    mDrawComponent->AddAnimation("Idle", {1});
-    mDrawComponent->AddAnimation("walk", {1, 2});
-    mDrawComponent->SetAnimation("walk");
+    if (s == ElementState::Fire) {
+        mDrawComponent->AddAnimation("Dead", {0});
+        mDrawComponent->AddAnimation("Idle", {0});
+        mDrawComponent->AddAnimation("Walk", {0, 1, 2, 3});
+    } else {
+        mDrawComponent->AddAnimation("Dead", {4});
+        mDrawComponent->AddAnimation("Idle", {4});
+        mDrawComponent->AddAnimation("Walk", {4, 5, 6, 7});
+    }
+
+    mDrawComponent->SetAnimation("Walk");
     mDrawComponent->SetAnimFPS(5.0f);
 }
 

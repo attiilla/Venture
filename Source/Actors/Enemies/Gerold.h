@@ -20,7 +20,7 @@ public:
     static const float STATE_DURATION;
     static const float JUMP_INTERVAL;
     static const int GEROLD_LIVES;
-    explicit Gerold(Game* game, ElementState s,float forwardSpeed = 150.0f, float jumpSpeed = -550.0f, float deathTime = 0.5f);
+    explicit Gerold(Game* game, ElementState s,float forwardSpeed = 150.0f, float jumpSpeed = -550.0f);
 
     void OnUpdate(float deltaTime) override;
     void OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) override;

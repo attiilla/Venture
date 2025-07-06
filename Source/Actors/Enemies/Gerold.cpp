@@ -2,20 +2,19 @@
 // Created by atila-rex on 6/30/25.
 //
 #include "Gerold.h"
-
-#include "MainChar.h"
-#include "../Game.h"
-#include "Block.h"
-#include "../Components/DrawComponents/DrawAnimatedComponent.h"
-#include "../Components/DrawComponents/DrawPolygonComponent.h"
-#include "../Random.h"
+#include "../MainChar.h"
+#include "../../Game.h"
+#include "../Block.h"
+#include "../../Components/DrawComponents/DrawAnimatedComponent.h"
+#include "../../Components/DrawComponents/DrawPolygonComponent.h"
+#include "../../Random.h"
 
 const float Gerold::SCARE_TIME = 3.0f;
 const float Gerold::STATE_DURATION = 2.0f;
 const float Gerold::JUMP_INTERVAL = 6.0f;
 const int Gerold::GEROLD_LIVES = 3;
 
-Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed, float deathTime)
+Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed)
         : Enemy(game, s)
         , mJumpSpeed(jumpSpeed)
         , mSleepState(GeroldState::Sleepy)

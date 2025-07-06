@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include "Actor.h"
-#include "../Components/DrawComponents/DrawAnimatedComponent.h"
+#include "../Actor.h"
+#include "../../Components/DrawComponents/DrawAnimatedComponent.h"
 
 
 class Enemy : public Actor

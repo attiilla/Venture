@@ -4,7 +4,7 @@
 
 #include "Block.h"
 #include "../Game.h"
-#include "../Actors/Junim.h"
+#include "Enemies/Junim.h"
 #include "../Components/DrawComponents/DrawSpriteComponent.h"
 #include "../Components/DrawComponents/DrawPolygonComponent.h"
 #include "../Components/ColliderComponents/AABBColliderComponent.h"

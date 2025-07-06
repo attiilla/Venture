@@ -3,9 +3,9 @@
 //
 
 #include "Enemy.h"
-#include "Actor.h"
-#include "MainChar.h"
-#include "../Game.h"
+#include "../Actor.h"
+#include "../MainChar.h"
+#include "../../Game.h"
 Enemy::Enemy(Game* game, ElementState s, float forwardSpeed, float deathTime)
     : Actor(game)
     , mElement(s)

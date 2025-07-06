@@ -4,18 +4,18 @@
 
 #include "Junim.h"
 
-#include "MainChar.h"
-#include "../Game.h"
-#include "Block.h"
-#include "../Components/DrawComponents/DrawAnimatedComponent.h"
-#include "../Components/DrawComponents/DrawPolygonComponent.h"
-#include "../Random.h"
+#include "../MainChar.h"
+#include "../../Game.h"
+#include "../Block.h"
+#include "../../Components/DrawComponents/DrawAnimatedComponent.h"
+#include "../../Components/DrawComponents/DrawPolygonComponent.h"
+#include "../../Random.h"
 
 const float Junim::SCARE_TIME = 3.0f;
 const int Junim::JUNIM_LIVES = 2;
 
-Junim::Junim(Game* game, ElementState s ,float forwardSpeed, float deathTime)
-        : Enemy(game, ElementState::Neutral)
+Junim::Junim(Game* game, ElementState s)
+        : Enemy(game, s)
 {
     mLives = JUNIM_LIVES;
     mScareTimer = SCARE_TIME;

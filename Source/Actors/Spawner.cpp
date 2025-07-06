@@ -5,8 +5,8 @@
 #include "Spawner.h"
 #include "../Game.h"
 #include "MainChar.h"
-#include "Junim.h"
-#include "Gerold.h"
+#include "Enemies/Junim.h"
+#include "Enemies/Gerold.h"
 
 Spawner::Spawner(Game* game, float spawnDistance, int enemy)
         :Actor(game)
@@ -20,7 +20,6 @@ void Spawner::OnUpdate(float deltaTime)
 {
     if (abs(GetGame()->GetMainChar()->GetPosition().x - GetPosition().x) < mSpawnDistance)
     {
-        SDL_Log("enemy %d",mEnemy);
         if (mEnemy == 1) {
             auto enemy = new Gerold(GetGame(), ElementState::Fire);
             enemy->SetPosition(GetPosition());

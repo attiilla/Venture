@@ -38,8 +38,8 @@ add_executable(${PROJECT_NAME}
         Source/Components/DrawComponents/DrawAnimatedComponent.h
         Source/Actors/Block.cpp
         Source/Actors/Block.h
-		Source/Actors/Junim.cpp
-		Source/Actors/Junim.h
+		Source/Actors/Enemies/Junim.cpp
+		Source/Actors/Enemies/Junim.h
         Source/Actors/Spawner.cpp
         Source/Actors/Spawner.h
         Source/AudioSystem.cpp
@@ -67,16 +67,18 @@ add_executable(${PROJECT_NAME}
         Source/Actors/Projectile.h
         Source/Components/DrawComponents/DrawModularComponent.h
         Source/Components/DrawComponents/DrawModularComponent.cpp
-        Source/Actors/Gerold.h
-        Source/Actors/Gerold.cpp
+		Source/Actors/Enemies/Gerold.h
+		Source/Actors/Enemies/Gerold.cpp
         Source/Actors/Chest.h
         Source/Actors/Chest.cpp
 		Source/Actors/CloudEffect.h
         Source/Actors/CloudEffect.cpp
-		Source/Actors/Enemy.h
-		Source/Actors/Enemy.cpp
+		Source/Actors/Enemies/Enemy.h
+		Source/Actors/Enemies/Enemy.cpp
 		Source/Actors/FlameEffect.h
         Source/Actors/FlameEffect.cpp
+		Source/Actors/Enemies/Iga.h
+		Source/Actors/Enemies/Iga.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)

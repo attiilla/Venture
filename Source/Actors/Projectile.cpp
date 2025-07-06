@@ -4,7 +4,7 @@
 
 #include "Projectile.h"
 
-#include "Enemy.h"
+#include "Enemies/Enemy.h"
 #include "../Game.h"
 #include "../Components/RigidBodyComponent.h"
 #include "../Components/DrawComponents/DrawAnimatedComponent.h"

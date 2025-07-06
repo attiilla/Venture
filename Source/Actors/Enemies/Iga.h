@@ -16,8 +16,9 @@ class Iga : public Enemy
 {
 public:
     static const float SCARE_TIME;
-    static const float CALM_SHOT_INTERVAL;
-    static const float SCARED_SHOT_INTERVAL;
+    static const float SHOOT_TIME;
+    static const float CALM_COOLDOWN;
+    static const float SCARED_COOLDOWN;
     static const int IGA_LIVES;
     explicit Iga(Game* game, ElementState s);
 
@@ -29,8 +30,11 @@ public:
 
     int Direction();
     void Flip();
+    float Cooldown();
+    void Shoot();
 private:
-    float mStateTimer;
+    float mShootTimer;
+    float mBarrel;
     int mLives;
     int mDirection;
     IgaState mScareState;

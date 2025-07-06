@@ -7,6 +7,7 @@
 #include "MainChar.h"
 #include "Enemies/Junim.h"
 #include "Enemies/Gerold.h"
+#include "Enemies/Iga.h"
 
 Spawner::Spawner(Game* game, float spawnDistance, int enemy)
         :Actor(game)
@@ -34,6 +35,14 @@ void Spawner::OnUpdate(float deltaTime)
             mState = ActorState::Destroy;
         } else if (mEnemy==4) {
             auto enemy = new Junim(GetGame(), ElementState::Water);
+            enemy->SetPosition(GetPosition());
+            mState = ActorState::Destroy;
+        } else if (mEnemy==5) {
+            auto enemy = new Iga(GetGame(), ElementState::Fire);
+            enemy->SetPosition(GetPosition());
+            mState = ActorState::Destroy;
+        } else if (mEnemy==6) {
+            auto enemy = new Iga(GetGame(), ElementState::Water);
             enemy->SetPosition(GetPosition());
             mState = ActorState::Destroy;
         }

@@ -10,7 +10,7 @@
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 23,
+            "scaleInDock": 0.75,
             "scaleInEditor": 1
         },
         "#Blocks": {
@@ -26,16 +26,16 @@
             "scaleInDock": 8
         },
         "1-1.tmx": {
-            "scale": 0.5,
+            "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 726,
-                "y": 2752
+                "x": 2548,
+                "y": 2246.6666666666665
             }
         },
         "1-1.tmx#Main-Tileset": {
             "dynamicWrapping": false,
-            "scaleInDock": 0.33,
+            "scaleInDock": 0.75,
             "scaleInEditor": 0.5
         },
         "111.tmx": {

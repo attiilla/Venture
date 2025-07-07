@@ -12,7 +12,7 @@
 #include "../../Random.h"
 
 const float Junim::SCARE_TIME = 3.0f;
-const int Junim::JUNIM_LIVES = 2;
+const int Junim::JUNIM_LIVES = 1;
 
 Junim::Junim(Game* game, ElementState s)
         : Enemy(game, s)
@@ -46,12 +46,15 @@ Junim::Junim(Game* game, ElementState s)
 
 void Junim::OnUpdate(float deltaTime)
 {
-    if (mIsDying)
-    {
-        mDyingTimer -= deltaTime;
-        if (mDyingTimer <= 0.0f) {
-            mState = ActorState::Destroy;
-        }
+    // if (mIsDying)
+    // {
+    //     mDyingTimer -= deltaTime;
+    //     if (mDyingTimer <= 0.0f) {
+    //
+    //     }
+    // }
+    if (mIsDying) {
+        mState = ActorState::Destroy;
     }
     /*if (GetPosition().y > GetGame()->GetWindowHeight())
     {
@@ -66,6 +69,11 @@ void Junim::OnUpdate(float deltaTime)
 }
 
 void Junim::Damage(int d) {
+    if (const auto temp = mGame->GetAudio()->PlaySound("hurt.mp3", false); !temp.IsValid()) {
+        SDL_Log("Failed to play background music: hurt.mp3");
+    } else {
+        SDL_Log("Playing musical effect: hurt.mp3");
+    }
     mLives-=d;
     if (mLives <= 0) {
         Kill();

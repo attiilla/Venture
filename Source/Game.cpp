@@ -209,13 +209,13 @@ void Game::ChangeScene()
         // Add a flag pole taking the entire height
         //new AABBColliderComponent(flag, 30, 0, 4, TILE_SIZE * LEVEL_HEIGHT, ColliderLayer::Pole, true);
 
-        new BannerScreen(this,
-            "../Assets/Sprites/PauseOverlay.png",
-            /*delay=*/0.5f,
-            /*stay=*/4.0f,
-            /*speed=*/600.0f,
-            /*size=*/Vector2((float)mWindowWidth/3, (float)mWindowHeight/3)
-        );
+        // new BannerScreen(this,
+        //     "../Assets/Sprites/PauseOverlay.png",
+        //     /*delay=*/0.5f,
+        //     /*stay=*/4.0f,
+        //     /*speed=*/600.0f,
+        //     /*size=*/Vector2((float)mWindowWidth/3, (float)mWindowHeight/3)
+        // );
 
         // Initialize actors
         LoadLevel("../Assets/Level/1-1.csv", 128, 128);
@@ -368,13 +368,13 @@ void Game::BuildLevel(int** levelData, int width, int height)
             //Mata água, líquido 716~719
             else if ((tile>=716 && tile<=719)) {
                 std::string string = formatTile(tile);
-                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Water,true);
+                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Water,false);
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             //Mata fogo, líquido 648~651, 712~715
             else if ((tile>=648 && tile<=651)||(tile>=712 && tile<=715)) {
                 std::string string = formatTile(tile);
-                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Fire,true);
+                ElementBlock* block = new ElementBlock(this, "../Assets/Sprites/Blocks/" + string + ".png",ElementState::Fire,false);
                 block->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile > 0 && tile < 832 ) {

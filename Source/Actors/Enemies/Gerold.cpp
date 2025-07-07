@@ -12,7 +12,7 @@
 const float Gerold::SCARE_TIME = 3.0f;
 const float Gerold::STATE_DURATION = 2.0f;
 const float Gerold::JUMP_INTERVAL = 6.0f;
-const int Gerold::GEROLD_LIVES = 3;
+const int Gerold::GEROLD_LIVES = 2;
 
 Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed)
         : Enemy(game, s)
@@ -51,12 +51,15 @@ Gerold::Gerold(Game* game, ElementState s, float forwardSpeed, float jumpSpeed)
 }
 
 void Gerold::OnUpdate(float deltaTime) {
-    if (mIsDying)
-    {
-        mDyingTimer -= deltaTime;
-        if (mDyingTimer <= 0.0f) {
-            mState = ActorState::Destroy;
-        }
+    // if (mIsDying)
+    // {
+    //     mDyingTimer -= deltaTime;
+    //     if (mDyingTimer <= 0.0f) {
+    //         mState = ActorState::Destroy;
+    //     }
+    // }
+    if (mIsDying) {
+        mState = ActorState::Destroy;
     }
 
     /*if (GetPosition().y > GetGame()->GetWindowHeight())
@@ -114,6 +117,11 @@ void Gerold::Jump() {
 
 void Gerold::Damage(int d) {
     mLives-=d;
+    if (const auto temp = mGame->GetAudio()->PlaySound("hurt.mp3", false); !temp.IsValid()) {
+        SDL_Log("Failed to play background music: hurt.mp3");
+    } else {
+        SDL_Log("Playing musical effect: hurt.mp3");
+    }
     if (mLives <= 0) {
         Kill();
     }

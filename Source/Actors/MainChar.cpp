@@ -257,9 +257,9 @@ void MainChar::ManageAnimations()
 
 void MainChar::Kill()
 {
-    auto deadHandle = GetGame()->GetAudio()->PlaySound("Dead.wav", false);
+    auto deadHandle = GetGame()->GetAudio()->PlaySound("Dead.mp3", false);
     if (!deadHandle.IsValid()) {
-        SDL_Log("Erro ao tocar Dead.wav");
+        SDL_Log("Erro ao tocar Dead.mp3");
     }
     if (mGame->GetDiamondCount()>0) {
         mGame->DecreaseDiamond();
@@ -289,11 +289,11 @@ void MainChar::Kill()
         mColliderComponent->SetEnabled(false);
 
         mGame->GetAudio()->StopAllSounds();
-        auto temp = mGame->GetAudio()->PlaySound("Dead.wav", false);
+        auto temp = mGame->GetAudio()->PlaySound("Dead.mp3", false);
         if (!temp.IsValid()) {
-            SDL_Log("Failed to play background music: Dead.wav");
+            SDL_Log("Failed to play background music: Dead.mp3");
         } else {
-            SDL_Log("Playing musical effect: Dead.wav");
+            SDL_Log("Playing musical effect: Dead.mp3");
         }
 
         mGame->ResetScore();

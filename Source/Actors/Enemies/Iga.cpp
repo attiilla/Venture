@@ -10,7 +10,7 @@ const float Iga::SHOOT_TIME = 3.0f;
 const float Iga::LARGE_COOLDOWN = 1.5f;
 const float Iga::CALM_COOLDOWN = 0.7f;
 const float Iga::SCARED_COOLDOWN = 0.5f;
-const int Iga::IGA_LIVES = 8;
+const int Iga::IGA_LIVES = 4;
 Iga::Iga(Game* game, ElementState s)
     : Enemy(game, s, 0.0f)
     , mShootTimer(SHOOT_TIME)
@@ -47,12 +47,15 @@ Iga::Iga(Game* game, ElementState s)
 }
 
 void Iga::OnUpdate(float deltaTime) {
-    if (mIsDying)
-    {
-        mDyingTimer -= deltaTime;
-        if (mDyingTimer <= 0.0f) {
-            mState = ActorState::Destroy;
-        }
+    // if (mIsDying)
+    // {
+    //     mDyingTimer -= deltaTime;
+    //     if (mDyingTimer <= 0.0f) {
+    //         mState = ActorState::Destroy;
+    //     }
+    // }
+    if (mIsDying) {
+        mState = ActorState::Destroy;
     }
     if (mLargeCooldown>0) {
         mLargeCooldown -= deltaTime;
@@ -111,6 +114,11 @@ void Iga::OnVerticalCollision(const float minOverlap, AABBColliderComponent* oth
 }
 
 void Iga::Damage(int d) {
+    if (const auto temp = mGame->GetAudio()->PlaySound("hurt.mp3", false); !temp.IsValid()) {
+        SDL_Log("Failed to play background music: hurt.mp3");
+    } else {
+        SDL_Log("Playing musical effect: hurt.mp3");
+    }
     mLives-=d;
     if (mLives <= 0) {
             Kill();

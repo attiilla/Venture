@@ -319,32 +319,32 @@ void Game::BuildLevel(int** levelData, int width, int height)
             // Inimigos
             else if (tile == 1) {
                 std::string string = formatTile(tile);
-                Junim *junim = new Junim(this, ElementState::Fire);
+                auto junim = new Spawner(this, 1000, 3);
                 junim->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile == 4) {
                 std::string string = formatTile(tile);
-                Junim *junim = new Junim(this, ElementState::Water);
+                auto junim = new Spawner(this, 1000, 4);
                 junim->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile == 2) {
                 std::string string = formatTile(tile);
-                Gerold *gerold = new Gerold(this, ElementState::Fire);
+                auto gerold = new Spawner(this, 1000, 1);
                 gerold->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile == 5) {
                 std::string string = formatTile(tile);
-                Gerold *gerold = new Gerold(this, ElementState::Water);
+                auto gerold = new Spawner(this, 1000, 2);
                 gerold->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile == 3) {
                 std::string string = formatTile(tile);
-                Iga *iga = new Iga(this, ElementState::Fire);
+                auto iga = new Spawner(this, 1000, 5);
                 iga->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile == 6) {
                 std::string string = formatTile(tile);
-                Iga *iga = new Iga(this, ElementState::Water);
+                auto iga = new Spawner(this, 1000, 6);
                 iga->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             // Madeira

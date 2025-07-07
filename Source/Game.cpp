@@ -307,8 +307,12 @@ void Game::BuildLevel(int** levelData, int width, int height)
             };
 
             int tile = levelData[y][x];
-
-            if (tile == 0) {
+            if (tile==161) {
+                std::string string = formatTile(tile);
+                auto goal = new Chest(this, string);
+                goal->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+            }
+            else if (tile == 0) {
                 Vector2 spawnPos(x * TILE_SIZE, y * TILE_SIZE);
                 mChar = new MainChar(this);
                 mChar->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));

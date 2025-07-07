@@ -1,17 +1,19 @@
 #pragma once
-#include "Actor.h"
 
-class AABBColliderComponent;
-class DrawSpriteComponent;
+#include "Actor.h"
+#include <string>
 
 class Checkpoint : public Actor
 {
 public:
-    explicit Checkpoint(Game* game);
-	
-protected:
+    Checkpoint(class Game* game, const std::string& inactiveTexture, const std::string& activeTexture);
+
     void OnUpdate(float deltaTime) override;
 
 private:
-    bool mActivated = false;
+    bool mIsActivated;
+    std::string mActiveTexturePath;
+
+    class AABBColliderComponent* mColliderComponent;
+    class DrawSpriteComponent* mDrawComponent;
 };

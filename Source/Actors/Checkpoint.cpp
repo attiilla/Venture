@@ -1,38 +1,37 @@
 #include "Checkpoint.h"
 #include "../Game.h"
-#include "../Actors/MainChar.h"                         // <<< este include
-#include "../Components/ColliderComponents/AABBColliderComponent.h"  // <<< e este
+#include "MainChar.h"
 #include "../Components/DrawComponents/DrawSpriteComponent.h"
+#include "../Components/ColliderComponents/AABBColliderComponent.h"
+#include "../AudioSystem.h"
 
-Checkpoint::Checkpoint(Game* game)
-  : Actor(game)
+Checkpoint::Checkpoint(Game* game, const std::string& inactiveTexture, const std::string& activeTexture)
+    : Actor(game)
+    , mIsActivated(false)
+    , mActiveTexturePath(activeTexture)
 {
+    mDrawComponent = new DrawSpriteComponent(this, inactiveTexture, Game::TILE_SIZE, Game::TILE_SIZE, 50);
 
+    mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE, Game::TILE_SIZE, ColliderLayer::Coin);
+    mColliderComponent->SetEnabled(false);
 }
 
-void Checkpoint::OnUpdate(float)
+void Checkpoint::OnUpdate(float deltaTime)
 {
-    if (mActivated) return;
-
-    Vector2 cpMin = GetPosition();
-    Vector2 cpMax = cpMin + Vector2(Game::TILE_SIZE, Game::TILE_SIZE);
-
-    auto player = const_cast<MainChar*>(GetGame()->GetMainChar());
-    Vector2 pPos = player->GetPosition();
-    auto pc = player->GetComponent<AABBColliderComponent>();
-    float w = (float)pc->GetWidth();
-    float h = (float)pc->GetHeight();
-    Vector2 pMin{ pPos.x, pPos.y };
-    Vector2 pMax{ pMin.x + w, pMin.y + h };
-
-    bool overlap =
-        pMin.x < cpMax.x && pMax.x > cpMin.x &&
-        pMin.y < cpMax.y && pMax.y > cpMin.y;
-
-    if (overlap)
+    if (!mIsActivated)
     {
-        mActivated = true;
-        SDL_Log("Checkpoint ativado em (%.1f, %.1f)", cpMin.x, cpMin.y);
-        GetGame()->SetLastCheckpoint(cpMin);
+        auto player = GetGame()->GetMainChar();
+        if (player && player->GetState() == ActorState::Active)
+        {
+            auto playerCollider = player->GetComponent<AABBColliderComponent>();
+            if (mColliderComponent->Intersect(*playerCollider))
+            {
+                mIsActivated = true;
+
+                GetGame()->SetLastCheckpoint(GetPosition());
+
+                GetGame()->GetAudio()->PlaySound("Coin.wav");
+            }
+        }
     }
 }

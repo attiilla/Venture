@@ -79,12 +79,12 @@ add_executable(${PROJECT_NAME}
         Source/Actors/FlameEffect.cpp
 		Source/Actors/Enemies/Iga.h
 		Source/Actors/Enemies/Iga.cpp
-		Source/Actors/Checkpoint.h
-        Source/Actors/Checkpoint.cpp
 		Source/Actors/ElementBlock.h
 		Source/Actors/ElementBlock.cpp
 		Source/UIElements/BannerScreen.h
         Source/UIElements/BannerScreen.cpp
+		Source/Actors/Checkpoint.cpp
+		Source/Actors/Checkpoint.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)

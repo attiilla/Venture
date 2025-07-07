@@ -26,6 +26,7 @@
 #include "Actors/Actor.h"
 #include "Actors/MainChar.h"
 #include "Actors/Block.h"
+#include "Actors/Checkpoint.h"
 #include "Actors/Chest.h"
 #include "Actors/Diamond.h"
 #include "Actors/Enemies/Junim.h"
@@ -33,7 +34,6 @@
 #include "Actors/Enemies/Iga.h"
 #include "Actors/Wood.h"
 #include "Actors/Spawner.h"
-#include "Actors/Checkpoint.h"
 #include "UIElements/BannerScreen.h"
 #include "Actors/ElementBlock.h"
 #include "UIElements/UIScreen.h"
@@ -404,8 +404,9 @@ void Game::BuildLevel(int** levelData, int width, int height)
 
                 if (tile == 1034 || tile == 1037)
                 {
-                    auto cp = new Checkpoint(this);
-                    cp->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
+                    // A checkpoint is represented by a pole (1034) that lights up (1037) when activated.
+                    auto* checkpoint = new Checkpoint(this, "../Assets/Sprites/Blocks/1034.png", "../Assets/Sprites/Blocks/1037.png");
+                    checkpoint->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
                 }
             }
         }

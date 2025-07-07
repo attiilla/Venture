@@ -12,7 +12,7 @@ Wood::Wood(Game *game, const std::string &texturePath)
 {
     mRigidBodyComponent = new RigidBodyComponent(this, 1.0f, 0.0f, true);
     mDrawComponent = new DrawSpriteComponent(this, texturePath, Game::TILE_SIZE, Game::TILE_SIZE, 10);
-    mColliderComponent = new AABBColliderComponent(this, 0, 0, Game::TILE_SIZE, Game::TILE_SIZE, ColliderLayer::Wood);
+    mColliderComponent = new AABBColliderComponent(this, 12, 0, 8, Game::TILE_SIZE, ColliderLayer::Wood);
 }
 
 // void Wood::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) {

@@ -182,10 +182,9 @@ void Game::ChangeScene()
     }
     else if (mNextScene == GameScene::Level1)
     {
-        mHUD = new HUD(this,"../Assets/Fonts/SMB.ttf");
+        mHUD = new HUD(this,"../Assets/Fonts/NeverEnding.ttf");
         mGameTimeLimit = 400;
         mHUD->SetTime(mGameTimeLimit);
-        mHUD->SetLevelName("1-1");
         mMusicHandle = mAudio->PlaySound("MusicMain.wav", true);
         if (!mMusicHandle.IsValid()) {
             SDL_Log("Failed to play background music: MusicMain.wav");
@@ -223,10 +222,9 @@ void Game::ChangeScene()
     else if (mNextScene == GameScene::Level2)
     {
 
-        mHUD = new HUD(this,"../Assets/Fonts/SMB.ttf");
+        mHUD = new HUD(this,"../Assets/Fonts/NeverEnding.ttf");
         mGameTimeLimit = 400;
         mHUD->SetTime(400);
-        mHUD->SetLevelName("1-2");
         mMusicHandle = mAudio->PlaySound("MusicUnderground.ogg", true);
         if (!mMusicHandle.IsValid()) {
             SDL_Log("Failed to play background music: MusicUnderground.ogg");
@@ -251,7 +249,7 @@ void Game::ChangeScene()
 
 void Game::LoadMainMenu()
 {
-    auto mainMenu = new UIScreen(this, "../Assets/Fonts/SMB.ttf");
+    auto mainMenu = new UIScreen(this, "../Assets/Fonts/NeverEnding.ttf");
     mainMenu->AddButton("Press Enter", Vector2(mWindowWidth/2.0f - 100.0f, 350.0f), Vector2(200.0f, 40.0f),
     [this]() {
         SetGameScene(GameScene::Level1);
@@ -573,7 +571,7 @@ void Game::TogglePause()
                 SDL_Log("Playing musical effect: PauseOn.wav");
             }
 
-            mPauseScreen = new UIScreen(this, "../Assets/Fonts/SMB.ttf");
+            mPauseScreen = new UIScreen(this, "../Assets/Fonts/NeverEnding.ttf");
             mPauseScreen->AddImage(
                 mRenderer,
                 "../Assets/Sprites/PauseOverlay.png",

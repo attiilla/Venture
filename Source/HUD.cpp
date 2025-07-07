@@ -22,16 +22,6 @@ HUD::HUD(class Game* game, const std::string& fontName)
         Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
         POINT_SIZE);
 
-    AddText("Level",
-        Vector2(mGame->GetWindowWidth() - (WORD_OFFSET + (11 * CHAR_WIDTH)), HUD_POS_Y),
-        Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
-        POINT_SIZE);
-
-    mLevelName = AddText("1-1",
-        Vector2(mGame->GetWindowWidth() - (WORD_OFFSET + (11 * CHAR_WIDTH)), HUD_POS_Y+WORD_HEIGHT),
-        Vector2(3 * CHAR_WIDTH, WORD_HEIGHT),
-        POINT_SIZE);
-
     AddText("Venture",
         Vector2(WORD_OFFSET, HUD_POS_Y),
         Vector2(5 * CHAR_WIDTH, WORD_HEIGHT),
@@ -85,10 +75,6 @@ void HUD::SetTime(int time)
     }
 }
 
-void HUD::SetLevelName(const std::string &levelName)
-{
-    mLevelName->SetText(levelName);
-}
 
 void HUD::SetDiamondCount(const unsigned int coinCount)
 {

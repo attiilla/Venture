@@ -10,7 +10,7 @@ const float Iga::SHOOT_TIME = 3.0f;
 const float Iga::LARGE_COOLDOWN = 1.5f;
 const float Iga::CALM_COOLDOWN = 0.7f;
 const float Iga::SCARED_COOLDOWN = 0.5f;
-const int Iga::IGA_LIVES = 4;
+const int Iga::IGA_LIVES = 2;
 Iga::Iga(Game* game, ElementState s)
     : Enemy(game, s, 0.0f)
     , mShootTimer(SHOOT_TIME)

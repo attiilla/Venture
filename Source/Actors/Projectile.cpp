@@ -74,6 +74,7 @@ void Projectile::OnUpdate(float deltaTime) {
 void Projectile::OnHorizontalCollision(const float minOverlap, AABBColliderComponent* other) {
     if (other->GetLayer() == ColliderLayer::PlayerW || other->GetLayer() == ColliderLayer::PlayerF) {
         other->GetOwner()->Kill();
+        Kill();
     }
 
     if (other->GetLayer() == ColliderLayer::Enemy) {
@@ -88,7 +89,7 @@ void Projectile::OnHorizontalCollision(const float minOverlap, AABBColliderCompo
         }
     } else if (other->GetLayer() == ColliderLayer::Blocks) {
         SetState(ActorState::Destroy);
-    } else if (other->GetLayer() == ColliderLayer::Projectile) {
+    } else if (other->GetLayer() == ColliderLayer::Projectile || other->GetLayer() == ColliderLayer::Enemy_Projectile) {
         SetState(ActorState::Destroy);
         other->GetOwner()->Kill();
     } else if (other->GetLayer() == ColliderLayer::Wood) {

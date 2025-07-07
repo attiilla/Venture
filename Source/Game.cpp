@@ -308,8 +308,7 @@ void Game::BuildLevel(int** levelData, int width, int height)
 
             int tile = levelData[y][x];
             if (tile==161) {
-                std::string string = formatTile(tile);
-                auto goal = new Chest(this, string);
+                auto goal = new Chest(this, "../Assets/Sprites/Collectables/Coin.png");
                 goal->SetPosition(Vector2(x * TILE_SIZE, y * TILE_SIZE));
             }
             else if (tile == 0) {
